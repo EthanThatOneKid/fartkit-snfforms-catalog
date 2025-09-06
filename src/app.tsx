@@ -1,6 +1,7 @@
 import { serveDir } from "@std/http/file-server";
 import { Get, Router } from "@fartlabs/rtx";
 import { IndexPageRoute } from "./routes/index.tsx";
+import { CatalogItemPageRoute } from "./routes/catalog-item/index.tsx";
 
 function StaticRoute() {
   return (
@@ -16,6 +17,7 @@ export function App() {
   return (
     <Router>
       <IndexPageRoute />
+      <CatalogItemPageRoute />
       <StaticRoute />
     </Router>
   );
