@@ -1,5 +1,5 @@
 import { Get, Router } from "@fartlabs/rtx";
-import { A, H1, P } from "@fartlabs/htx";
+import { H1, P } from "@fartlabs/htx";
 import { Layout } from "#/components/layout.tsx";
 import { RedirectRoute } from "#/components/redirect.tsx";
 
