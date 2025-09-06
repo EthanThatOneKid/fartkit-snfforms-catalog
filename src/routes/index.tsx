@@ -2,7 +2,7 @@ import { Get, Router } from "@fartlabs/rtx";
 import { H1, P } from "@fartlabs/htx";
 import { Layout } from "#/components/layout.tsx";
 import { RedirectRoute } from "#/components/redirect.tsx";
-import { Catalog } from "#/components/catalog.tsx";
+import { Catalog, CatalogScript } from "#/components/catalog.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { searchCatalog } from "#/lib/orama.ts";
 import { findCatalogItem } from "#/lib/catalog.ts";
@@ -46,7 +46,7 @@ interface IndexPageProps {
 
 export function IndexPage(props: IndexPageProps) {
   return (
-    <Layout>
+    <Layout head={<CatalogScript />}>
       <H1>SNF Forms</H1>
 
       <P>

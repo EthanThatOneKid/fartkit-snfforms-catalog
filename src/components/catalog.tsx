@@ -1,4 +1,14 @@
-import { A, BUTTON, FORM, INPUT, LI, P, SECTION, UL } from "@fartlabs/htx";
+import {
+  A,
+  BUTTON,
+  FORM,
+  INPUT,
+  LI,
+  P,
+  SCRIPT,
+  SECTION,
+  UL,
+} from "@fartlabs/htx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 
 export interface CatalogProps {
@@ -28,3 +38,10 @@ export function Catalog(props: CatalogProps) {
     </SECTION>
   );
 }
+
+export function CatalogScript() {
+  return <SCRIPT type="module">{catalogScript}</SCRIPT>;
+}
+
+// TODO: Implement performant client-side search. Migrate current server-side search to fallback when client-side search is not available.
+const catalogScript = ``;
