@@ -1,5 +1,5 @@
 import { Get, Router } from "@fartlabs/rtx";
-import { H1, P } from "@fartlabs/htx";
+import { H1, TABLE, TBODY, TD, TH, TR } from "@fartlabs/htx";
 import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
@@ -42,13 +42,38 @@ export function CatalogItemPage(props: CatalogItemPageProps) {
   return (
     <Layout>
       <H1>{props.item.formId}</H1>
-      <P>Description: {props.item.description}</P>
-      <P>Category: {props.item.category}</P>
-      <P>Size: {props.item.size}</P>
-      <P>Paper: {props.item.paper}</P>
-      <P>Color: {props.item.color}</P>
-      <P>Sides: {props.item.sides}</P>
-      <P>Unit: {props.item.unit}</P>
+      <TABLE>
+        <TBODY>
+          <TR>
+            <TH align="left">Description</TH>
+            <TD>{props.item.description}</TD>
+          </TR>
+          <TR>
+            <TH align="left">Category</TH>
+            <TD>{props.item.category}</TD>
+          </TR>
+          <TR>
+            <TH align="left">Size</TH>
+            <TD>{props.item.size}</TD>
+          </TR>
+          <TR>
+            <TH align="left">Paper</TH>
+            <TD>{props.item.paper}</TD>
+          </TR>
+          <TR>
+            <TH align="left">Color</TH>
+            <TD>{props.item.color}</TD>
+          </TR>
+          <TR>
+            <TH align="left">Sides</TH>
+            <TD>{props.item.sides}</TD>
+          </TR>
+          <TR>
+            <TH align="left">Unit</TH>
+            <TD>{props.item.unit}</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
     </Layout>
   );
 }

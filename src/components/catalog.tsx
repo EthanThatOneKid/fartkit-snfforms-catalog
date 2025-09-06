@@ -1,6 +1,7 @@
 import {
   A,
   BUTTON,
+  DIV,
   FORM,
   INPUT,
   LI,
@@ -10,6 +11,15 @@ import {
   UL,
 } from "@fartlabs/htx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
+
+export const categories = [
+  "Activities/Social Services",
+  "Administration",
+  "Dietary",
+  "Employee/Human Resources",
+  "Medical Records",
+  "Nursing",
+];
 
 export interface CatalogProps {
   search: string | null;
@@ -23,6 +33,13 @@ export function Catalog(props: CatalogProps) {
         <INPUT type="search" name="search" value={props.search ?? ""} />
         <BUTTON type="submit">Search</BUTTON>
       </FORM>
+
+      <DIV>
+        Categories: {categories
+          // deno-lint-ignore jsx-key
+          .map((category) => <A href={`/?search=${category}`}>{category}</A>)
+          .join(", ")}
+      </DIV>
 
       {props.items.length !== 0
         ? (
