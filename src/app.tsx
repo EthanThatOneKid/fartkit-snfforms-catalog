@@ -1,10 +1,10 @@
 import { Router } from "@fartlabs/rtx";
-import { IndexPage } from "./routes/index.tsx";
+import { IndexPageRoute } from "./routes/index.tsx";
 
 export function App() {
   return (
     <Router>
-      <IndexPage />
+      <IndexPageRoute />
     </Router>
   );
 }
