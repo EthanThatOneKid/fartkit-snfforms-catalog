@@ -21,7 +21,7 @@ export function Layout(props: LayoutProps) {
       </HEAD>
       <BODY>
         <Navbar />
-        {props.children}
+        {props.children?.join("") ?? ""}
         <Footer />
       </BODY>
     </HTML>

@@ -2,15 +2,21 @@ import { Get, Router } from "@fartlabs/rtx";
 import { H1, P } from "@fartlabs/htx";
 import { Layout } from "#/components/layout.tsx";
 import { RedirectRoute } from "#/components/redirect.tsx";
+import { Catalog } from "#/components/catalog.tsx";
+import type { CatalogItem } from "#/lib/snfforms.ts";
+import { searchCatalog } from "#/lib/orama.ts";
 
 export function IndexPageRoute() {
   return (
     <Router>
       <Get
         pattern="/"
-        handler={(_ctx) => {
+        handler={async (ctx) => {
+          const url = new URL(ctx.request.url);
+          const search = url.searchParams.get("search");
+          const items = search ? await searchCatalog(search) : [];
           return new Response(
-            <IndexPage />,
+            <IndexPage items={items} search={search} />,
             { headers: { "Content-Type": "text/html" } },
           );
         }}
@@ -21,7 +27,12 @@ export function IndexPageRoute() {
   );
 }
 
-export function IndexPage() {
+interface IndexPageProps {
+  search: string | null;
+  items: CatalogItem[];
+}
+
+export function IndexPage(props: IndexPageProps) {
   return (
     <Layout>
       <H1>SNF Forms</H1>
@@ -33,6 +44,8 @@ export function IndexPage() {
         valued clients can do their jobs without delay. We thank you for the
         opportunity to serve your needs.
       </P>
+
+      <Catalog items={props.items} search={props.search} />
     </Layout>
   );
 }
