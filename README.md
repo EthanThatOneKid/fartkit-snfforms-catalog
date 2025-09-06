@@ -1,17 +1,6 @@
-# FartKit
+# [`snfforms.com`](https://snfforms.com)
 
-Everything you need to build a modern web application, powered by **FartKit**.
-
-### Creating a project
-
-To create a new FartKit project, use the command:
-
-```sh
-deno -A jsr:@fartlabs/fartkit
-```
-
-This will launch an interactive prompt to help you scaffold a new project from
-scratch.
+SNF Printing's official product catalog.
 
 ## Developing
 
