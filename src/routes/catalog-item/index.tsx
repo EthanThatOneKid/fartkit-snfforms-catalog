@@ -1,5 +1,5 @@
 import { Get, Router } from "@fartlabs/rtx";
-import { H1, TABLE, TBODY, TD, TH, TR } from "@fartlabs/htx";
+import { A, H1, IMG, LI, TABLE, TBODY, TD, TH, TR, UL } from "@fartlabs/htx";
 import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
@@ -74,6 +74,21 @@ export function CatalogItemPage(props: CatalogItemPageProps) {
           </TR>
         </TBODY>
       </TABLE>
+
+      {props.item.previews.length > 0
+        ? (
+          <UL>
+            {props.item.previews.map((preview) => {
+              const img = <IMG src={preview.src} alt={preview.alt} />;
+              return (
+                <LI>
+                  {preview.pdf ? <A href={preview.pdf}>{img}</A> : img}
+                </LI>
+              );
+            })}
+          </UL>
+        )
+        : ""}
     </Layout>
   );
 }
