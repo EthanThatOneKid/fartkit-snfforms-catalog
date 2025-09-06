@@ -659,6 +659,10 @@ li {
     padding: 0 1rem;
   }
 
+  .hero {
+    padding: 4rem 2rem;
+  }
+
   .hero h1 {
     font-size: 2.5rem;
   }
@@ -743,7 +747,7 @@ li {
 
 @media (max-width: 480px) {
   .hero {
-    padding: 3rem 0;
+    padding: 3rem 1.5rem;
   }
 
   .hero h1 {
