@@ -1,4 +1,6 @@
 import { BODY, HEAD, HTML, META } from "@fartlabs/htx";
+import { Navbar } from "./navbar.tsx";
+import { Footer } from "./footer.tsx";
 
 export interface LayoutProps {
   head?: string;
@@ -17,7 +19,11 @@ export function Layout(props: LayoutProps) {
         {/* Additional head HTML */}
         {props.head ?? ""}
       </HEAD>
-      <BODY>{props.children}</BODY>
+      <BODY>
+        <Navbar />
+        {props.children}
+        <Footer />
+      </BODY>
     </HTML>
   );
 
