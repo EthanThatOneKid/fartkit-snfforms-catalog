@@ -19,7 +19,7 @@ export interface CatalogProps {
 export function Catalog(props: CatalogProps) {
   return (
     <SECTION>
-      <FORM method="GET" action="/">
+      <FORM id="search-form" method="GET" action="/">
         <INPUT type="search" name="search" value={props.search ?? ""} />
         <BUTTON type="submit">Search</BUTTON>
       </FORM>
@@ -43,5 +43,25 @@ export function CatalogScript() {
   return <SCRIPT type="module">{catalogScript}</SCRIPT>;
 }
 
-// TODO: Implement performant client-side search. Migrate current server-side search to fallback when client-side search is not available.
-const catalogScript = ``;
+const catalogScript = `
+// TODO: Implement performant client-side search.
+// Migrate current server-side search to fallback when client-side search is not available.
+// import { create, search, insert } from 'https://unpkg.com/@orama/orama@latest/dist/index.js'
+
+// const db = await create({
+//   schema: {
+//     formId: "string",
+//     category: "string",
+//     description: "string",
+//     size: "string",
+//     paper: "string",
+//     color: "string",
+//     sides: "string",
+//     unit: "string",
+//   },
+// });
+
+// const catalogItems = await fetch("/catalog.json").then(response => response.json());
+// for (const catalogItem of catalogItems) {
+//   await insert(db, catalogItem);
+// }`;
