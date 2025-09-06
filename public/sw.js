@@ -1,4 +1,4 @@
-// Service Worker for SNF Forms
+// Service Worker for SNF Printing
 const CACHE_NAME = "snf-forms-v1";
 const urlsToCache = [
   "/",

@@ -1,6 +1,6 @@
 {
-  "name": "SNF Forms - Medical Forms & Supplies",
-  "short_name": "SNF Forms",
+  "name": "SNF Printing - Medical Forms & Supplies",
+  "short_name": "SNF Printing",
   "description": "Professional medical forms and supplies for healthcare industry",
   "start_url": "/",
   "display": "standalone",
