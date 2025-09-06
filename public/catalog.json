@@ -1,0 +1,2585 @@
+[
+  {
+    "formId": "BU-0375",
+    "description": "Medicare Denial of Benefits Notice",
+    "size": "8-1/2 x 11",
+    "paper": "Bond/3 Part",
+    "color": "W/Y/P",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/BU-0375_1.jpg",
+        "alt": "Medicare Denial of Benefits Notice: BU-0375 (1)"
+      },
+      {
+        "src": "images/forms/reg/BU-0375_2.jpg",
+        "alt": "Medicare Denial of Benefits Notice: BU-0375 (2)"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "CDPH-327",
+    "description": "Admission Agreement - 2011",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part - Bond",
+    "color": "",
+    "sides": "1",
+    "unit": "Each",
+    "previews": [
+      {
+        "src": "images/forms/reg/CDPH-327_1.jpg",
+        "alt": "Admission Agreement - 2011: CDPH-327 (1)",
+        "pdf": "uploaded/CDPH-327.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "CH-1205",
+    "description": "Nurse's Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White/Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/CH-1205_1.jpg",
+        "alt": "Nurse's Notes: CH-1205 (1)",
+        "pdf": "uploaded/CH-1205.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "CM-1001",
+    "description": "Intake & Output Evaluation (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/CM-1001_1.jpg",
+        "alt": "Intake & Output Evaluation: CM-1001 (1)",
+        "pdf": "uploaded/CM-1001.pdf"
+      },
+      {
+        "src": "images/forms/reg/CM-1001_2.jpg",
+        "alt": "Intake & Output Evaluation: CM-1001 (2)",
+        "pdf": "uploaded/CM-1001.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "CM-1005A",
+    "description": "Resident Care Plan (Index) - Pg.1 (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/CM-1005A_1.jpg",
+        "alt": "Resident Care Plan (Index) - Pg. 1: CM-1005A (1)",
+        "pdf": "uploaded/CM-1005A.pdf"
+      },
+      {
+        "src": "images/forms/reg/CM-1005A_2.jpg",
+        "alt": "Resident Care Plan (Index) - Pg. 1: CM-1005A (2)",
+        "pdf": "uploaded/CM-1005A.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "CM-1005B",
+    "description": "Resident Care Plan (Index) - Pg.2 (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/CM-1005B_1.jpg",
+        "alt": "Resident Care Plan (Index) - Pg.2: CM-1005B (1)",
+        "pdf": "uploaded/CM-1005B.pdf"
+      },
+      {
+        "src": "images/forms/reg/CM-1005B_2.jpg",
+        "alt": "Resident Care Plan (Index) - Pg.2: CM-1005B (2)",
+        "pdf": "uploaded/CM-1005B.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "CM-1007",
+    "description": "Decubitus Summary",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/CM-1007_1.jpg",
+        "alt": "Decubitus Summary: CM-1007 (1)",
+        "pdf": "uploaded/CM-1007.pdf"
+      },
+      {
+        "src": "images/forms/reg/CM-1007_2.jpg",
+        "alt": "Decubitus Summary: CM-1007 (2)",
+        "pdf": "uploaded/CM-1007.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "CM-1012",
+    "description": "Licensed Nurses Progress Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White/Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/CM-1012_1.jpg",
+        "alt": "Licensed Nurses Progress Notes: CM-1012 (1)",
+        "pdf": "uploaded/CM-1012.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "DI-0508",
+    "description": "Diet Communication Form",
+    "size": "4-1/2 x 5-1/2",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/DI-0508_1.jpg",
+        "alt": "Diet Communication Form: DI-0508 (1)",
+        "pdf": "uploaded/DI-0508.pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "EH-1580",
+    "description": "24 Hr. Resident Condition Report Book - 8 hr Shifts",
+    "size": "11 x 17",
+    "paper": "4 part NCR",
+    "color": "W-Y-P-Gold",
+    "sides": "1",
+    "unit": "Book/50",
+    "previews": [
+      {
+        "src": "images/forms/reg/EH-1580_1.jpg",
+        "alt": "24 Hr. Resident Condition Report Book - 8 hr Shift: EH-1580 (1)",
+        "pdf": "uploaded/EH-1580.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "EH-2033",
+    "description": "Initial Nursing History & Assmnt (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/EH-2033_1.jpg",
+        "alt": "Initial Nursing History & Assmnt: EH-2033 (1)",
+        "pdf": "uploaded/EH-2033.pdf"
+      },
+      {
+        "src": "images/forms/reg/EH-2033_2.jpg",
+        "alt": "Initial Nursing History & Assmnt: EH-2033 (2)",
+        "pdf": "uploaded/EH-2033.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "Form-14772",
+    "description": "Initial Social Service Assessment",
+    "size": "8.5 x 11",
+    "paper": "20# bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/Form-14772_1.jpg",
+        "alt": "Initial Social Service Assessment: Form-14772 (1)"
+      },
+      {
+        "src": "images/forms/reg/Form-14772_2.jpg",
+        "alt": "Initial Social Service Assessment: Form-14772 (2)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "Form-15411",
+    "description": "Certification and Recertification",
+    "size": "8.5 X 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "100",
+    "previews": [
+      {
+        "src": "images/forms/reg/Form-15411_1.jpg",
+        "alt": "Certification and Recertification: Form-15411 (1)",
+        "pdf": "uploaded/Form-15411.pdf"
+      },
+      {
+        "src": "images/forms/reg/Form-15411_2.jpg",
+        "alt": "Certification and Recertification: Form-15411 (2)",
+        "pdf": "uploaded/Form-15411.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "Form-17L",
+    "description": "All-Purpose Sheet- Orange Ink",
+    "size": "11 X 8-1/2",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set of 500",
+    "previews": [
+      {
+        "src": "images/forms/reg/Form-17L_1.jpg",
+        "alt": "All-Purpose Sheet- Orange Ink: Form-17L (1)",
+        "pdf": "uploaded/Form-17L.pdf"
+      },
+      {
+        "src": "images/forms/reg/Form-17L_2.jpg",
+        "alt": "All-Purpose Sheet- Orange Ink: Form-17L (2)",
+        "pdf": "uploaded/Form-17L.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "Form-2E",
+    "description": "Physician's Orders",
+    "size": "8-1/2 x 11",
+    "paper": "3 Part NCR",
+    "color": "W/Y/P",
+    "sides": "1",
+    "unit": "Set 250",
+    "previews": [
+      {
+        "src": "images/forms/reg/Form-2E_1.jpg",
+        "alt": "Physician's Orders: Form-2E (1)"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "Form-3L",
+    "description": "Treatment Sheet - Green Ink",
+    "size": "11 X 8-1/2",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set of 500",
+    "previews": [
+      {
+        "src": "images/forms/reg/Form-3L_1.jpg",
+        "alt": "Treatment Sheet - Green Ink: Form-3L (1)",
+        "pdf": "uploaded/Form-3L.pdf"
+      },
+      {
+        "src": "images/forms/reg/Form-3L_2.jpg",
+        "alt": "Treatment Sheet - Green Ink: Form-3L (2)",
+        "pdf": "uploaded/Form-3L.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "Form-4L",
+    "description": "Medication Sheet - Blue Ink",
+    "size": "11 X 8-1/2",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set of 500",
+    "previews": [
+      {
+        "src": "images/forms/reg/Form-4L_1.jpg",
+        "alt": "Medication Sheet - Blue Ink: Form-4L (1)",
+        "pdf": "uploaded/Form-4L.pdf"
+      },
+      {
+        "src": "images/forms/reg/Form-4L_2.jpg",
+        "alt": "Medication Sheet - Blue Ink: Form-4L (2)",
+        "pdf": "uploaded/Form-4L.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "HM-1999",
+    "description": "Medicare Status Notice",
+    "size": "8-1/2 x 5-1/2",
+    "paper": "3 Part NCR",
+    "color": "W/Y/P",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/HM-1999_1.jpg",
+        "alt": "Medicare Status Notice: HM-1999 (1)",
+        "pdf": "uploaded/HM-1999.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "HMI-4014",
+    "description": "Private Census Report",
+    "size": "8-1/2 x 14",
+    "paper": "20# Bond",
+    "color": "Blue",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/HMI-4014_1.jpg",
+        "alt": "Private Census Report: HMI-4014 (1)",
+        "pdf": "uploaded/HMI-4014.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "HMI-4015",
+    "description": "Medi-Caid Census Report",
+    "size": "8-1/2 x 14",
+    "paper": "20# Bond",
+    "color": "Yellow",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/HMI-4015_1.jpg",
+        "alt": "Medi-Caid Census Report: HMI-4015 (1)",
+        "pdf": "uploaded/HMI-4015.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "HMI-4016",
+    "description": "Medicare Census Report",
+    "size": "8-1/2 x 14",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/HMI-4016_1.jpg",
+        "alt": "Medicare Census Report: HMI-4016 (1)",
+        "pdf": "uploaded/HMI-4016.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "HR-650",
+    "description": "Attendance Calendar",
+    "size": "8-1/2 x 11",
+    "paper": "Index",
+    "color": "Ivory",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/HR-650_1.jpg",
+        "alt": "Attendance Calendar: HR-650 (1)",
+        "pdf": "uploaded/HR-650.pdf"
+      },
+      {
+        "src": "images/forms/reg/HR-650_2.jpg",
+        "alt": "Attendance Calendar: HR-650 (2)",
+        "pdf": "uploaded/HR-650.pdf"
+      }
+    ],
+    "category": "Employee/Human Resources"
+  },
+  {
+    "formId": "JWA-102",
+    "description": "Quality Assessment Audit Form",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part NCR",
+    "color": "White/Pin",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-102_1.jpg",
+        "alt": "Quality Assessment Audit Form: JWA-102 (1)",
+        "pdf": "uploaded/JWA-102.pdf"
+      }
+    ],
+    "category": "Medical Records"
+  },
+  {
+    "formId": "JWA-115",
+    "description": "Personal Inventory Update",
+    "size": "3-1/4 x 7",
+    "paper": "2 part NCR",
+    "color": "Green/White",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-115_1.jpg",
+        "alt": "Personal Inventory Update: JWA-115 (1)",
+        "pdf": "uploaded/JWA-115.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "JWA-117A",
+    "description": "Resident Care Plan - Pg. 1 (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-117A_1.jpg",
+        "alt": "Resident Care Plan - Pg. 1: JWA-117A (1)",
+        "pdf": "uploaded/JWA-117A.pdf"
+      },
+      {
+        "src": "images/forms/reg/JWA-117A_2.jpg",
+        "alt": "Resident Care Plan - Pg. 1: JWA-117A (2)",
+        "pdf": "uploaded/JWA-117A.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "JWA-117B",
+    "description": "Resident Care Plan - Pg. 2 (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-117B_1.jpg",
+        "alt": "Resident Care Plan - Pg. 2: JWA-117B (1)",
+        "pdf": "uploaded/JWA-117B.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "JWA-117BB",
+    "description": "Resident Care Plan - Short Term Problems (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "Blue",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-117BB_1.jpg",
+        "alt": "Resident Care Plan - Short Term Problems: JWA-117BB (1)",
+        "pdf": "uploaded/JWA-117BB.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "JWA-126A",
+    "description": "Post Discharge Plan of Care",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-126A_1.jpg",
+        "alt": "Post Discharge Plan of Care: JWA-126A (1)",
+        "pdf": "uploaded/JWA-126A.pdf"
+      }
+    ],
+    "category": "Medical Records"
+  },
+  {
+    "formId": "JWA-126B",
+    "description": "Discharge Summary",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-126B_1.jpg",
+        "alt": "Discharge Summary: JWA-126B (1)",
+        "pdf": "uploaded/JWA-126B.pdf"
+      }
+    ],
+    "category": "Medical Records"
+  },
+  {
+    "formId": "JWA-126C",
+    "description": "Final Comprehensive Assessment",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-126C_1.jpg",
+        "alt": "Final Comprehensive Assessment: JWA-126C (1)",
+        "pdf": "uploaded/JWA-126C.pdf"
+      }
+    ],
+    "category": "Medical Records"
+  },
+  {
+    "formId": "JWA-146",
+    "description": "Physician Orders Verification Drug & Restraint",
+    "size": "8-1/2 x 11",
+    "paper": "3 Part NCR",
+    "color": "W/Y/Pink",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-146_1.jpg",
+        "alt": "Physicians Orders Verification Drug & Restraint: JWA-146 (1)",
+        "pdf": "uploaded/JWA-146.pdf"
+      }
+    ],
+    "category": "Medical Records"
+  },
+  {
+    "formId": "JWA-149",
+    "description": "Daily Medicare Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-149_1.jpg",
+        "alt": "Daily Medicare Notes: JWA-149 (1)",
+        "pdf": "uploaded/JWA-149.pdf"
+      }
+    ],
+    "category": "Medical Records"
+  },
+  {
+    "formId": "JWA-166ADL",
+    "description": "Care Plan Alert w/ ADL",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "Peach",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/JWA-166ADL_1.jpg",
+        "alt": "Care Plan Alert w/ ADL: JWA-166ADL (1)",
+        "pdf": "uploaded/JWA-166ADL.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "KS-5348",
+    "description": "Nurses' Admission Record",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Orchid",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/KS-5348_1.jpg",
+        "alt": "Nurses' Admission Record: KS-5348 (1)",
+        "pdf": "uploaded/KS-5348.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "Labels",
+    "description": "Labels",
+    "size": "",
+    "paper": "",
+    "color": "",
+    "sides": "0",
+    "unit": "",
+    "previews": [
+      {
+        "src": "images/forms/reg/Labels_1.jpg",
+        "alt": "Labels: Labels (1)",
+        "pdf": "uploaded/Labels.pdf"
+      },
+      {
+        "src": "images/forms/reg/Labels_2.jpg",
+        "alt": "Labels: Labels (2)",
+        "pdf": "uploaded/Labels.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "LK-14735",
+    "description": "Activity Assessment",
+    "size": "8.5 x 11",
+    "paper": "20# bond",
+    "color": "White, Blue or Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/LK-14735_1.jpg",
+        "alt": "Activity Assessment: LK-14735 (1)"
+      },
+      {
+        "src": "images/forms/reg/LK-14735_2.jpg",
+        "alt": "Activity Assessment: LK-14735 (2)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "MC-171",
+    "description": "Medi-Cal Long Term Facility Adm. & Discharge",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/MC-171_1.jpg",
+        "alt": "Medi-Cal Long Term Facility Adm. & Discharge: MC-171 (1)",
+        "pdf": "uploaded/MC-171.pdf"
+      },
+      {
+        "src": "images/forms/reg/MC-171_2.jpg",
+        "alt": "Medi-Cal Long Term Facility Adm. & Discharge: MC-171 (2)",
+        "pdf": "uploaded/MC-171.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "NU-1425",
+    "description": "Nursing History/Assment/ Adm. Record",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/NU-1425_1.jpg",
+        "alt": "Nursing History/Assment/Adm. Record: NU-1425 (1)",
+        "pdf": "uploaded/NU-1425.pdf"
+      },
+      {
+        "src": "images/forms/reg/NU-1425_2.jpg",
+        "alt": "Nursing History/Assment/Adm. Record: NU-1425 (2)",
+        "pdf": "uploaded/NU-1425.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "NU-1430",
+    "description": "Podiatry Progress Notes",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Blue",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/NU-1430_1.jpg",
+        "alt": "Podiatry Progress Notes: NU-1430 (1)",
+        "pdf": "uploaded/NU-1430.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "NU-1614",
+    "description": "Weekly Summary",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/NU-1614_1.jpg",
+        "alt": "Weekly Summary: NU-1614 (1)"
+      },
+      {
+        "src": "images/forms/reg/NU-1614_2.jpg",
+        "alt": "Weekly Summary: NU-1614 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RACf-51A",
+    "description": "Activity Participation Record",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RACf-51A_1.jpg",
+        "alt": "Activity Participation Record: RACf-51A (1)"
+      },
+      {
+        "src": "images/forms/reg/RACf-51A_2.jpg",
+        "alt": "Activity Participation Record: RACf-51A (2)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "RADf-02",
+    "description": "Admission Consents",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "W/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RADf-02_1.jpg",
+        "alt": "Admission Consents: RADf-02 (1)",
+        "pdf": "uploaded/RADf-02.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "RADf-16",
+    "description": "Medical Property Limitations",
+    "size": "11 x 17",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set of 50",
+    "previews": [
+      {
+        "src": "images/forms/reg/RADf-16_1.jpg",
+        "alt": "Medical Property Limitations: RADf-16 (1)",
+        "pdf": "uploaded/RADf-16.pdf"
+      },
+      {
+        "src": "images/forms/reg/RADf-16_2.jpg",
+        "alt": "Medical Property Limitations: RADf-16 (2)",
+        "pdf": "uploaded/RADf-16.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "RDf-61",
+    "description": "Diet Order Form",
+    "size": "8 x 5-1/2",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RDf-61_1.jpg",
+        "alt": "Diet Order Form: RDf-61 (1)",
+        "pdf": "uploaded/RDf-61.pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "RNF-53",
+    "description": "Resident Admission and Assessment Form",
+    "size": "8.5 X 11",
+    "paper": "20# Bond",
+    "color": "Goldenrod",
+    "sides": "4",
+    "unit": "100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNF-53_1.jpg",
+        "alt": "Resident Admission and Assessment Form: RNF-53 (1)",
+        "pdf": "uploaded/RNF-53.pdf"
+      },
+      {
+        "src": "images/forms/reg/RNF-53_2.jpg",
+        "alt": "Resident Admission and Assessment Form: RNF-53 (2)",
+        "pdf": "uploaded/RNF-53.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-55A",
+    "description": "Resident Care Plan (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-55A_1.jpg",
+        "alt": "Resident Care Plan: RNf-55A (1)",
+        "pdf": "uploaded/RNf-55A.pdf"
+      },
+      {
+        "src": "images/forms/reg/RNf-55A_2.jpg",
+        "alt": "Resident Care Plan: RNf-55A (2)",
+        "pdf": "uploaded/RNf-55A.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-55E",
+    "description": "Resident Care Plan - Addendum (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-55E_1.jpg",
+        "alt": "Resident Care Plan - Addendum: RNf-55E (1)",
+        "pdf": "uploaded/RNf-55E.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-55F",
+    "description": "Resident Care Plan - Episodic (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "90# Index",
+    "color": "Green",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-55F_1.jpg",
+        "alt": "Resident Care Plan - Episodic: RNf-55F (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-58",
+    "description": "Physician's Enteral Orders",
+    "size": "8-1/2 x 11",
+    "paper": "4 part NCR",
+    "color": "W-Y-P-Gold",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-58_1.jpg",
+        "alt": "Physician's Enteral Orders: RNf-58 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-60",
+    "description": "Physicians Admission Orders",
+    "size": "8-1/2 x 11",
+    "paper": "3 part NCR",
+    "color": "W-Y-P",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-60_1.jpg",
+        "alt": "Physician's Admission Orders: RNf-60 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-64",
+    "description": "Intake/Output Record",
+    "size": "4-1/4 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-64_1.jpg",
+        "alt": "Intake/Output Record: RNf-64 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-65DA",
+    "description": "Nurse Assistant Flowsheet - AM Shift (Black Ink)",
+    "size": "11 x 8-1/2",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-65DA_1.jpg",
+        "alt": "Nurse Assistant Flowsheet-AM Shift (Black Ink): RNf-65DA (1)",
+        "pdf": "uploaded/RNf-65DA.pdf"
+      },
+      {
+        "src": "images/forms/reg/RNf-65DA_2.jpg",
+        "alt": "Nurse Assistant Flowsheet-AM Shift (Black Ink): RNf-65DA (2)",
+        "pdf": "uploaded/RNf-65DA.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-65N",
+    "description": "Nurse Assistant Flowsheet - Night Shift (Red Ink)",
+    "size": "11 x 8-1/2",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-65N_1.jpg",
+        "alt": "Nurse Assistant Flowsheet - Night Shift (Red Ink): RNf-65N (1)",
+        "pdf": "uploaded/RNf-65N.pdf"
+      },
+      {
+        "src": "images/forms/reg/RNf-65N_2.jpg",
+        "alt": "Nurse Assistant Flowsheet - Night Shift (Red Ink): RNf-65N (2)",
+        "pdf": "uploaded/RNf-65N.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-65PM",
+    "description": "Nurse Assistant Flowsheet - PM Shift (Green Ink)",
+    "size": "11 x 8-1/2",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-65PM_1.jpg",
+        "alt": "Nurse Assistant Flowsheet-PM Shift (Green Ink): RNf-65PM (1)",
+        "pdf": "uploaded/RNf-65PM.pdf"
+      },
+      {
+        "src": "images/forms/reg/RNf-65PM_2.jpg",
+        "alt": "Nurse Assistant Flowsheet-PM Shift (Green Ink): RNf-65PM (2)",
+        "pdf": "uploaded/RNf-65PM.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-66",
+    "description": "Intake and Output Record (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-66_1.jpg",
+        "alt": "Intake & Output Record: RNf-66 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-67",
+    "description": "Licensed Nurses Progress Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-67_1.jpg",
+        "alt": "Licensed Nurses Progress Notes: RNf-67 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-69",
+    "description": "Physician Progress Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Green",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-69_1.jpg",
+        "alt": "Physician Progress Notes: RNf-69 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-70",
+    "description": "Interdisciplinary Progress Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Yellow",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-70_1.jpg",
+        "alt": "Interdisciplinary Progress Notes: RNf-70 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-74",
+    "description": "Weekly Pressure Sore Report",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-74_1.jpg",
+        "alt": "Weekly Pressure Sore Report: RNf-74 (1)"
+      },
+      {
+        "src": "images/forms/reg/RNf-74_2.jpg",
+        "alt": "Weekly Pressure Sore Report: RNf-74 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-74A",
+    "description": "Non-Pressure Sore Skin Problem Report",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Yellow",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-74A_1.jpg",
+        "alt": "Non-Pressure Sore Skin Problem Report: RNf-74A (1)"
+      },
+      {
+        "src": "images/forms/reg/RNf-74A_2.jpg",
+        "alt": "Non-Pressure Sore Skin Problem Report: RNf-74A (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-75",
+    "description": "Resident Inventory of Personal Effects",
+    "size": "8-1/2 x 11",
+    "paper": "3 part NCR",
+    "color": "W-Y-P",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-75_1.jpg",
+        "alt": "Resident Inventory of Personal Effects: RNf-75 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RNf-90",
+    "description": "Resident Joint Mobility Assessment",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RNf-90_1.jpg",
+        "alt": "Resident Joint Mobility Assessment: RNf-90 (1)",
+        "pdf": "uploaded/RNf-90.pdf"
+      },
+      {
+        "src": "images/forms/reg/RNf-90_2.jpg",
+        "alt": "Resident Joint Mobility Assessment: RNf-90 (2)",
+        "pdf": "uploaded/RNf-90.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "RSDf-03",
+    "description": "Meal Ticket (Employee)",
+    "size": "4-1/2 x 2-1/2",
+    "paper": "Index",
+    "color": "Green",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RSDf-03_1.jpg",
+        "alt": "Meal Ticket (Employee): RSDf-03 (1)",
+        "pdf": "uploaded/RSDf-03.pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "RSLf-06",
+    "description": "Resident's Right to Determine Treatement",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RSLf-06_1.jpg",
+        "alt": "Resident's Right to Determine Treatment: RSLf-06 (1)",
+        "pdf": "uploaded/RSLf-06.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "RSLf-06A",
+    "description": "Adv. Directive/ Preferred Intensity of Care Doc.",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RSLf-06A_1.jpg",
+        "alt": "Adv. Directive/ Preferred Intensity of Care Doc.: RSLf-06A (1)",
+        "pdf": "uploaded/RSLf-06A.pdf"
+      },
+      {
+        "src": "images/forms/reg/RSLf-06A_2.jpg",
+        "alt": "Adv. Directive/ Preferred Intensity of Care Doc.: RSLf-06A (2)",
+        "pdf": "uploaded/RSLf-06A.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "RSOF-13",
+    "description": "Incident Report",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/RSOF-13_1.jpg",
+        "alt": "Incident Report: RSOF-13 (1)",
+        "pdf": "uploaded/RSOF-13.pdf"
+      },
+      {
+        "src": "images/forms/reg/RSOF-13_2.jpg",
+        "alt": "Incident Report: RSOF-13 (2)",
+        "pdf": "uploaded/RSOF-13.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SBHC-12994",
+    "description": "Shower Day report",
+    "size": "6 x 2-1/2",
+    "paper": "3 part NCR",
+    "color": "W-Y-P",
+    "sides": "1",
+    "unit": "Book/50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SBHC-12994_1.jpg",
+        "alt": "Shower Day Report: SBHC-12994 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SD-125",
+    "description": "Joint Mobility Assessment",
+    "size": "11 x 17",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "2",
+    "unit": "S/50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SD-125_1.jpg",
+        "alt": "Joint Mobility Assessment: SD-125 (1)"
+      },
+      {
+        "src": "images/forms/reg/SD-125_2.jpg",
+        "alt": "Joint Mobility Assessment: SD-125 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SJ - 4741",
+    "description": "Nurse Assistant Record 1-16 (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SJ-4741_1.jpg",
+        "alt": "Nurse Assistant Record 1 - 16: SJ - 4741 (1)"
+      },
+      {
+        "src": "images/forms/reg/SJ-4741_2.jpg",
+        "alt": "Nurse Assistant Record 1 - 16: SJ - 4741 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SJ - 4741A",
+    "description": "Nurse Assistant Record 17-31 (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SJ-4741A_1.jpg",
+        "alt": "Nurse Assistant Record 17 - 31: SJ - 4741A (1)"
+      },
+      {
+        "src": "images/forms/reg/SJ-4741A_2.jpg",
+        "alt": "Nurse Assistant Record 17 - 31: SJ - 4741A (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-0788",
+    "description": "Nursing Assessment and Evaluation",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-0788_1.jpg",
+        "alt": "Nursing Assessment and Evaluation: SNF-0788 (1)"
+      },
+      {
+        "src": "images/forms/reg/SNF-0788_2.jpg",
+        "alt": "Nursing Assessment and Evaluation: SNF-0788 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-1003",
+    "description": "Absence Report",
+    "size": "5 x 8-1/2",
+    "paper": "Bond",
+    "color": "White/Pin",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1003_1.jpg",
+        "alt": "Absence Report: SNF-1003 (1)",
+        "pdf": "uploaded/SNF-1003.pdf"
+      }
+    ],
+    "category": "Employee/Human Resources"
+  },
+  {
+    "formId": "SNF-1005",
+    "description": "Certification and Recertification",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "white",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1005_1.jpg",
+        "alt": "Certification and Recertification: SNF-1005 (1)",
+        "pdf": "uploaded/SNF-1005.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-1005_2.jpg",
+        "alt": "Certification and Recertification: SNF-1005 (2)",
+        "pdf": "uploaded/SNF-1005.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1007",
+    "description": "Resident Transfer & Referral Record",
+    "size": "11 x 8-1/2",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1007_1.jpg",
+        "alt": "resident Transfer & Referral Record: SNF-1007 (1)",
+        "pdf": "uploaded/SNF-1007.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-1008",
+    "description": "Multidisciplinary Report (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1008_1.jpg",
+        "alt": "Multidisciplinary Report: SNF-1008 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-1010",
+    "description": "Release of Responsibility for Leave of Absence",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1010_1.jpg",
+        "alt": "Release of Responsibility for Leave of Absence: SNF-1010 (1)",
+        "pdf": "uploaded/SNF-1010.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1011",
+    "description": "Inventory of Personal Effects",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1011_1.jpg",
+        "alt": "Inventory of Personal Effects: SNF-1011 (1)",
+        "pdf": "uploaded/SNF-1011.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-1012",
+    "description": "OBRA Resident's Rights (English) 10 pgs",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1012_1.jpg",
+        "alt": "OBRA Resident's Rights (English) 10 pgs: SNF-1012 (1)"
+      },
+      {
+        "src": "images/forms/reg/SNF-1012_2.jpg",
+        "alt": "OBRA Resident's Rights (English) 10 pgs: SNF-1012 (2)"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1014",
+    "description": "Record of Death/Mortician's Receipt",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1014_1.jpg",
+        "alt": "Record of Death/Mortician's Receipt: SNF-1014 (1)",
+        "pdf": "uploaded/SNF-1014.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1015",
+    "description": "Employee's Health Questionnaire & Exam",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1015_1.jpg",
+        "alt": "Employee's Health Questionnaire & Exam: SNF-1015 (1)",
+        "pdf": "uploaded/SNF-1015.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-1015_2.jpg",
+        "alt": "Employee's Health Questionnaire & Exam: SNF-1015 (2)",
+        "pdf": "uploaded/SNF-1015.pdf"
+      }
+    ],
+    "category": "Employee/Human Resources"
+  },
+  {
+    "formId": "SNF-1037",
+    "description": "Laxative & B.M. Record",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1037_1.jpg",
+        "alt": "Laxative & B.M Record: SNF-1037 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-1041",
+    "description": "Daily Census",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1041_1.jpg",
+        "alt": "Daily Census: SNF-1041 (1)",
+        "pdf": "uploaded/SNF-1041.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-1041_2.jpg",
+        "alt": "Daily Census: SNF-1041 (2)",
+        "pdf": "uploaded/SNF-1041.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1048",
+    "description": "Employee Evaluation",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1048_1.jpg",
+        "alt": "Employee Evaluation: SNF-1048 (1)",
+        "pdf": "uploaded/SNF-1048.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-1048_2.jpg",
+        "alt": "Employee Evaluation: SNF-1048 (2)",
+        "pdf": "uploaded/SNF-1048.pdf"
+      }
+    ],
+    "category": "Employee/Human Resources"
+  },
+  {
+    "formId": "SNF-1049",
+    "description": "Employee Performance Evaluation",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1049_1.jpg",
+        "alt": "Employee Performance Evaluation: SNF-1049 (1)",
+        "pdf": "uploaded/SNF-1049.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-1049_2.jpg",
+        "alt": "Employee Performance Evaluation: SNF-1049 (2)",
+        "pdf": "uploaded/SNF-1049.pdf"
+      }
+    ],
+    "category": "Employee/Human Resources"
+  },
+  {
+    "formId": "SNF-1055",
+    "description": "Petty Cash Slips",
+    "size": "8-1/2 x 5-1/2",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1055_1.jpg",
+        "alt": "Petty Cash Slips: SNF-1055 (1)",
+        "pdf": "uploaded/SNF-1055.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1057",
+    "description": "Application of Employment",
+    "size": "11 x 17",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set of 50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1057_1.jpg",
+        "alt": "Application of Employment: SNF-1057 (1)",
+        "pdf": "uploaded/SNF-1057.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-1057_2.jpg",
+        "alt": "Application of Employment: SNF-1057 (2)",
+        "pdf": "uploaded/SNF-1057.pdf"
+      }
+    ],
+    "category": "Employee/Human Resources"
+  },
+  {
+    "formId": "SNF-1062",
+    "description": "Resident's Clothing & Possessions",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1062_1.jpg",
+        "alt": "Resident's Clothing & Possessions: SNF-1062 (1)",
+        "pdf": "uploaded/SNF-1062.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-1069",
+    "description": "Nursing Care Kardex",
+    "size": "8 x 5",
+    "paper": "90# Index",
+    "color": "White",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1069_1.jpg",
+        "alt": "Nursing Care Kardex: SNF-1069 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-1070",
+    "description": "Record of Attendance",
+    "size": "8 x 5",
+    "paper": "Index",
+    "color": "White",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1070_1.jpg",
+        "alt": "Record of Attendance: SNF-1070 (1)",
+        "pdf": "uploaded/SNF-1070.pdf"
+      }
+    ],
+    "category": "Employee/Human Resources"
+  },
+  {
+    "formId": "SNF-1091",
+    "description": "Resident Index Card",
+    "size": "4x6",
+    "paper": "Index",
+    "color": "White",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1091_1.jpg",
+        "alt": "Resident Index Card: SNF-1091 (1)",
+        "pdf": "uploaded/SNF-1091.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1092",
+    "description": "Leaving Hospital Against Advice",
+    "size": "8-1/2 x 5-1/2",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1092_1.jpg",
+        "alt": "Leaving Hospital Against Advice: SNF-1092 (1)",
+        "pdf": "uploaded/SNF-1092.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1114",
+    "description": "Inquiry Record",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1114_1.jpg",
+        "alt": "Inquiry Record: SNF-1114 (1)",
+        "pdf": "uploaded/SNF-1114.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-1114_2.jpg",
+        "alt": "Inquiry Record: SNF-1114 (2)",
+        "pdf": "uploaded/SNF-1114.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-1120",
+    "description": "Activity Notes - White (HF/HH)",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1120_1.jpg",
+        "alt": "Activity Notes: SNF-1120 (1)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "SNF-1122",
+    "description": "Social Service Notes- White (HF/HH)",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1122_1.jpg",
+        "alt": "Social Service Form: SNF-1122 (1)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "SNF-2002",
+    "description": "Daily Log",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-2002_1.jpg",
+        "alt": "Daily Log: SNF-2002 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-2004",
+    "description": "Licensed Nurses Progress Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-2004_1.jpg",
+        "alt": "Licensed Nurses Progress Notes: SNF-2004 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-2005",
+    "description": "Floor Narcotic Release",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-2005_1.jpg",
+        "alt": "Floor Narcotic Release: SNF-2005 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-2006",
+    "description": "Monthly Record of Vital Signs & Weights (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-2006_1.jpg",
+        "alt": "Monthly Record of Vital Signs & Weights: SNF-2006 (1)"
+      },
+      {
+        "src": "images/forms/reg/SNF-2006_2.jpg",
+        "alt": "Monthly Record of Vital Signs & Weights: SNF-2006 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-2012",
+    "description": "Narcotic and Hypnotic Record",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-2012_1.jpg",
+        "alt": "Narcotic and Hypnotic Record: SNF-2012 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-2014",
+    "description": "Nurses Admission Record",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-2014_1.jpg",
+        "alt": "Nurses Admission Record: SNF-2014 (1)"
+      },
+      {
+        "src": "images/forms/reg/SNF-2014_2.jpg",
+        "alt": "Nurses Admission Record: SNF-2014 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-2015",
+    "description": "Vital Signs & Weights",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-2015_1.jpg",
+        "alt": "Vital Signs & Weights: SNF-2015 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-24",
+    "description": "24 Hour Nursing Report",
+    "size": "8-1/2 x 14",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-24_1.jpg",
+        "alt": "24 Hour Nursing Report: SNF-24 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-3024",
+    "description": "Admission Agreement Signature Sheet",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part NCR",
+    "color": "W/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-3024_1.jpg",
+        "alt": "Admission Agreement Signature Sheet: SNF-3024 (1)",
+        "pdf": "uploaded/SNF-3024.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-4002",
+    "description": "Telephone Orders - Mount Sheet",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Blue",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-4002_1.jpg",
+        "alt": "Telephone Orders - Mount Sheet: SNF-4002 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-4003",
+    "description": "Employee Orientation Checklist",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Blue",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-4003_1.jpg",
+        "alt": "Employee Orientation Checklist: SNF-4003 (1)"
+      },
+      {
+        "src": "images/forms/reg/SNF-4003_2.jpg",
+        "alt": "Employee Orientation Checklist: SNF-4003 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-52",
+    "description": "Nutritional Screening & Assessment",
+    "size": "8-1/2 x 11",
+    "paper": "2 pt Carbon",
+    "color": "White w/Kardex",
+    "sides": "0",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-52_1.jpg",
+        "alt": "Nutritional Screening & Assessment: SNF-52 (1)",
+        "pdf": "uploaded/SNF-52.pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "SNF-527",
+    "description": "Licensed Nurse Weekly Summary (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-527_1.jpg",
+        "alt": "Licensed Nurse Weekly Summary: SNF-527 (1)"
+      },
+      {
+        "src": "images/forms/reg/SNF-527_2.jpg",
+        "alt": "Licensed Nurse Weekly Summary: SNF-527 (2)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-52A",
+    "description": "Dietary Quarterly Progress Notes",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-52A_1.jpg",
+        "alt": "Dietary Quarterly Progress Notes: SNF-52A (1)",
+        "pdf": "uploaded/SNF-52A.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-52A_2.jpg",
+        "alt": "Dietary Quarterly Progress Notes: SNF-52A (2)",
+        "pdf": "uploaded/SNF-52A.pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "SNF-6001A",
+    "description": "Physician's Progress Notes Addendum (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Yellow",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-6001A_1.jpg",
+        "alt": "Physician's Progress Notes Addendum: SNF-6001A (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-6010",
+    "description": "History and Physical",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "Yellow",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-6010_1.jpg",
+        "alt": "History and Physical: SNF-6010 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-7001",
+    "description": "Diet Order Form",
+    "size": "8-1/2 x 5",
+    "paper": "Bond",
+    "color": "Buff",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-7001_1.jpg",
+        "alt": "Diet Order Form: SNF-7001 (1)",
+        "pdf": "uploaded/SNF-7001.pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "SNF-7001 NCR",
+    "description": "Diet Order Form-NCR",
+    "size": "8-1/2 x 5",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [],
+    "category": "Dietary"
+  },
+  {
+    "formId": "SNF-7006",
+    "description": "Dietary Progress Notes (HF or HH)",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "Buff",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-7006_1.jpg",
+        "alt": "Dietary Progress Notes: SNF-7006 (1)",
+        "pdf": "uploaded/SNF-7006.pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "SNF-7007 ",
+    "description": "Dietary Communication Book",
+    "size": "5-3/4 x 11",
+    "paper": "3 Part NCR",
+    "color": "W/Y/P w/Index",
+    "sides": "1",
+    "unit": "Set of 50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-7007_1.jpg",
+        "alt": "Dietary Communication Book: SNF-7007  (1)",
+        "pdf": "uploaded/SNF-7007 .pdf"
+      }
+    ],
+    "category": "Dietary"
+  },
+  {
+    "formId": "SNF-8007",
+    "description": "24 Hr. Resident Condition Report Book -12 hr Shifts",
+    "size": "12-1/4 x 11",
+    "paper": "3 part NCR",
+    "color": "W-Y-P",
+    "sides": "1",
+    "unit": "Book",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8007_1.jpg",
+        "alt": "24 Hr. Resident Condition Report Book-12 hr Shifts: SNF-8007 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-8008",
+    "description": "Notice of Transfer/Discharge",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part NCR",
+    "color": "W/Yellow",
+    "sides": "1",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8008_1.jpg",
+        "alt": "Notice of Transfer/Discharge: SNF-8008 (1)",
+        "pdf": "uploaded/SNF-8008.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-8010",
+    "description": "Bed Hold Informed Consent",
+    "size": "8-1/2 x 11",
+    "paper": "3 Part NCR",
+    "color": "White, Yellow, Pink",
+    "sides": "1",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8010_1.jpg",
+        "alt": "Bed Hold Informed Consent: SNF-8010 (1)",
+        "pdf": "uploaded/SNF-8010.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-8011",
+    "description": "Long Term Care Survival Guide Book",
+    "size": "5-1/2 x 8-1/2",
+    "paper": "Bond",
+    "color": "",
+    "sides": "0",
+    "unit": "Each",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8011_1.jpg",
+        "alt": "Long Term Care Survival Guide Book: SNF-8011 (1)"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-8012",
+    "description": "Right to Make Decisions Brochure",
+    "size": "8-1/2 x 14",
+    "paper": "Bond",
+    "color": "Blue",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8012_1.jpg",
+        "alt": "Right to Make Decisions Brochure: SNF-8012 (1)",
+        "pdf": "uploaded/SNF-8012.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-8012A",
+    "description": "Making An Advance Directive Folder",
+    "size": "11 x 17",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8012A_1.jpg",
+        "alt": "Making An Advance Directive Folder: SNF-8012A (1)"
+      },
+      {
+        "src": "images/forms/reg/SNF-8012A_2.jpg",
+        "alt": "Making An Advance Directive Folder: SNF-8012A (2)"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-8013",
+    "description": "Advance Directive...Documentation Instructions",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8013_1.jpg",
+        "alt": "Advance Directive...Documentation Instructions: SNF-8013 (1)",
+        "pdf": "uploaded/SNF-8013.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-8013A",
+    "description": "Advance Directive Decisions",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "W/Yellow",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8013A_1.jpg",
+        "alt": "Advance Directive Decisions: SNF-8013A (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-8013B",
+    "description": "Advance Directive Signature Sheet",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "W/Yellow",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8013B_1.jpg",
+        "alt": "Advance Directive Signature Sheet: SNF-8013B (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-8030",
+    "description": "Nurse Dialysis Communication Record",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "S/50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-8030_1.jpg",
+        "alt": "Nurse Dialysis Communication Record: SNF-8030 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-9005",
+    "description": "Physician's Telephone Orders",
+    "size": "3 - 1/4 x 7",
+    "paper": "3 part NCR",
+    "color": "W-Y-P",
+    "sides": "1",
+    "unit": "S/200",
+    "previews": [],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-9006",
+    "description": "Physician's Telephone Orders - 3 per page",
+    "size": "8-1/2 x 11",
+    "paper": "4 part NCR",
+    "color": "W-Y-P-Gold",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9006_1.jpg",
+        "alt": "Physician's Telephone Orders - 3 per page: SNF-9006 (1)"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-9010",
+    "description": "Social Service Quarterly - Yellow (HF/HH)",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "Yellow",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9010_1.jpg",
+        "alt": "Social Service Quarterly: SNF-9010 (1)",
+        "pdf": "uploaded/SNF-9010.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-9010_2.jpg",
+        "alt": "Social Service Quarterly: SNF-9010 (2)",
+        "pdf": "uploaded/SNF-9010.pdf"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "SNF-9011",
+    "description": "Psychosocial Assessment - Yellow (HF/HH)",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "Yellow",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9011_1.jpg",
+        "alt": "Initial Psychosocial Assessment: SNF-9011 (1)",
+        "pdf": "uploaded/SNF-9011.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-9011_2.jpg",
+        "alt": "Initial Psychosocial Assessment: SNF-9011 (2)",
+        "pdf": "uploaded/SNF-9011.pdf"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "SNF-9016",
+    "description": "Pain Assessment Flowsheet",
+    "size": "8-1/2 x 11",
+    "paper": "20# Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9016_1.jpg",
+        "alt": "Pain Assessment Flowsheet: SNF-9016 (1)",
+        "pdf": "uploaded/SNF-9016.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-9016_2.jpg",
+        "alt": "Pain Assessment Flowsheet: SNF-9016 (2)",
+        "pdf": "uploaded/SNF-9016.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "SNF-9017",
+    "description": "Certification Slips",
+    "size": "7-1/2 x 3-1/2",
+    "paper": "2 part NCR",
+    "color": "W/Yellow",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9017_1.jpg",
+        "alt": "Certification Slips: SNF-9017 (1)",
+        "pdf": "uploaded/SNF-9017.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-9018",
+    "description": "Recertifications Slips",
+    "size": "7-1/2 x 3-1/2",
+    "paper": "2 part NCR",
+    "color": "W/Yellow",
+    "sides": "2",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9018_1.jpg",
+        "alt": "Recertifications Slips: SNF-9018 (1)",
+        "pdf": "uploaded/SNF-9018.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-9022",
+    "description": "HIPPA- Notice of Privacy Practices - 5 pgs",
+    "size": "11 x 17",
+    "paper": "Bond/2 Part",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set of 50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9022_1.jpg",
+        "alt": "HIPPA- Notice of Privacy Practices - 5 pgs: SNF-9022 (1)",
+        "pdf": "uploaded/SNF-9022.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-9022_2.jpg",
+        "alt": "HIPPA- Notice of Privacy Practices - 5 pgs: SNF-9022 (2)",
+        "pdf": "uploaded/SNF-9022.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-9023",
+    "description": "Adv. Dir. Acknowledge/Preferred Intensity of Care",
+    "size": "8-1/2 x 11",
+    "paper": "3 Part NCR",
+    "color": "W/Y/P",
+    "sides": "3",
+    "unit": "Set 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9023_1.jpg",
+        "alt": "Adv. Dir. Acknowledge/Preferred Intensity of Care: SNF-9023 (1)",
+        "pdf": "uploaded/SNF-9023.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-9026",
+    "description": "Arbitration Agreement-2 pgs",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part NCR",
+    "color": "W/Yellow",
+    "sides": "2",
+    "unit": "Set of 50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9026_1.jpg",
+        "alt": "Arbitration Agreement-2 pgs: SNF-9026 (1)",
+        "pdf": "uploaded/SNF-9026.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-9026_2.jpg",
+        "alt": "Arbitration Agreement-2 pgs: SNF-9026 (2)",
+        "pdf": "uploaded/SNF-9026.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-9030",
+    "description": "Arbitration Agreement-2 pgs",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "W/Yellow",
+    "sides": "2",
+    "unit": "Set of 50",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-9030_1.jpg",
+        "alt": "Arbitration Agreement-2 pgs: SNF-9030 (1)",
+        "pdf": "uploaded/SNF-9030.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-9030_2.jpg",
+        "alt": "Arbitration Agreement-2 pgs: SNF-9030 (2)",
+        "pdf": "uploaded/SNF-9030.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SNF-POLST",
+    "description": "Physician Orders for Life Sustaining Treatment",
+    "size": "8.5 x 11",
+    "paper": "65# Cardstock",
+    "color": "Ultra Pink",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-POLST_1.jpg",
+        "alt": "POLST: SNF-POLST (1)",
+        "pdf": "uploaded/SNF-POLST.pdf"
+      },
+      {
+        "src": "images/forms/reg/SNF-POLST_2.jpg",
+        "alt": "POLST: SNF-POLST (2)",
+        "pdf": "uploaded/SNF-POLST.pdf"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "SS-2407",
+    "description": "Social Service Assessment",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "Blue",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SS-2407_1.jpg",
+        "alt": "Social Service Assessment: SS-2407 (1)"
+      },
+      {
+        "src": "images/forms/reg/SS-2407_2.jpg",
+        "alt": "Social Service Assessment: SS-2407 (2)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "SS-2407A",
+    "description": "Social Service Assessment/Social History",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "Blue",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SS-2407A_1.jpg",
+        "alt": "Social Service Assessment/Social History: SS-2407A (1)"
+      },
+      {
+        "src": "images/forms/reg/SS-2407A_2.jpg",
+        "alt": "Social Service Assessment/Social History: SS-2407A (2)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "SS-2408",
+    "description": "Social Service Quarterly Update",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "Blue",
+    "sides": "2",
+    "unit": "P/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SS-2408_1.jpg",
+        "alt": "Social Service Quarterly Update: SS-2408 (1)"
+      }
+    ],
+    "category": "Activities/Social Services"
+  },
+  {
+    "formId": "UB-04L",
+    "description": "Billing Statements (Laser) (HCFA-1450)",
+    "size": "8-1/2 x 11",
+    "paper": "Bond",
+    "color": "White",
+    "sides": "2",
+    "unit": "Set of 500",
+    "previews": [
+      {
+        "src": "images/forms/reg/UB-04L_1.jpg",
+        "alt": "Billing Statements (Laser) (HCFA-1450): UB-04L (1)",
+        "pdf": "uploaded/UB-04L.pdf"
+      }
+    ],
+    "category": "Administration"
+  }
+]

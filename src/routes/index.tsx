@@ -5,6 +5,7 @@ import { RedirectRoute } from "#/components/redirect.tsx";
 import { Catalog } from "#/components/catalog.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { searchCatalog } from "#/lib/orama.ts";
+import { findCatalogItem } from "#/lib/catalog.ts";
 
 export function IndexPageRoute() {
   return (
@@ -14,9 +15,20 @@ export function IndexPageRoute() {
         handler={async (ctx) => {
           const url = new URL(ctx.request.url);
           const search = url.searchParams.get("search");
-          const items = search ? await searchCatalog(search) : [];
+          const hits = search ? (await searchCatalog(search)).hits : [];
+          const items = hits.map((result) => {
+            const item = findCatalogItem(result.document.formId);
+            if (!item) {
+              throw new Error(
+                `Catalog item not found: ${result.document.formId}`,
+              );
+            }
+
+            return item;
+          });
+
           return new Response(
-            <IndexPage items={items} search={search} />,
+            <IndexPage search={search} items={items} />,
             { headers: { "Content-Type": "text/html" } },
           );
         }}
@@ -45,7 +57,7 @@ export function IndexPage(props: IndexPageProps) {
         opportunity to serve your needs.
       </P>
 
-      <Catalog items={props.items} search={props.search} />
+      <Catalog search={props.search} items={props.items} />
     </Layout>
   );
 }

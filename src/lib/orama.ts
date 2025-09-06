@@ -1,9 +1,23 @@
-import type { CatalogItem } from "#/lib/snfforms.ts";
+import { create, insert, search } from "@orama/orama";
+import { catalogItems } from "./catalog.ts";
 
-// Implement an Orama database client.
-// https://jsr.io/@orama/orama
-//
+export function searchCatalog(term: string) {
+  return search(db, { term });
+}
 
-export function searchCatalog(_search: string): Promise<CatalogItem[]> {
-  return Promise.resolve([]);
+const db = await create({
+  schema: {
+    formId: "string",
+    category: "string",
+    description: "string",
+    size: "string",
+    paper: "string",
+    color: "string",
+    sides: "string",
+    unit: "string",
+  },
+});
+
+for (const catalogItem of catalogItems) {
+  await insert(db, catalogItem);
 }
