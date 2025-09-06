@@ -8,6 +8,7 @@ import {
   P,
   SCRIPT,
   SECTION,
+  SPAN,
   UL,
 } from "@fartlabs/htx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
@@ -29,29 +30,57 @@ export interface CatalogProps {
 export function Catalog(props: CatalogProps) {
   return (
     <SECTION>
-      <FORM id="search-form" method="GET" action="/">
-        <INPUT type="search" name="search" value={props.search ?? ""} />
-        <BUTTON type="submit">Search</BUTTON>
-      </FORM>
+      <DIV class="categories">
+        <FORM id="search-form" class="search-form" method="GET" action="/">
+          <INPUT
+            type="search"
+            name="search"
+            value={props.search ?? ""}
+            placeholder="Search forms by name, category, or description..."
+          />
+          <BUTTON type="submit">Search</BUTTON>
+        </FORM>
 
-      <DIV>
-        Categories: {categories
-          // deno-lint-ignore jsx-key
-          .map((category) => <A href={`/?search=${category}`}>{category}</A>)
-          .join(", ")}
+        <DIV class="category-links">
+          {categories.map((category) => (
+            <A
+              href={`/?search=${category}`}
+              class={props.search === category ? "active" : ""}
+            >
+              {category}
+            </A>
+          ))}
+        </DIV>
       </DIV>
 
       {props.items.length !== 0
         ? (
-          <UL>
+          <UL class="catalog-list">
             {props.items.map((item) => (
-              <LI>
+              <LI class="catalog-item">
                 <A href={`/${item.formId}`}>{item.description}</A>
+                <DIV class="item-details">
+                  <DIV class="item-specs">
+                    <SPAN class="spec-item">Category: {item.category}</SPAN>
+                    <SPAN class="spec-item">Size: {item.size}</SPAN>
+                    <SPAN class="spec-item">Paper: {item.paper}</SPAN>
+                    <SPAN class="spec-item">Color: {item.color}</SPAN>
+                    <SPAN class="spec-item">Sides: {item.sides}</SPAN>
+                    <SPAN class="spec-item">Unit: {item.unit}</SPAN>
+                    {item.previews.some((preview) => preview.pdf)
+                      ? <SPAN class="spec-item">PDF preview</SPAN>
+                      : ""}
+                  </DIV>
+                </DIV>
               </LI>
             ))}
           </UL>
         )
-        : <P>Search for a form</P>}
+        : (
+          <P class="text-center text-muted">
+            Search for a form using the search box above or browse by category
+          </P>
+        )}
     </SECTION>
   );
 }
