@@ -54,7 +54,10 @@ interface CatalogItemPageProps {
 
 export function CatalogItemPage(props: CatalogItemPageProps) {
   return (
-    <Layout>
+    <Layout
+      title={props.item.formId}
+      description={`${props.item.description} - ${props.item.category} medical form. Size: ${props.item.size}, Paper: ${props.item.paper}, Color: ${props.item.color}`}
+    >
       <DIV class="card">
         <DIV class="card-header">
           <H1 class="card-title">{props.item.formId}</H1>
@@ -107,7 +110,13 @@ export function CatalogItemPage(props: CatalogItemPageProps) {
             <UL class="preview-list">
               {/* deno-lint-ignore jsx-key */}
               {props.item.previews.map((preview) => {
-                const img = <IMG src={preview.src} alt={preview.alt} />;
+                const img = (
+                  <IMG
+                    src={preview.src}
+                    alt={preview.alt || `${props.item.formId} form preview`}
+                    loading="lazy"
+                  />
+                );
                 return (
                   <LI class="preview-item">
                     {preview.pdf ? <A href={preview.pdf}>{img}</A> : img}

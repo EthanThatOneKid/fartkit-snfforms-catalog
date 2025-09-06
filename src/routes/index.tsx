@@ -47,7 +47,11 @@ interface IndexPageProps {
 
 export function IndexPage(props: IndexPageProps) {
   return (
-    <Layout head={<CatalogScript />}>
+    <Layout
+      head={<CatalogScript />}
+      title="Home"
+      description="SNF Forms has been facilitating the health care industry for over 20 years. We provide the easiest access to a variety of medical forms and supplies."
+    >
       <DIV class="hero">
         <H1>SNF Forms</H1>
         <P>

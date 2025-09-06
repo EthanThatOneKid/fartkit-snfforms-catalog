@@ -5,7 +5,12 @@ export function Navbar() {
     <NAV>
       <DIV class="container">
         <A href="/" class="navbar-brand">
-          <IMG src="/snf-logo.png" alt="SNF Forms" class="logo" />
+          <IMG
+            src="/snf-logo.png"
+            alt="SNF Forms Logo"
+            class="logo"
+            loading="eager"
+          />
           <DIV class="brand-text">
             <DIV class="brand-primary">SNF</DIV>
             <DIV class="brand-secondary">Printing</DIV>

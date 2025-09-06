@@ -1,0 +1,16 @@
+{
+  "name": "SNF Forms - Medical Forms & Supplies",
+  "short_name": "SNF Forms",
+  "description": "Professional medical forms and supplies for healthcare industry",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c5aa0",
+  "icons": [
+    {
+      "src": "/snf-logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
