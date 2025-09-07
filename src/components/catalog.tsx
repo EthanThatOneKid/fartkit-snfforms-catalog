@@ -105,7 +105,7 @@ export function Catalog(props: CatalogProps) {
                             <SPAN
                               class="spec-item"
                               style="cursor: pointer;"
-                              onclick={`location.href = '/${item.formId}'`}
+                              onclick={`location.href = '/${item.formId}#previews'`}
                             >
                               PDF: Available
                             </SPAN>

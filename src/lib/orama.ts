@@ -9,7 +9,8 @@ import { catalogItems } from "./catalog.ts";
 export function searchCatalog(term: string) {
   return search(db, {
     term,
-    tolerance: 0.5,
+    threshold: 1,
+    tolerance: 0.95,
     limit: 500, // Dataset is small, pagination is negligible.
   });
 }

@@ -102,7 +102,7 @@ export function CatalogItemPage(props: CatalogItemPageProps) {
         ? (
           <DIV class="card">
             <DIV class="card-header">
-              <H2 class="card-title">Form Previews</H2>
+              <H2 class="card-title" id="previews">Form Previews</H2>
               <P class="text-muted mb-0">
                 Click on any preview to view the full PDF
               </P>
