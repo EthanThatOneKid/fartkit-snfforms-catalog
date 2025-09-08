@@ -112,7 +112,6 @@ export function Layout(props: LayoutProps) {
         {props.head ?? ""}
       </HEAD>
       <BODY>
-        <A href="#main-content" class="skip-link">Skip to main content</A>
         <Navbar />
         <MAIN id="main-content" class="main-content">
           <DIV class="container">
