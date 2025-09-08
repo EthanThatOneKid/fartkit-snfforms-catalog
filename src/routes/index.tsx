@@ -19,13 +19,16 @@ export function IndexPageRoute() {
             ? (await searchCatalog(search)).hits.map((result) => {
               const item = findCatalogItem(result.document.formId);
               if (!item) {
-                throw new Error(
-                  `Catalog item not found: ${result.document.formId}`,
+                // If we can't find a catalog item from search results,
+                // this indicates a data inconsistency, but we'll handle it gracefully
+                console.warn(
+                  `Catalog item not found in search results: ${result.document.formId}`,
                 );
+                return null;
               }
 
               return item;
-            })
+            }).filter((item): item is CatalogItem => item !== null)
             : catalogItems;
 
           return new Response(

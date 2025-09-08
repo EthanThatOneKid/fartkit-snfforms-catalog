@@ -16,6 +16,7 @@ import {
 } from "@fartlabs/htx";
 import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
+import { NotFoundPage } from "#/components/not-found.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { findCatalogItem } from "#/lib/catalog.ts";
 
@@ -35,7 +36,13 @@ export function CatalogItemPageRoute() {
 
           const item = findCatalogItem(itemId);
           if (!item) {
-            throw new Error(`Catalog item not found: ${itemId}`);
+            return new Response(
+              <NotFoundPage itemId={itemId} />,
+              {
+                headers: { "Content-Type": "text/html" },
+                status: 404,
+              },
+            );
           }
 
           return new Response(
