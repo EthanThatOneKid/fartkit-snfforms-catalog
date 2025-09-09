@@ -71,22 +71,37 @@ export function Catalog(props: CatalogProps) {
               <LI class="catalog-item">
                 <DIV class="item-content">
                   <DIV class="item-thumbnails">
-                    {item.previews
-                      .filter((preview) => preview.src.match(/\.(jpg|jpeg)$/i))
-                      .slice(0, 2) // Show max 2 thumbnails
-                      .map((preview) => (
-                        <A href={`/${item.formId}`}>
-                          <IMG
-                            src={getThumbnailPath(preview.src)}
-                            alt={preview.alt}
-                            class="item-thumbnail"
-                            loading="lazy"
-                            width="120"
-                            decoding="async"
-                            fetchpriority="low"
-                          />
-                        </A>
-                      ))}
+                    {(() => {
+                      const imagePreviews = item.previews.filter((preview) =>
+                        preview.src.match(/\.(jpg|jpeg)$/i)
+                      );
+                      if (imagePreviews.length > 0) {
+                        const preview = imagePreviews[0];
+                        return (
+                          <A href={`/${item.formId}`}>
+                            <IMG
+                              src={getThumbnailPath(preview.src)}
+                              alt={preview.alt}
+                              class="item-thumbnail"
+                              loading="lazy"
+                              width="120"
+                              decoding="async"
+                              fetchpriority="low"
+                            />
+                          </A>
+                        );
+                      } else {
+                        return (
+                          <A href={`/${item.formId}`}>
+                            <DIV class="item-thumbnail placeholder">
+                              <DIV class="placeholder-content">
+                                <SPAN class="placeholder-text">No Preview</SPAN>
+                              </DIV>
+                            </DIV>
+                          </A>
+                        );
+                      }
+                    })()}
                   </DIV>
                   <DIV class="item-info">
                     <A href={`/${item.formId}`} class="item-title">
