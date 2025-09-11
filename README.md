@@ -1,7 +1,7 @@
-# [SNF Printing](https://snfforms.com)
+# [SNF Forms](https://snfforms.com)
 
-SNF Printing's official product catalog. SNF Printing is a B2B supplier of
-medical forms and supplies.
+SNF Forms's official product catalog. SNF Forms is a B2B supplier of medical
+forms and supplies.
 
 ## Developing
 

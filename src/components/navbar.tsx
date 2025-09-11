@@ -7,7 +7,7 @@ export function Navbar() {
         <A href="/" class="navbar-brand">
           <IMG
             src="/snf-logo.png"
-            alt="SNF Printing Logo"
+            alt="SNF Forms Logo"
             class="logo"
             loading="eager"
           />

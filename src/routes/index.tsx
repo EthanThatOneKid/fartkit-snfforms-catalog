@@ -52,17 +52,17 @@ export function IndexPage(props: IndexPageProps) {
   return (
     <Layout
       head={<CatalogScript />}
-      title="SNF Printing"
-      description="SNF Printing has been facilitating the health care industry for over 20 years. We provide the easiest access to a variety of medical forms and supplies."
+      title="SNF Forms"
+      description="SNF Forms has been facilitating the health care industry for over 20 years. We provide the easiest access to a variety of medical forms and supplies."
     >
       <DIV class="hero">
-        <H1>SNF Printing</H1>
+        <H1>SNF Forms</H1>
         <P>
-          SNF Printing has been facilitating the health care industry for over
-          20 years. We provide the easiest access to a variety of medical forms
-          and supplies. Our role is to efficiently provide product on call so
-          that our valued clients can do their jobs without delay. We thank you
-          for the opportunity to serve your needs.
+          SNF Forms has been facilitating the health care industry for over 20
+          years. We provide the easiest access to a variety of medical forms and
+          supplies. Our role is to efficiently provide product on call so that
+          our valued clients can do their jobs without delay. We thank you for
+          the opportunity to serve your needs.
         </P>
       </DIV>
 

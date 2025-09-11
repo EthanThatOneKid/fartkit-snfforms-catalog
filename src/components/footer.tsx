@@ -17,7 +17,7 @@ export function Footer() {
             <P>Fax: (714) 901-6858</P>
           </DIV>
           <DIV class="footer-section">
-            <P>&copy; SNF Printing {year}. All rights reserved.</P>
+            <P>&copy; SNF Forms {year}. All rights reserved.</P>
           </DIV>
         </DIV>
       </DIV>

@@ -23,8 +23,8 @@ export interface LayoutProps {
 
 export function Layout(props: LayoutProps) {
   const title = props.title
-    ? `${props.title} | SNF Printing`
-    : "SNF Printing - Medical Forms & Supplies";
+    ? `${props.title} | SNF Forms`
+    : "SNF Forms - Medical Forms & Supplies";
   const description = props.description ||
     "Professional medical forms and supplies for healthcare industry. Quality printing services for SNF, nursing homes, and medical facilities.";
 
@@ -37,9 +37,9 @@ export function Layout(props: LayoutProps) {
         <META name="description" content={description} />
         <META
           name="keywords"
-          content="medical forms, SNF Printing, healthcare supplies, nursing home forms, medical printing, healthcare industry"
+          content="medical forms, SNF Forms, healthcare supplies, nursing home forms, medical printing, healthcare industry"
         />
-        <META name="author" content="SNF Printing" />
+        <META name="author" content="SNF Forms" />
         <META name="robots" content="index, follow" />
 
         {/* Open Graph / Facebook */}
@@ -47,7 +47,7 @@ export function Layout(props: LayoutProps) {
         <META name="og:title" content={title} />
         <META name="og:description" content={description} />
         <META name="og:image" content="/snf-logo.png" />
-        <META name="og:site_name" content="SNF Printing" />
+        <META name="og:site_name" content="SNF Forms" />
 
         {/* Twitter */}
         <META name="twitter:card" content="summary_large_image" />
@@ -70,8 +70,8 @@ export function Layout(props: LayoutProps) {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "SNF Printing",
-            "alternateName": "SNF Printing",
+            "name": "SNF Forms",
+            "alternateName": "SNF Forms",
             "url": "https://snfforms.com",
             "logo": "https://snfforms.com/snf-logo.png",
             "description": description,
