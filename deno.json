@@ -5,6 +5,7 @@
     "@fartlabs/htx": "jsr:@fartlabs/htx@^0.0.10",
     "@fartlabs/jsonx": "jsr:@fartlabs/jsonx@^0.0.11",
     "@fartlabs/rtx": "jsr:@fartlabs/rtx@^0.0.15",
+    "@kitsonk/kv-toolbox": "jsr:@kitsonk/kv-toolbox@^0.30.0",
     "@orama/orama": "npm:@orama/orama@^3.1.13",
     "@std/http": "jsr:@std/http@^1.0.17"
   },
