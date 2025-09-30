@@ -234,7 +234,9 @@ export function EditPage(props: EditPageProps) {
             {props.items
               .map((item) => (
                 <TR>
-                  <TD>{item.formId}</TD>
+                  <TD>
+                    <A href={`/${item.formId}`}>{item.formId}</A>
+                  </TD>
                   <TD>{item.description}</TD>
                   <TD>{item.category}</TD>
                   <TD>
