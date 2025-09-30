@@ -18,14 +18,15 @@ import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
 import { NotFoundPage } from "#/components/not-found.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
-import { findCatalogItem } from "#/lib/catalog.ts";
+import { findCatalogItem } from "#/lib/snfforms.ts";
+import { kv, KvCatalogService } from "#/lib/kv.ts";
 
 export function CatalogItemPageRoute() {
   return (
     <Router>
       <Get
         pattern="/:itemId([a-zA-Z0-9-]{3,10})"
-        handler={(ctx) => {
+        handler={async (ctx) => {
           const itemId = ctx.params?.pathname.groups.itemId;
           if (!itemId) {
             return new Response(
@@ -34,7 +35,9 @@ export function CatalogItemPageRoute() {
             );
           }
 
-          const item = findCatalogItem(itemId);
+          const catalogService = new KvCatalogService(kv);
+          const catalogItems = (await catalogService.getItems()) ?? [];
+          const item = findCatalogItem(catalogItems, itemId);
           if (!item) {
             return new Response(
               <NotFoundPage itemId={itemId} />,

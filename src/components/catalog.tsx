@@ -55,7 +55,7 @@ export function Catalog(props: CatalogProps) {
         <DIV class="category-links">
           {categories.map((category) => (
             <A
-              href={`/?search=${category}`}
+              href={props.search === category ? "/" : `/?search=${category}`}
               class={props.search === category ? "active" : ""}
             >
               {category}
@@ -69,7 +69,11 @@ export function Catalog(props: CatalogProps) {
           <UL class="catalog-list">
             {props.items.map((item) => (
               <LI class="catalog-item">
-                <DIV class="item-content">
+                <A
+                  href={`/${item.formId}`}
+                  class="item-content"
+                  style="text-decoration: none; color: inherit;"
+                >
                   <DIV class="item-thumbnails">
                     {(() => {
                       const imagePreviews = item.previews.filter((preview) =>
@@ -78,35 +82,31 @@ export function Catalog(props: CatalogProps) {
                       if (imagePreviews.length > 0) {
                         const preview = imagePreviews[0];
                         return (
-                          <A href={`/${item.formId}`}>
-                            <IMG
-                              src={getThumbnailPath(preview.src)}
-                              alt={preview.alt}
-                              class="item-thumbnail"
-                              loading="lazy"
-                              width="120"
-                              decoding="async"
-                              fetchpriority="low"
-                            />
-                          </A>
+                          <IMG
+                            src={getThumbnailPath(preview.src)}
+                            alt={preview.alt}
+                            class="item-thumbnail"
+                            loading="lazy"
+                            width="120"
+                            decoding="async"
+                            fetchpriority="low"
+                          />
                         );
                       } else {
                         return (
-                          <A href={`/${item.formId}`}>
-                            <DIV class="item-thumbnail placeholder">
-                              <DIV class="placeholder-content">
-                                <SPAN class="placeholder-text">No Preview</SPAN>
-                              </DIV>
+                          <DIV class="item-thumbnail placeholder">
+                            <DIV class="placeholder-content">
+                              <SPAN class="placeholder-text">No Preview</SPAN>
                             </DIV>
-                          </A>
+                          </DIV>
                         );
                       }
                     })()}
                   </DIV>
                   <DIV class="item-info">
-                    <A href={`/${item.formId}`} class="item-title">
+                    <DIV class="item-title">
                       {item.description}
-                    </A>
+                    </DIV>
                     <DIV class="item-details">
                       <DIV class="item-specs">
                         <SPAN class="spec-item">Category: {item.category}</SPAN>
@@ -120,7 +120,7 @@ export function Catalog(props: CatalogProps) {
                             <SPAN
                               class="spec-item"
                               style="cursor: pointer;"
-                              onclick={`location.href = '/${item.formId}#previews'`}
+                              onclick={`event.stopPropagation(); location.href = '/${item.formId}#previews'`}
                             >
                               PDF: Available
                             </SPAN>
@@ -129,7 +129,7 @@ export function Catalog(props: CatalogProps) {
                       </DIV>
                     </DIV>
                   </DIV>
-                </DIV>
+                </A>
               </LI>
             ))}
           </UL>

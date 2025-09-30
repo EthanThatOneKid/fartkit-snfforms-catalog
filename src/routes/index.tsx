@@ -4,8 +4,12 @@ import { Layout } from "#/components/layout.tsx";
 import { RedirectRoute } from "#/components/redirect.tsx";
 import { Catalog, CatalogScript } from "#/components/catalog.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
-import { searchCatalog } from "#/lib/orama.ts";
-import { catalogItems, findCatalogItem } from "#/lib/catalog.ts";
+import { findCatalogItem } from "#/lib/snfforms.ts";
+import { createOrama, searchCatalog } from "#/lib/orama.ts";
+import { kv, KvCatalogService } from "#/lib/kv.ts";
+
+const catalogService = new KvCatalogService(kv);
+await catalogService.seed();
 
 export function IndexPageRoute() {
   return (
@@ -15,9 +19,15 @@ export function IndexPageRoute() {
         handler={async (ctx) => {
           const url = new URL(ctx.request.url);
           const search = url.searchParams.get("search");
+
+          const catalogItems = (await catalogService.getItems()) ?? [];
+          const orama = await createOrama(catalogItems);
           const items = search
-            ? (await searchCatalog(search)).hits.map((result) => {
-              const item = findCatalogItem(result.document.formId);
+            ? (await searchCatalog(orama, search)).hits.map((result) => {
+              const item = findCatalogItem(
+                catalogItems,
+                result.document.formId,
+              );
               if (!item) {
                 // If we can't find a catalog item from search results,
                 // this indicates a data inconsistency, but we'll handle it gracefully

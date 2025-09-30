@@ -259,6 +259,18 @@ footer {
   text-decoration: underline;
 }
 
+.footer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+}
+
 /* Buttons */
 button, .btn {
   display: inline-block;
@@ -291,10 +303,54 @@ form {
   margin-bottom: 2rem;
 }
 
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid var(--gray-300);
+  border-radius: 0.375rem;
+  transition: border-color 0.2s ease;
+  background-color: var(--white);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-actions .btn-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.form-actions .btn-danger {
+  margin-left: auto;
+}
+
 input[type="search"],
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="text"] {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
@@ -304,9 +360,7 @@ input[type="password"] {
 }
 
 input[type="search"]:focus,
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
+input[type="text"]:focus {
   outline: none;
   border-color: var(--primary-color);
 }
@@ -445,6 +499,10 @@ li {
   flex-direction: column;
   gap: 1.5rem;
   align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
 }
 
 .item-thumbnails {
@@ -519,7 +577,7 @@ li {
   line-height: 1.3;
 }
 
-.item-title:hover {
+.item-content:hover .item-title {
   color: var(--primary-dark);
   text-decoration: none;
 }
@@ -888,9 +946,93 @@ li {
   }
 }
 
-/* Utility Classes - Using Tailwind for basic utilities */
+/* Button Styles */
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: 1px solid #dc3545;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-danger:focus {
+  outline: 2px solid #dc3545;
+  outline-offset: 2px;
+}
+
+.btn-danger:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(220, 53, 69, 0.4);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: var(--gray-100);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+}
+
+.btn-secondary:hover {
+  background-color: var(--gray-200);
+  color: var(--gray-800);
+  text-decoration: none;
+}
+
+/* Utility Classes */
 .text-muted {
   color: var(--gray-600);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.list-unstyled {
+  list-style: none;
+  padding-left: 0;
+}
+
+.card-body {
+  padding: 1rem 0;
 }
 
 /* Focus States for Accessibility */
