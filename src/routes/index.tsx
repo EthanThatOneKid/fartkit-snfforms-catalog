@@ -5,11 +5,15 @@ import { RedirectRoute } from "#/components/redirect.tsx";
 import { Catalog, CatalogScript } from "#/components/catalog.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { findCatalogItem } from "#/lib/snfforms.ts";
-import { createOrama, searchCatalog } from "#/lib/orama.ts";
+import { searchCatalog } from "#/lib/orama.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
 
 const catalogService = new KvCatalogService(kv);
-await catalogService.seed();
+// Only seed if the KV store is empty
+const existingItems = await catalogService.getItems();
+if (!existingItems || existingItems.length === 0) {
+  await catalogService.seed();
+}
 
 export function IndexPageRoute() {
   return (
@@ -21,8 +25,8 @@ export function IndexPageRoute() {
           const search = url.searchParams.get("search");
 
           const catalogItems = (await catalogService.getItems()) ?? [];
-          const orama = await createOrama(catalogItems);
-          const items = search
+          const orama = await catalogService.getOramaIndex();
+          const items = search && orama
             ? (await searchCatalog(orama, search)).hits.map((result) => {
               const item = findCatalogItem(
                 catalogItems,

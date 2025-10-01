@@ -43,7 +43,7 @@ export function EditPageRoute() {
           const formData = await ctx.request.formData();
           const catalogService = new KvCatalogService(kv);
 
-          // Check admin password from Authorization header.
+          // Check the admin password from the Authorization header.
           const authHeader = ctx.request.headers.get("Authorization");
           const adminPassword = authHeader?.replace("Bearer ", "");
           const expectedPassword = Deno.env.get("SECRET_PASSWORD");
@@ -59,10 +59,14 @@ export function EditPageRoute() {
           }
 
           const formId = formData.get("formId") as string;
+          const url = new URL(ctx.request.url);
+          const originalFormId = url.searchParams.get("formId");
           const catalogItems = (await catalogService.getItems()) ?? [];
-          const existingItem = catalogItems.find((item) =>
-            item.formId === formId
-          );
+
+          // Use the original formId from the URL to find the existing item, not the potentially changed formId from the form.
+          const existingItem = originalFormId
+            ? catalogItems.find((item) => item.formId === originalFormId)
+            : catalogItems.find((item) => item.formId === formId);
 
           // Create the item data.
           const itemData: CatalogItem = {
@@ -79,10 +83,22 @@ export function EditPageRoute() {
 
           let success: boolean;
           if (existingItem) {
-            // Update existing item.
-            success = await catalogService.updateItem(formId, itemData);
+            if (originalFormId && originalFormId !== formId) {
+              // The formId has changed, so delete the old item and create a new one.
+              const deleteSuccess = await catalogService.deleteItem(
+                originalFormId,
+              );
+              if (deleteSuccess) {
+                success = await catalogService.addItem(itemData);
+              } else {
+                success = false;
+              }
+            } else {
+              // Update the existing item with the same formId.
+              success = await catalogService.updateItem(formId, itemData);
+            }
           } else {
-            // Add new item.
+            // Add a new item.
             success = await catalogService.addItem(itemData);
           }
 
@@ -159,7 +175,7 @@ export function EditPageRoute() {
             );
           }
 
-          // Check admin password from Authorization header.
+          // Check the admin password from the Authorization header.
           const authHeader = ctx.request.headers.get("Authorization");
           const adminPassword = authHeader?.replace("Bearer ", "");
           const expectedPassword = Deno.env.get("SECRET_PASSWORD");
@@ -270,13 +286,13 @@ async function handleEditFormSubmit(event) {
     return false;
   }
   
-  // Get admin password.
+  // Get the admin password.
   const password = prompt('Enter admin password to update this form:');
   if (!password) {
     return false;
   }
   
-  // Submit the form with password in Authorization header.
+  // Submit the form with the password in the Authorization header.
   try {
     const response = await fetch('/edit', {
       method: 'POST',
@@ -299,7 +315,7 @@ async function handleEditFormSubmit(event) {
   return true;
 }
 
-// Add event listener when page loads.
+// Add an event listener when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('edit-form');
   if (form) {
@@ -456,7 +472,7 @@ async function deleteItem(formId) {
     const result = await response.json();
     
     if (result.success) {
-      // Redirect to edit page after successful deletion.
+      // Redirect to the edit page after successful deletion.
       window.location.href = '/edit';
     } else {
       alert('Failed to delete item: ' + (result.error || 'Unknown error'));
@@ -490,13 +506,13 @@ async function handleFormSubmit(event) {
     return false;
   }
   
-  // Get admin password.
+  // Get the admin password.
   const password = prompt('Enter admin password to submit this form:');
   if (!password) {
     return false;
   }
   
-  // Check if form ID already exists.
+  // Check if the form ID already exists.
   const exists = await checkFormIdExists(formId);
   
   if (exists) {
@@ -511,12 +527,12 @@ async function handleFormSubmit(event) {
     }
   }
   
-  // Submit the form with password in Authorization header.
+  // Submit the form with the password in the Authorization header.
   const submitForm = document.createElement('form');
   submitForm.method = 'POST';
   submitForm.action = '/edit';
   
-  // Add all form fields.
+  // Add all the form fields.
   for (const [key, value] of formData.entries()) {
     const input = document.createElement('input');
     input.type = 'hidden';
@@ -551,7 +567,7 @@ async function handleFormSubmit(event) {
   return true;
 }
 
-// Add event listener when page loads.
+// Add an event listener when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('create-form');
   if (form) {

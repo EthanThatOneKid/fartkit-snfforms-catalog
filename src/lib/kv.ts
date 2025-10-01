@@ -2,6 +2,7 @@ import { get, remove, set } from "@kitsonk/kv-toolbox/blob";
 import type { CatalogItem } from "./snfforms.ts";
 import type { CatalogService } from "./catalog.ts";
 import { CatalogFileType } from "./catalog.ts";
+import { createOrama, type Orama } from "./orama.ts";
 
 export const kv = await Deno.openKv();
 
@@ -24,6 +25,9 @@ function fileKey(type: CatalogFileType, filename: string) {
 }
 
 export class KvCatalogService implements CatalogService {
+  private oramaIndex: Orama | null = null;
+  private lastItemsHash: string | null = null;
+
   public constructor(private readonly kv: Deno.Kv) {}
 
   async seed() {
@@ -41,6 +45,7 @@ export class KvCatalogService implements CatalogService {
 
   async setItems(items: CatalogItem[]): Promise<void> {
     await this.kv.set([CatalogKvKey.CATALOG_ITEMS], items);
+    this.invalidateOramaIndex();
   }
 
   async addItem(item: CatalogItem): Promise<boolean> {
@@ -115,5 +120,38 @@ export class KvCatalogService implements CatalogService {
     filename: string,
   ): Promise<void> {
     await remove(this.kv, fileKey(type, filename));
+  }
+
+  /**
+   * getOramaIndex gets the Orama search index, creating it if necessary.
+   */
+  async getOramaIndex(): Promise<Orama | null> {
+    const items = await this.getItems();
+    if (!items) {
+      return null;
+    }
+
+    // Create a simple hash of the items to detect changes.
+    const itemsHash = JSON.stringify(
+      items.map((item) => item.formId).toSorted(),
+    );
+
+    // If we have a cached index and the items haven't changed, return it.
+    if (this.oramaIndex && this.lastItemsHash === itemsHash) {
+      return this.oramaIndex;
+    }
+
+    // Create a new index.
+    this.oramaIndex = await createOrama(items);
+    this.lastItemsHash = itemsHash;
+    return this.oramaIndex;
+  }
+
+  /**
+   * invalidateOramaIndex clears the cached Orama index.
+   */
+  private invalidateOramaIndex(): void {
+    this.oramaIndex = null;
+    this.lastItemsHash = null;
   }
 }
