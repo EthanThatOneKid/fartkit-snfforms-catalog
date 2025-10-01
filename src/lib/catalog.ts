@@ -1,11 +1,44 @@
 import type { CatalogItem } from "#/lib/snfforms.ts";
 
-const catalogItemsText = await Deno.readTextFile("./public/catalog.json");
-export const catalogItems = JSON.parse(catalogItemsText) as CatalogItem[];
+export enum CatalogFileType {
+  JPG = "jpg",
+  WEBP = "webp",
+  PDF = "pdf",
+}
 
-/**
- * findCatalogItem gets a catalog item by formId.
- */
-export function findCatalogItem(formId: string) {
-  return catalogItems.find((item) => item.formId === formId);
+export interface CatalogService {
+  /**
+   * getItems gets all catalog items.
+   */
+  getItems(): Promise<CatalogItem[] | undefined>;
+
+  /**
+   * setItems sets all catalog items.
+   */
+  setItems(items: CatalogItem[]): Promise<void>;
+
+  /**
+   * getFile gets a file by type and filename.
+   */
+  getFile(
+    type: CatalogFileType,
+    filename: string,
+  ): Promise<Uint8Array | undefined>;
+
+  /**
+   * setFile sets a file by type and filename.
+   */
+  setFile(
+    type: CatalogFileType,
+    filename: string,
+    data: Uint8Array,
+  ): Promise<void>;
+
+  /**
+   * removeFile removes a file by type and filename.
+   */
+  removeFile(
+    type: CatalogFileType,
+    filename: string,
+  ): Promise<void>;
 }

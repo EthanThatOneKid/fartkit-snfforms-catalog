@@ -18,14 +18,18 @@ import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
 import { NotFoundPage } from "#/components/not-found.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
-import { findCatalogItem } from "#/lib/catalog.ts";
+import { findCatalogItem } from "#/lib/snfforms.ts";
+import { kv, KvCatalogService } from "#/lib/kv.ts";
+import { formIdParamSchema } from "#/lib/validation.ts";
+
+const catalogService = new KvCatalogService(kv);
 
 export function CatalogItemPageRoute() {
   return (
     <Router>
       <Get
         pattern="/:itemId([a-zA-Z0-9-]{3,10})"
-        handler={(ctx) => {
+        handler={async (ctx) => {
           const itemId = ctx.params?.pathname.groups.itemId;
           if (!itemId) {
             return new Response(
@@ -34,7 +38,22 @@ export function CatalogItemPageRoute() {
             );
           }
 
-          const item = findCatalogItem(itemId);
+          // Validate the formId parameter.
+          const validation = formIdParamSchema.safeParse({
+            formId: itemId,
+          });
+          if (!validation.success) {
+            return new Response(
+              <NotFoundPage itemId={itemId} />,
+              {
+                headers: { "Content-Type": "text/html" },
+                status: 400,
+              },
+            );
+          }
+
+          const catalogItems = (await catalogService.getItems()) ?? [];
+          const item = findCatalogItem(catalogItems, itemId);
           if (!item) {
             return new Response(
               <NotFoundPage itemId={itemId} />,
@@ -116,20 +135,22 @@ export function CatalogItemPage(props: CatalogItemPageProps) {
             </DIV>
             <UL class="preview-list">
               {/* deno-lint-ignore jsx-key */}
-              {props.item.previews.map((preview) => {
-                const img = (
-                  <IMG
-                    src={preview.src}
-                    alt={preview.alt || `${props.item.formId} form preview`}
-                    loading="lazy"
-                  />
-                );
-                return (
-                  <LI class="preview-item">
-                    {preview.pdf ? <A href={preview.pdf}>{img}</A> : img}
-                  </LI>
-                );
-              })}
+              {props.item.previews
+                .map((preview) => {
+                  const img = (
+                    <IMG
+                      src={preview.src}
+                      alt={preview.alt || `${props.item.formId} form preview`}
+                      loading="lazy"
+                    />
+                  );
+                  return (
+                    <LI class="preview-item">
+                      {preview.pdf ? <A href={preview.pdf}>{img}</A> : img}
+                    </LI>
+                  );
+                })
+                .join("")}
             </UL>
           </DIV>
         )

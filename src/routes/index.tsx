@@ -4,8 +4,12 @@ import { Layout } from "#/components/layout.tsx";
 import { RedirectRoute } from "#/components/redirect.tsx";
 import { Catalog, CatalogScript } from "#/components/catalog.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
+import { findCatalogItem } from "#/lib/snfforms.ts";
 import { searchCatalog } from "#/lib/orama.ts";
-import { catalogItems, findCatalogItem } from "#/lib/catalog.ts";
+import { kv, KvCatalogService } from "#/lib/kv.ts";
+import { searchQuerySchema } from "#/lib/validation.ts";
+
+const catalogService = new KvCatalogService(kv);
 
 export function IndexPageRoute() {
   return (
@@ -14,25 +18,49 @@ export function IndexPageRoute() {
         pattern="/"
         handler={async (ctx) => {
           const url = new URL(ctx.request.url);
-          const search = url.searchParams.get("search");
-          const items = search
-            ? (await searchCatalog(search)).hits.map((result) => {
-              const item = findCatalogItem(result.document.formId);
-              if (!item) {
-                // If we can't find a catalog item from search results,
-                // this indicates a data inconsistency, but we'll handle it gracefully
-                console.warn(
-                  `Catalog item not found in search results: ${result.document.formId}`,
-                );
-                return null;
-              }
+          const rawSearch = url.searchParams.get("search");
 
-              return item;
-            }).filter((item): item is CatalogItem => item !== null)
+          // Validate the search query parameter.
+          const searchValidation = searchQuerySchema.safeParse(rawSearch);
+          const search = searchValidation.success
+            ? searchValidation.data
+            : null;
+
+          // Lazy seed: only seed if the KV store is empty.
+          let catalogItems = (await catalogService.getItems()) ?? [];
+          if (catalogItems.length === 0) {
+            try {
+              await catalogService.seed();
+              catalogItems = (await catalogService.getItems()) ?? [];
+            } catch (error) {
+              console.error("Failed to seed catalog:", error);
+              // Continue with empty catalog rather than failing the request.
+            }
+          }
+          const orama = await catalogService.getOramaIndex();
+          const items = search && orama
+            ? (await searchCatalog(orama, search)).hits
+              .map((result) => {
+                const item = findCatalogItem(
+                  catalogItems,
+                  result.document.formId,
+                );
+                if (!item) {
+                  // If we can't find a catalog item from search results,
+                  // this indicates a data inconsistency, but we'll handle it gracefully.
+                  console.warn(
+                    `Catalog item not found in search results: ${result.document.formId}`,
+                  );
+                  return null;
+                }
+
+                return item;
+              })
+              .filter((item): item is CatalogItem => item !== null)
             : catalogItems;
 
           return new Response(
-            <IndexPage search={search} items={items} />,
+            <IndexPage search={search ?? null} items={items} />,
             { headers: { "Content-Type": "text/html" } },
           );
         }}

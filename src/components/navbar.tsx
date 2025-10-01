@@ -13,12 +13,14 @@ export function Navbar() {
           />
           <DIV class="brand-text">
             <DIV class="brand-primary">SNF</DIV>
-            <DIV class="brand-secondary">Printing</DIV>
+            <DIV class="brand-secondary">Forms</DIV>
           </DIV>
         </A>
-        <A href="tel:+17149016868" class="phone-link">
-          (714) 901-6868
-        </A>
+        <DIV style="display: flex; gap: 1rem; align-items: center;">
+          <A href="tel:+17149016868" class="phone-link">
+            (714) 901-6868
+          </A>
+        </DIV>
       </DIV>
     </NAV>
   );

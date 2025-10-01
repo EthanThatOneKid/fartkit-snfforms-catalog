@@ -15,3 +15,10 @@ export interface CatalogItemPreview {
   alt: string;
   pdf?: string;
 }
+
+export function findCatalogItem(
+  catalogItems: CatalogItem[],
+  formId: string,
+): CatalogItem | undefined {
+  return catalogItems.find((item) => item.formId === formId);
+}
