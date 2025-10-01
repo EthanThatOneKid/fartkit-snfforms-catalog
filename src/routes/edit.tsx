@@ -116,47 +116,110 @@ export function EditPageRoute() {
             previews: existingItem ? existingItem.previews : [], // Keep existing previews or empty for new items.
           };
 
-          let success: boolean;
+          // Handle different scenarios with specific error messages.
           if (existingItem) {
             if (originalFormId && originalFormId !== formId) {
-              // The formId has changed, so we need to handle this carefully to avoid data loss.
-              // First, check if the new formId already exists.
+              // The formId has changed, check if the new formId already exists.
               const newItemExists = catalogItems.find((item) =>
                 item.formId === formId
               );
               if (newItemExists) {
-                success = false; // Cannot change to an existing formId
-              } else {
-                // Safe to proceed: delete old item and create new one.
-                const deleteSuccess = await catalogService.deleteItem(
-                  originalFormId,
+                return new Response(
+                  JSON.stringify({
+                    success: false,
+                    error:
+                      `Form ID "${formId}" already exists. Please choose a different Form ID.`,
+                  }),
+                  {
+                    headers: { "Content-Type": "application/json" },
+                    status: 400,
+                  },
                 );
-                if (deleteSuccess) {
-                  success = await catalogService.addItem(itemData);
-                } else {
-                  success = false;
-                }
+              }
+
+              // Safe to proceed: delete old item and create new one.
+              const deleteSuccess = await catalogService.deleteItem(
+                originalFormId,
+              );
+              if (!deleteSuccess) {
+                return new Response(
+                  JSON.stringify({
+                    success: false,
+                    error:
+                      "Failed to delete the original item. Please try again.",
+                  }),
+                  {
+                    headers: { "Content-Type": "application/json" },
+                    status: 500,
+                  },
+                );
+              }
+
+              const addSuccess = await catalogService.addItem(itemData);
+              if (!addSuccess) {
+                return new Response(
+                  JSON.stringify({
+                    success: false,
+                    error:
+                      "Failed to create the updated item. Please try again.",
+                  }),
+                  {
+                    headers: { "Content-Type": "application/json" },
+                    status: 500,
+                  },
+                );
               }
             } else {
               // Update the existing item with the same formId.
-              success = await catalogService.updateItem(formId, itemData);
+              const updateSuccess = await catalogService.updateItem(
+                formId,
+                itemData,
+              );
+              if (!updateSuccess) {
+                return new Response(
+                  JSON.stringify({
+                    success: false,
+                    error: "Failed to update the item. Please try again.",
+                  }),
+                  {
+                    headers: { "Content-Type": "application/json" },
+                    status: 500,
+                  },
+                );
+              }
             }
           } else {
-            // Add a new item.
-            success = await catalogService.addItem(itemData);
-          }
-
-          if (!success) {
-            return new Response(
-              JSON.stringify({
-                success: false,
-                error: "Failed to save item. Please try again.",
-              }),
-              {
-                headers: { "Content-Type": "application/json" },
-                status: 500,
-              },
+            // Add a new item and check if formId already exists.
+            const itemExists = catalogItems.find((item) =>
+              item.formId === formId
             );
+            if (itemExists) {
+              return new Response(
+                JSON.stringify({
+                  success: false,
+                  error:
+                    `Form ID "${formId}" already exists. Please choose a different Form ID.`,
+                }),
+                {
+                  headers: { "Content-Type": "application/json" },
+                  status: 400,
+                },
+              );
+            }
+
+            const addSuccess = await catalogService.addItem(itemData);
+            if (!addSuccess) {
+              return new Response(
+                JSON.stringify({
+                  success: false,
+                  error: "Failed to create the new item. Please try again.",
+                }),
+                {
+                  headers: { "Content-Type": "application/json" },
+                  status: 500,
+                },
+              );
+            }
           }
 
           return new Response(
