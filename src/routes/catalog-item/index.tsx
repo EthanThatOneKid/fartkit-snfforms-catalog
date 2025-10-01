@@ -17,15 +17,17 @@ import {
 import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
 import { NotFoundPage } from "#/components/not-found.tsx";
+import { FileManager } from "#/components/file-manager.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { findCatalogItem } from "#/lib/catalog.ts";
+import { getFormFiles } from "#/lib/file-manager.ts";
 
 export function CatalogItemPageRoute() {
   return (
     <Router>
       <Get
         pattern="/:itemId([a-zA-Z0-9-]{3,10})"
-        handler={(ctx) => {
+        handler={async (ctx) => {
           const itemId = ctx.params?.pathname.groups.itemId;
           if (!itemId) {
             return new Response(
@@ -45,8 +47,11 @@ export function CatalogItemPageRoute() {
             );
           }
 
+          // Load uploaded files for this form
+          const uploadedFiles = await getFormFiles(itemId);
+
           return new Response(
-            <CatalogItemPage item={item} />,
+            <CatalogItemPage item={item} uploadedFiles={uploadedFiles} />,
             { headers: { "Content-Type": "text/html" } },
           );
         }}
@@ -57,6 +62,7 @@ export function CatalogItemPageRoute() {
 
 interface CatalogItemPageProps {
   item: CatalogItem;
+  uploadedFiles: import("#/lib/file-manager.ts").FileMetadata[];
 }
 
 export function CatalogItemPage(props: CatalogItemPageProps) {
@@ -134,6 +140,8 @@ export function CatalogItemPage(props: CatalogItemPageProps) {
           </DIV>
         )
         : ""}
+
+      <FileManager formId={props.item.formId} existingFiles={props.uploadedFiles} />
     </Layout>
   );
 }

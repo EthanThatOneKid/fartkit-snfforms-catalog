@@ -13,6 +13,7 @@ import {
   UL,
 } from "@fartlabs/htx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
+import { getFormFiles } from "#/lib/file-manager.ts";
 
 export const categories = [
   "Activities/Social Services",
@@ -26,6 +27,26 @@ export const categories = [
 export interface CatalogProps {
   search: string | null;
   items: CatalogItem[];
+}
+
+export interface CatalogItemWithFiles extends CatalogItem {
+  uploadedFiles: import("#/lib/file-manager.ts").FileMetadata[];
+}
+
+/**
+ * Load catalog items with their uploaded files
+ */
+export async function loadCatalogItemsWithFiles(items: CatalogItem[]): Promise<CatalogItemWithFiles[]> {
+  const itemsWithFiles = await Promise.all(
+    items.map(async (item) => {
+      const uploadedFiles = await getFormFiles(item.formId);
+      return {
+        ...item,
+        uploadedFiles
+      };
+    })
+  );
+  return itemsWithFiles;
 }
 
 function getThumbnailPath(previewSrc: string): string {
@@ -68,69 +89,7 @@ export function Catalog(props: CatalogProps) {
         ? (
           <UL class="catalog-list">
             {props.items.map((item) => (
-              <LI class="catalog-item">
-                <DIV class="item-content">
-                  <DIV class="item-thumbnails">
-                    {(() => {
-                      const imagePreviews = item.previews.filter((preview) =>
-                        preview.src.match(/\.(jpg|jpeg)$/i)
-                      );
-                      if (imagePreviews.length > 0) {
-                        const preview = imagePreviews[0];
-                        return (
-                          <A href={`/${item.formId}`}>
-                            <IMG
-                              src={getThumbnailPath(preview.src)}
-                              alt={preview.alt}
-                              class="item-thumbnail"
-                              loading="lazy"
-                              width="120"
-                              decoding="async"
-                              fetchpriority="low"
-                            />
-                          </A>
-                        );
-                      } else {
-                        return (
-                          <A href={`/${item.formId}`}>
-                            <DIV class="item-thumbnail placeholder">
-                              <DIV class="placeholder-content">
-                                <SPAN class="placeholder-text">No Preview</SPAN>
-                              </DIV>
-                            </DIV>
-                          </A>
-                        );
-                      }
-                    })()}
-                  </DIV>
-                  <DIV class="item-info">
-                    <A href={`/${item.formId}`} class="item-title">
-                      {item.description}
-                    </A>
-                    <DIV class="item-details">
-                      <DIV class="item-specs">
-                        <SPAN class="spec-item">Category: {item.category}</SPAN>
-                        <SPAN class="spec-item">Size: {item.size}</SPAN>
-                        <SPAN class="spec-item">Paper: {item.paper}</SPAN>
-                        <SPAN class="spec-item">Color: {item.color}</SPAN>
-                        <SPAN class="spec-item">Sides: {item.sides}</SPAN>
-                        <SPAN class="spec-item">Unit: {item.unit}</SPAN>
-                        {item.previews.some((preview) => preview.pdf)
-                          ? (
-                            <SPAN
-                              class="spec-item"
-                              style="cursor: pointer;"
-                              onclick={`location.href = '/${item.formId}#previews'`}
-                            >
-                              PDF: Available
-                            </SPAN>
-                          )
-                          : ""}
-                      </DIV>
-                    </DIV>
-                  </DIV>
-                </DIV>
-              </LI>
+              <CatalogItemWithThumbnail item={item} />
             ))}
           </UL>
         )
@@ -140,6 +99,78 @@ export function Catalog(props: CatalogProps) {
           </P>
         )}
     </SECTION>
+  );
+}
+
+interface CatalogItemWithThumbnailProps {
+  item: CatalogItem;
+}
+
+function CatalogItemWithThumbnail(props: CatalogItemWithThumbnailProps) {
+  return (
+    <LI class="catalog-item">
+      <DIV class="item-content">
+        <DIV class="item-thumbnails">
+          {(() => {
+            const imagePreviews = props.item.previews.filter((preview) =>
+              preview.src.match(/\.(jpg|jpeg)$/i)
+            );
+            if (imagePreviews.length > 0) {
+              const preview = imagePreviews[0];
+              return (
+                <A href={`/${props.item.formId}`}>
+                  <IMG
+                    src={getThumbnailPath(preview.src)}
+                    alt={preview.alt}
+                    class="item-thumbnail"
+                    loading="lazy"
+                    width="120"
+                    decoding="async"
+                    fetchpriority="low"
+                  />
+                </A>
+              );
+            } else {
+              return (
+                <A href={`/${props.item.formId}`}>
+                  <DIV class="item-thumbnail placeholder">
+                    <DIV class="placeholder-content">
+                      <SPAN class="placeholder-text">No Preview</SPAN>
+                    </DIV>
+                  </DIV>
+                </A>
+              );
+            }
+          })()}
+        </DIV>
+        <DIV class="item-info">
+          <A href={`/${props.item.formId}`} class="item-title">
+            {props.item.description}
+          </A>
+          <DIV class="item-details">
+            <DIV class="item-specs">
+              <SPAN class="spec-item">Category: {props.item.category}</SPAN>
+              <SPAN class="spec-item">Size: {props.item.size}</SPAN>
+              <SPAN class="spec-item">Paper: {props.item.paper}</SPAN>
+              <SPAN class="spec-item">Color: {props.item.color}</SPAN>
+              <SPAN class="spec-item">Sides: {props.item.sides}</SPAN>
+              <SPAN class="spec-item">Unit: {props.item.unit}</SPAN>
+              {props.item.previews.some((preview) => preview.pdf)
+                ? (
+                  <SPAN
+                    class="spec-item"
+                    style="cursor: pointer;"
+                    onclick={`location.href = '/${props.item.formId}#previews'`}
+                  >
+                    PDF: Available
+                  </SPAN>
+                )
+                : ""}
+            </DIV>
+          </DIV>
+        </DIV>
+      </DIV>
+    </LI>
   );
 }
 

@@ -3,6 +3,7 @@ import { Get, Router } from "@fartlabs/rtx";
 import { IndexPageRoute } from "./routes/index.tsx";
 import { CatalogItemPageRoute } from "./routes/catalog-item/index.tsx";
 import { NotFoundRoute } from "./routes/not-found.tsx";
+import { FileApiRoutes } from "./routes/api/files/index.tsx";
 
 function StaticRoute() {
   return (
@@ -17,6 +18,7 @@ function StaticRoute() {
 export function App() {
   return (
     <Router>
+      <FileApiRoutes />
       <IndexPageRoute />
       <CatalogItemPageRoute />
       <StaticRoute />
