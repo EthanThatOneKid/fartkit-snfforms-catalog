@@ -6,10 +6,8 @@ import {
   FORM,
   H1,
   H2,
-  IMG,
   INPUT,
   LABEL,
-  LI,
   P,
   SCRIPT,
   TABLE,
@@ -17,7 +15,6 @@ import {
   TD,
   TH,
   TR,
-  UL,
 } from "@fartlabs/htx";
 import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
@@ -368,6 +365,24 @@ export function EditPageRoute() {
             );
           }
 
+          // File size limit (10MB per file)
+          const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+          for (const file of files) {
+            if (file.size > MAX_FILE_SIZE) {
+              return new Response(
+                JSON.stringify({
+                  success: false,
+                  error:
+                    `File ${file.name} is too large. Maximum size is 10MB.`,
+                }),
+                {
+                  headers: { "Content-Type": "application/json" },
+                  status: 400,
+                },
+              );
+            }
+          }
+
           const catalogItems = (await catalogService.getItems()) ?? [];
           const item = catalogItems.find((item) => item.formId === formId);
           if (!item) {
@@ -385,10 +400,24 @@ export function EditPageRoute() {
           for (const file of files) {
             const filename = file.name;
             const ext = filename.toLowerCase().split(".").pop();
+            const data = new Uint8Array(await file.arrayBuffer());
+
+            // Validate file extension
+            if (!ext || !["jpg", "jpeg", "webp", "pdf"].includes(ext)) {
+              return new Response(
+                JSON.stringify({
+                  success: false,
+                  error: `File ${filename} has an unsupported file type.`,
+                }),
+                {
+                  headers: { "Content-Type": "application/json" },
+                  status: 400,
+                },
+              );
+            }
 
             if (ext === "jpg" || ext === "jpeg") {
               const fileType = CatalogFileType.JPG;
-              const data = new Uint8Array(await file.arrayBuffer());
               await catalogService.setFile(fileType, filename, data);
 
               newPreviews.push({
@@ -397,7 +426,6 @@ export function EditPageRoute() {
               });
             } else if (ext === "webp") {
               const fileType = CatalogFileType.WEBP;
-              const data = new Uint8Array(await file.arrayBuffer());
               await catalogService.setFile(fileType, filename, data);
 
               newPreviews.push({
@@ -406,7 +434,6 @@ export function EditPageRoute() {
               });
             } else if (ext === "pdf") {
               const fileType = CatalogFileType.PDF;
-              const data = new Uint8Array(await file.arrayBuffer());
               await catalogService.setFile(fileType, filename, data);
 
               // Try to link PDF to an image with same basename
@@ -550,6 +577,22 @@ export function EditPageRoute() {
           // If removing an image, also remove any PDFs linked to it
           if (ext === "jpg" || ext === "jpeg" || ext === "webp") {
             const imageUrl = `/files/${filename}`;
+            const originalPreview = item.previews.find((p) =>
+              p.src === imageUrl
+            );
+
+            // If the image had a linked PDF, delete it from KV store
+            if (originalPreview && originalPreview.pdf) {
+              const pdfFilename = originalPreview.pdf.split("/").pop();
+              if (pdfFilename) {
+                await catalogService.removeFile(
+                  CatalogFileType.PDF,
+                  pdfFilename,
+                );
+              }
+            }
+
+            // Remove the image from previews array
             for (let i = 0; i < newPreviews.length; i++) {
               if (newPreviews[i].src === imageUrl) {
                 newPreviews[i] = {
@@ -569,6 +612,111 @@ export function EditPageRoute() {
               JSON.stringify({
                 success: false,
                 error: "Failed to update item",
+              }),
+              {
+                headers: { "Content-Type": "application/json" },
+                status: 500,
+              },
+            );
+          }
+
+          return new Response(
+            JSON.stringify({ success: true }),
+            {
+              headers: { "Content-Type": "application/json" },
+            },
+          );
+        }}
+      />
+
+      <Post
+        pattern="/edit/:formId/alt-text"
+        handler={async (ctx) => {
+          const formId = ctx.params?.pathname.groups.formId;
+          if (!formId) {
+            return new Response(
+              JSON.stringify({
+                success: false,
+                error: "Form ID not found",
+              }),
+              {
+                headers: { "Content-Type": "application/json" },
+                status: 400,
+              },
+            );
+          }
+
+          const formData = await ctx.request.formData();
+
+          // Check the admin password
+          const secretPassword = formData.get("password") as string;
+          const expectedPassword = Deno.env.get("SECRET_PASSWORD");
+
+          if (
+            !secretPassword || !expectedPassword ||
+            secretPassword !== expectedPassword
+          ) {
+            return new Response(
+              JSON.stringify({
+                success: false,
+                error: "Invalid admin password",
+              }),
+              {
+                headers: { "Content-Type": "application/json" },
+                status: 401,
+              },
+            );
+          }
+
+          const src = formData.get("src") as string;
+          const newAlt = formData.get("alt") as string;
+
+          if (!src || !newAlt) {
+            return new Response(
+              JSON.stringify({
+                success: false,
+                error: "Missing src or alt text",
+              }),
+              {
+                headers: { "Content-Type": "application/json" },
+                status: 400,
+              },
+            );
+          }
+
+          // Get the catalog item
+          const catalogItems = (await catalogService.getItems()) ?? [];
+          const item = catalogItems.find((item) => item.formId === formId);
+
+          if (!item) {
+            return new Response(
+              JSON.stringify({
+                success: false,
+                error: "Item not found",
+              }),
+              {
+                headers: { "Content-Type": "application/json" },
+                status: 404,
+              },
+            );
+          }
+
+          // Update the alt text for the matching preview
+          const updatedPreviews = item.previews.map((preview) => {
+            if (preview.src === src) {
+              return { ...preview, alt: newAlt };
+            }
+            return preview;
+          });
+
+          const updatedItem = { ...item, previews: updatedPreviews };
+          const success = await catalogService.updateItem(formId, updatedItem);
+
+          if (!success) {
+            return new Response(
+              JSON.stringify({
+                success: false,
+                error: "Failed to update alt text",
               }),
               {
                 headers: { "Content-Type": "application/json" },
@@ -684,58 +832,16 @@ async function handleEditFormSubmit(event) {
   return true;
 }
 
-async function handleUploadSubmit(event) {
-  event.preventDefault();
-  
-  const formData = new FormData(event.target);
-  const files = formData.getAll('files');
-  const password = formData.get('password');
-  
-  if (files.length === 0) {
-    alert('Please select at least one file');
-    return false;
-  }
-  
-  if (!password) {
-    alert('Admin password is required');
-    return false;
-  }
-  
-  // Get formId from URL
-  const pathParts = window.location.pathname.split('/');
-  const formId = pathParts[pathParts.length - 1];
-  
-  if (!formId) {
-    alert('Form ID not found');
-    return false;
-  }
-  
-  const uploadData = new FormData();
-  uploadData.append('password', password);
-  files.forEach(file => uploadData.append('files', file));
-  
-  try {
-    const response = await fetch(\`/edit/\${formId}/previews\`, {
-      method: 'POST',
-      body: uploadData,
-    });
-    
-    const result = await response.json();
-    
-    if (result.success) {
-      window.location.reload();
-    } else {
-      alert('Failed to upload files: ' + (result.error || 'Unknown error'));
-    }
-  } catch (error) {
-    console.error('Error uploading files:', error);
-    alert('An error occurred while uploading files');
-  }
-  
-  return true;
-}
+
 
 async function removePreviewFile(filename, type) {
+  // Show confirmation dialog
+  const confirmed = confirm(\`Are you sure you want to remove \${filename}? This action cannot be undone.\`);
+  if (!confirmed) {
+    return;
+  }
+  
+  // Get password from user
   const password = prompt('Enter admin password to remove this file:');
   if (!password) {
     return;
@@ -777,11 +883,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const editForm = document.getElementById('edit-form');
   if (editForm) {
     editForm.addEventListener('submit', handleEditFormSubmit);
-  }
-  
-  const uploadForm = document.getElementById('upload-form');
-  if (uploadForm) {
-    uploadForm.addEventListener('submit', handleUploadSubmit);
   }
 });
 `;
@@ -959,99 +1060,39 @@ export function EditItemPage(props: EditItemPageProps) {
           </DIV>
         </FORM>
 
-        {props.item.previews.length > 0
-          ? (
-            <DIV class="card">
-              <DIV class="card-header">
-                <H2 class="card-title">Preview Files</H2>
-                <P class="text-muted mb-0">Manage preview images and PDFs</P>
-              </DIV>
-              <UL class="preview-list">
-                {props.item.previews.map((preview, _index) => (
-                  <LI class="preview-item">
-                    <DIV class="preview-content">
-                      <IMG
-                        src={preview.src}
-                        alt={preview.alt}
-                        class="preview-thumbnail"
-                        loading="lazy"
-                      />
-                      <DIV class="preview-info">
-                        <P class="preview-filename">
-                          {preview.src.split("/").pop()}
-                        </P>
-                        {preview.pdf && (
-                          <P class="preview-pdf">
-                            PDF: {preview.pdf.split("/").pop()}
-                          </P>
-                        )}
-                      </DIV>
-                      <DIV class="preview-actions">
-                        <BUTTON
-                          type="button"
-                          class="btn btn-sm btn-danger"
-                          onclick={`removePreviewFile('${
-                            preview.src.split("/").pop()
-                          }', 'image')`}
-                        >
-                          Remove Image
-                        </BUTTON>
-                        {preview.pdf && (
-                          <BUTTON
-                            type="button"
-                            class="btn btn-sm btn-danger"
-                            onclick={`removePreviewFile('${
-                              preview.pdf.split("/").pop()
-                            }', 'pdf')`}
-                          >
-                            Remove PDF
-                          </BUTTON>
-                        )}
-                      </DIV>
-                    </DIV>
-                  </LI>
-                ))}
-              </UL>
-            </DIV>
-          )
-          : ""}
-
         <DIV class="card">
           <DIV class="card-header">
-            <H2 class="card-title">Upload Preview Files</H2>
-            <P class="text-muted mb-0">Add images and PDFs for this form</P>
+            <H2 class="card-title">Preview Files</H2>
+            <P class="text-muted mb-0">
+              Manage preview images and PDFs for this form
+            </P>
+            <DIV class="mt-3">
+              <A
+                href={`/manage-files/${props.item.formId}`}
+                class="btn btn-primary"
+              >
+                Manage Files
+              </A>
+            </DIV>
           </DIV>
-          <FORM id="upload-form" enctype="multipart/form-data">
-            <DIV class="form-group">
-              <LABEL for="files">Files</LABEL>
-              <INPUT
-                type="file"
-                id="files"
-                name="files"
-                multiple="multiple"
-                accept=".jpg,.jpeg,.webp,.pdf"
-                required="required"
-              />
-              <P class="form-help">
-                Select multiple images (.jpg, .webp) and/or PDFs (.pdf)
-              </P>
-            </DIV>
-            <DIV class="form-group">
-              <LABEL for="upload-password">Admin Password</LABEL>
-              <INPUT
-                type="password"
-                id="upload-password"
-                name="password"
-                required="required"
-                placeholder="Enter admin password"
-              />
-            </DIV>
-            <DIV class="form-actions">
-              <BUTTON type="submit" class="btn btn-primary">
-                Upload Files
-              </BUTTON>
-            </DIV>
-          </FORM>
+          {props.item.previews.length > 0
+            ? (
+              <DIV class="card-body">
+                <P class="text-muted">
+                  This form has {props.item.previews.length}{" "}
+                  preview file{props.item.previews.length === 1 ? "" : "s"}.
+                  Click "Manage Files" to view, upload, or remove files.
+                </P>
+              </DIV>
+            )
+            : (
+              <DIV class="card-body">
+                <P class="text-muted">
+                  No preview files uploaded yet. Click "Manage Files" to upload
+                  images and PDFs.
+                </P>
+              </DIV>
+            )}
         </DIV>
 
         <FORM
