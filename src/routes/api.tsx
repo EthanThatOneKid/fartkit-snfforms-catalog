@@ -8,7 +8,7 @@ export function ApiRoute() {
     <Router>
       <Get
         pattern="/api/catalog"
-        handler={async (ctx: { request: Request }) => {
+        handler={async (_ctx) => {
           try {
             const catalogItems = await catalogService.getItems();
 
