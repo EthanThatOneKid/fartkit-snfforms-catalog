@@ -20,6 +20,13 @@ import { RedirectPage } from "#/components/redirect.tsx";
 import { NotFoundPage } from "#/components/not-found.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
+import {
+  catalogItemFormSchema,
+  parseFormData,
+  validateFormData,
+} from "#/lib/validation.ts";
+
+const catalogService = new KvCatalogService(kv);
 
 export function EditPageRoute() {
   return (
@@ -27,7 +34,6 @@ export function EditPageRoute() {
       <Get
         pattern="/edit"
         handler={async (_ctx) => {
-          const catalogService = new KvCatalogService(kv);
           const catalogItems = (await catalogService.getItems()) ?? [];
 
           return new Response(
@@ -41,7 +47,6 @@ export function EditPageRoute() {
         pattern="/edit"
         handler={async (ctx) => {
           const formData = await ctx.request.formData();
-          const catalogService = new KvCatalogService(kv);
 
           // Check the admin password from the Authorization header.
           const authHeader = ctx.request.headers.get("Authorization");
@@ -58,40 +63,80 @@ export function EditPageRoute() {
             );
           }
 
-          const formId = formData.get("formId") as string;
+          // Parse and validate form data using Zod
+          const rawFormData = parseFormData(formData);
+          const validation = validateFormData(
+            catalogItemFormSchema,
+            rawFormData,
+          );
+
+          if (!validation.success) {
+            return new Response(
+              JSON.stringify({
+                success: false,
+                error: validation.error,
+              }),
+              {
+                headers: { "Content-Type": "application/json" },
+                status: validation.status,
+              },
+            );
+          }
+
+          const {
+            formId,
+            category,
+            description,
+            size,
+            paper,
+            color,
+            sides,
+            unit,
+          } = validation.data;
+
           const url = new URL(ctx.request.url);
           const originalFormId = url.searchParams.get("formId");
           const catalogItems = (await catalogService.getItems()) ?? [];
 
           // Use the original formId from the URL to find the existing item, not the potentially changed formId from the form.
+          // If no originalFormId is provided, this is a new item creation request.
           const existingItem = originalFormId
             ? catalogItems.find((item) => item.formId === originalFormId)
-            : catalogItems.find((item) => item.formId === formId);
+            : null;
 
-          // Create the item data.
+          // Create the item data with validated inputs.
           const itemData: CatalogItem = {
             formId,
-            category: formData.get("category") as string,
-            description: formData.get("description") as string,
-            size: formData.get("size") as string,
-            paper: formData.get("paper") as string,
-            color: formData.get("color") as string,
-            sides: formData.get("sides") as string,
-            unit: formData.get("unit") as string,
+            category,
+            description,
+            size,
+            paper,
+            color,
+            sides,
+            unit,
             previews: existingItem ? existingItem.previews : [], // Keep existing previews or empty for new items.
           };
 
           let success: boolean;
           if (existingItem) {
             if (originalFormId && originalFormId !== formId) {
-              // The formId has changed, so delete the old item and create a new one.
-              const deleteSuccess = await catalogService.deleteItem(
-                originalFormId,
+              // The formId has changed, so we need to handle this carefully to avoid data loss.
+              // First, check if the new formId already exists.
+              const newItemExists = catalogItems.find((item) =>
+                item.formId === formId
               );
-              if (deleteSuccess) {
-                success = await catalogService.addItem(itemData);
+              if (newItemExists) {
+                success = false; // Cannot change to an existing formId
               } else {
-                success = false;
+                // Safe to proceed: delete old item and create new one.
+                const deleteSuccess = await catalogService.deleteItem(
+                  originalFormId,
+                );
+                if (deleteSuccess) {
+                  success = await catalogService.addItem(itemData);
+                } else {
+                  success = false;
+                }
               }
             } else {
               // Update the existing item with the same formId.
@@ -104,10 +149,13 @@ export function EditPageRoute() {
 
           if (!success) {
             return new Response(
-              <NotFoundPage itemId={formId} />,
+              JSON.stringify({
+                success: false,
+                error: "Failed to save item. Please try again.",
+              }),
               {
-                headers: { "Content-Type": "text/html" },
-                status: 400,
+                headers: { "Content-Type": "application/json" },
+                status: 500,
               },
             );
           }
@@ -140,7 +188,6 @@ export function EditPageRoute() {
             );
           }
 
-          const catalogService = new KvCatalogService(kv);
           const catalogItems = (await catalogService.getItems()) ?? [];
           const item = catalogItems.find((item) => item.formId === formId);
 
@@ -193,7 +240,6 @@ export function EditPageRoute() {
             );
           }
 
-          const catalogService = new KvCatalogService(kv);
           const success = await catalogService.deleteItem(formId);
 
           if (!success) {
@@ -247,22 +293,20 @@ export function EditPage(props: EditPageProps) {
               <TH>Category</TH>
               <TH>Actions</TH>
             </TR>
-            {props.items
-              .map((item) => (
-                <TR>
-                  <TD>
-                    <A href={`/${item.formId}`}>{item.formId}</A>
-                  </TD>
-                  <TD>{item.description}</TD>
-                  <TD>{item.category}</TD>
-                  <TD>
-                    <A href={`/edit/${item.formId}`} class="btn">
-                      Edit
-                    </A>
-                  </TD>
-                </TR>
-              ))
-              .join("")}
+            {props.items.map((item) => (
+              <TR>
+                <TD>
+                  <A href={`/${item.formId}`}>{item.formId}</A>
+                </TD>
+                <TD>{item.description}</TD>
+                <TD>{item.category}</TD>
+                <TD>
+                  <A href={`/edit/${item.formId}`} class="btn">
+                    Edit
+                  </A>
+                </TD>
+              </TR>
+            ))}
           </TBODY>
         </TABLE>
       </DIV>
@@ -527,22 +571,6 @@ async function handleFormSubmit(event) {
     }
   }
   
-  // Submit the form with the password in the Authorization header.
-  const submitForm = document.createElement('form');
-  submitForm.method = 'POST';
-  submitForm.action = '/edit';
-  
-  // Add all the form fields.
-  for (const [key, value] of formData.entries()) {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = value;
-    submitForm.appendChild(input);
-  }
-  
-  document.body.appendChild(submitForm);
-  
   // Submit with custom headers using fetch.
   try {
     const response = await fetch('/edit', {
@@ -563,7 +591,6 @@ async function handleFormSubmit(event) {
     alert('An error occurred while submitting the form');
   }
   
-  document.body.removeChild(submitForm);
   return true;
 }
 

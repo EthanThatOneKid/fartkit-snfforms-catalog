@@ -20,6 +20,9 @@ import { NotFoundPage } from "#/components/not-found.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { findCatalogItem } from "#/lib/snfforms.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
+import { formIdParamSchema, validateFormData } from "#/lib/validation.ts";
+
+const catalogService = new KvCatalogService(kv);
 
 export function CatalogItemPageRoute() {
   return (
@@ -35,7 +38,20 @@ export function CatalogItemPageRoute() {
             );
           }
 
-          const catalogService = new KvCatalogService(kv);
+          // Validate formId parameter
+          const validation = validateFormData(formIdParamSchema, {
+            formId: itemId,
+          });
+          if (!validation.success) {
+            return new Response(
+              <NotFoundPage itemId={itemId} />,
+              {
+                headers: { "Content-Type": "text/html" },
+                status: 400,
+              },
+            );
+          }
+
           const catalogItems = (await catalogService.getItems()) ?? [];
           const item = findCatalogItem(catalogItems, itemId);
           if (!item) {

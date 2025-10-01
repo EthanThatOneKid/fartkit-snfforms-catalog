@@ -7,13 +7,9 @@ import type { CatalogItem } from "#/lib/snfforms.ts";
 import { findCatalogItem } from "#/lib/snfforms.ts";
 import { searchCatalog } from "#/lib/orama.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
+import { searchQuerySchema, validateFormData } from "#/lib/validation.ts";
 
 const catalogService = new KvCatalogService(kv);
-// Only seed if the KV store is empty
-const existingItems = await catalogService.getItems();
-if (!existingItems || existingItems.length === 0) {
-  await catalogService.seed();
-}
 
 export function IndexPageRoute() {
   return (
@@ -22,9 +18,28 @@ export function IndexPageRoute() {
         pattern="/"
         handler={async (ctx) => {
           const url = new URL(ctx.request.url);
-          const search = url.searchParams.get("search");
+          const rawSearch = url.searchParams.get("search");
 
-          const catalogItems = (await catalogService.getItems()) ?? [];
+          // Validate search query
+          const searchValidation = validateFormData(
+            searchQuerySchema,
+            rawSearch,
+          );
+          const search = searchValidation.success
+            ? searchValidation.data
+            : null;
+
+          // Lazy seed: only seed if the KV store is empty
+          let catalogItems = (await catalogService.getItems()) ?? [];
+          if (catalogItems.length === 0) {
+            try {
+              await catalogService.seed();
+              catalogItems = (await catalogService.getItems()) ?? [];
+            } catch (error) {
+              console.error("Failed to seed catalog:", error);
+              // Continue with empty catalog rather than failing the request
+            }
+          }
           const orama = await catalogService.getOramaIndex();
           const items = search && orama
             ? (await searchCatalog(orama, search)).hits.map((result) => {
@@ -46,7 +61,7 @@ export function IndexPageRoute() {
             : catalogItems;
 
           return new Response(
-            <IndexPage search={search} items={items} />,
+            <IndexPage search={search ?? null} items={items} />,
             { headers: { "Content-Type": "text/html" } },
           );
         }}

@@ -131,9 +131,19 @@ export class KvCatalogService implements CatalogService {
       return null;
     }
 
-    // Create a simple hash of the items to detect changes.
+    // Create a comprehensive hash of the items to detect changes.
     const itemsHash = JSON.stringify(
-      items.map((item) => item.formId).toSorted(),
+      items.map((item) => ({
+        formId: item.formId,
+        category: item.category,
+        description: item.description,
+        size: item.size,
+        paper: item.paper,
+        color: item.color,
+        sides: item.sides,
+        unit: item.unit,
+        previews: item.previews,
+      })).toSorted((a, b) => a.formId.localeCompare(b.formId)),
     );
 
     // If we have a cached index and the items haven't changed, return it.
