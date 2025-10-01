@@ -54,7 +54,7 @@ export class KvCatalogService implements CatalogService {
       return false;
     }
 
-    // Check if item already exists
+    // Check if the item already exists.
     const existingIndex = catalogItems.findIndex((existingItem) =>
       existingItem.formId === item.formId
     );

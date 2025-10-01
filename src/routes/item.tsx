@@ -20,7 +20,7 @@ import { NotFoundPage } from "#/components/not-found.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { findCatalogItem } from "#/lib/snfforms.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
-import { formIdParamSchema, validateFormData } from "#/lib/validation.ts";
+import { formIdParamSchema } from "#/lib/validation.ts";
 
 const catalogService = new KvCatalogService(kv);
 
@@ -38,8 +38,8 @@ export function CatalogItemPageRoute() {
             );
           }
 
-          // Validate formId parameter
-          const validation = validateFormData(formIdParamSchema, {
+          // Validate the formId parameter.
+          const validation = formIdParamSchema.safeParse({
             formId: itemId,
           });
           if (!validation.success) {
@@ -135,20 +135,22 @@ export function CatalogItemPage(props: CatalogItemPageProps) {
             </DIV>
             <UL class="preview-list">
               {/* deno-lint-ignore jsx-key */}
-              {props.item.previews.map((preview) => {
-                const img = (
-                  <IMG
-                    src={preview.src}
-                    alt={preview.alt || `${props.item.formId} form preview`}
-                    loading="lazy"
-                  />
-                );
-                return (
-                  <LI class="preview-item">
-                    {preview.pdf ? <A href={preview.pdf}>{img}</A> : img}
-                  </LI>
-                );
-              })}
+              {props.item.previews
+                .map((preview) => {
+                  const img = (
+                    <IMG
+                      src={preview.src}
+                      alt={preview.alt || `${props.item.formId} form preview`}
+                      loading="lazy"
+                    />
+                  );
+                  return (
+                    <LI class="preview-item">
+                      {preview.pdf ? <A href={preview.pdf}>{img}</A> : img}
+                    </LI>
+                  );
+                })
+                .join("")}
             </UL>
           </DIV>
         )

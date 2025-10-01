@@ -20,11 +20,7 @@ import { RedirectPage } from "#/components/redirect.tsx";
 import { NotFoundPage } from "#/components/not-found.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
-import {
-  catalogItemFormSchema,
-  parseFormData,
-  validateFormData,
-} from "#/lib/validation.ts";
+import { catalogItemFormSchema, parseFormData } from "#/lib/validation.ts";
 
 const catalogService = new KvCatalogService(kv);
 
@@ -48,12 +44,11 @@ export function EditPageRoute() {
         handler={async (ctx) => {
           const formData = await ctx.request.formData();
 
-          // Check the admin password from the Authorization header.
-          const authHeader = ctx.request.headers.get("Authorization");
-          const adminPassword = authHeader?.replace("Bearer ", "");
+          // Check the admin password from the form data.
+          const secretPassword = formData.get("password") as string;
           const expectedPassword = Deno.env.get("SECRET_PASSWORD");
 
-          if (!expectedPassword || adminPassword !== expectedPassword) {
+          if (!expectedPassword || secretPassword !== expectedPassword) {
             return new Response(
               <PasswordErrorPage />,
               {
@@ -63,22 +58,26 @@ export function EditPageRoute() {
             );
           }
 
-          // Parse and validate form data using Zod
+          // Parse and validate form data using Zod.
           const rawFormData = parseFormData(formData);
-          const validation = validateFormData(
-            catalogItemFormSchema,
-            rawFormData,
-          );
+
+          // Remove password from form data before validation since it's not part of the catalog item schema.
+          const { password: _, ...catalogData } = rawFormData;
+
+          const validation = catalogItemFormSchema.safeParse(catalogData);
 
           if (!validation.success) {
+            const errorMessage = validation.error.issues
+              .map((err) => `${err.path.join(".")}: ${err.message}`)
+              .join(", ");
             return new Response(
               JSON.stringify({
                 success: false,
-                error: validation.error,
+                error: `Validation failed: ${errorMessage}`,
               }),
               {
                 headers: { "Content-Type": "application/json" },
-                status: validation.status,
+                status: 400,
               },
             );
           }
@@ -161,7 +160,7 @@ export function EditPageRoute() {
           }
 
           return new Response(
-            <RedirectPage redirectUrl="/edit" />,
+            <RedirectPage redirectUrl={`/${formId}`} />,
             { headers: { "Content-Type": "text/html" } },
           );
         }}
@@ -222,11 +221,10 @@ export function EditPageRoute() {
             );
           }
 
-          // Check the admin password from the Authorization header.
-          const authHeader = ctx.request.headers.get("Authorization");
-          const adminPassword = authHeader?.replace("Bearer ", "");
+          // Check the admin password from the form data.
+          const formData = await ctx.request.formData();
+          const adminPassword = formData.get("password") as string;
           const expectedPassword = Deno.env.get("SECRET_PASSWORD");
-
           if (!expectedPassword || adminPassword !== expectedPassword) {
             return new Response(
               JSON.stringify({
@@ -293,20 +291,22 @@ export function EditPage(props: EditPageProps) {
               <TH>Category</TH>
               <TH>Actions</TH>
             </TR>
-            {props.items.map((item) => (
-              <TR>
-                <TD>
-                  <A href={`/${item.formId}`}>{item.formId}</A>
-                </TD>
-                <TD>{item.description}</TD>
-                <TD>{item.category}</TD>
-                <TD>
-                  <A href={`/edit/${item.formId}`} class="btn">
-                    Edit
-                  </A>
-                </TD>
-              </TR>
-            ))}
+            {props.items
+              .map((item) => (
+                <TR>
+                  <TD>
+                    <A href={`/${item.formId}`}>{item.formId}</A>
+                  </TD>
+                  <TD>{item.description}</TD>
+                  <TD>{item.category}</TD>
+                  <TD>
+                    <A href={`/edit/${item.formId}`} class="btn">
+                      Edit
+                    </A>
+                  </TD>
+                </TR>
+              ))
+              .join("")}
           </TBODY>
         </TABLE>
       </DIV>
@@ -330,24 +330,22 @@ async function handleEditFormSubmit(event) {
     return false;
   }
   
-  // Get the admin password.
-  const password = prompt('Enter admin password to update this form:');
+  // Get the admin password from the form.
+  const password = formData.get('password');
   if (!password) {
+    alert('Admin password is required');
     return false;
   }
   
-  // Submit the form with the password in the Authorization header.
+  // Submit the form data directly.
   try {
     const response = await fetch('/edit', {
       method: 'POST',
-      headers: {
-        'Authorization': \`Bearer \${password}\`,
-      },
       body: formData,
     });
     
     if (response.ok) {
-      window.location.href = '/edit';
+      window.location.href = \`/\${formId}\`;
     } else {
       alert('Failed to update form. Please check your password and try again.');
     }
@@ -474,6 +472,17 @@ export function EditItemPage(props: EditItemPageProps) {
             />
           </DIV>
 
+          <DIV class="form-group">
+            <LABEL for="password">Admin Password</LABEL>
+            <INPUT
+              type="password"
+              id="password"
+              name="password"
+              required="required"
+              placeholder="Enter admin password"
+            />
+          </DIV>
+
           <DIV class="form-actions">
             <DIV class="btn-group">
               <BUTTON type="submit" class="btn btn-primary">
@@ -505,12 +514,12 @@ async function deleteItem(formId) {
   }
 
   try {
+    const formData = new FormData();
+    formData.append('password', password);
+    
     const response = await fetch(\`/edit/\${formId}\`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': \`Bearer \${password}\`,
-      },
+      body: formData,
     });
     
     const result = await response.json();
@@ -550,9 +559,10 @@ async function handleFormSubmit(event) {
     return false;
   }
   
-  // Get the admin password.
-  const password = prompt('Enter admin password to submit this form:');
+  // Get the admin password from the form.
+  const password = formData.get('password');
   if (!password) {
+    alert('Admin password is required');
     return false;
   }
   
@@ -571,18 +581,15 @@ async function handleFormSubmit(event) {
     }
   }
   
-  // Submit with custom headers using fetch.
+  // Submit the form data directly.
   try {
     const response = await fetch('/edit', {
       method: 'POST',
-      headers: {
-        'Authorization': \`Bearer \${password}\`,
-      },
       body: formData,
     });
     
     if (response.ok) {
-      window.location.href = '/edit';
+      window.location.href = \`/\${formId}\`;
     } else {
       alert('Failed to submit form. Please check your password and try again.');
     }
@@ -702,6 +709,17 @@ export function CreateItemPage() {
               name="unit"
               required="required"
               placeholder="Enter unit (e.g., Each, Pack, Box)"
+            />
+          </DIV>
+
+          <DIV class="form-group">
+            <LABEL for="password">Admin Password</LABEL>
+            <INPUT
+              type="password"
+              id="password"
+              name="password"
+              required="required"
+              placeholder="Enter admin password"
             />
           </DIV>
 

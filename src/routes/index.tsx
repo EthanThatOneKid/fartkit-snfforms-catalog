@@ -7,7 +7,7 @@ import type { CatalogItem } from "#/lib/snfforms.ts";
 import { findCatalogItem } from "#/lib/snfforms.ts";
 import { searchCatalog } from "#/lib/orama.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
-import { searchQuerySchema, validateFormData } from "#/lib/validation.ts";
+import { searchQuerySchema } from "#/lib/validation.ts";
 
 const catalogService = new KvCatalogService(kv);
 
@@ -20,16 +20,13 @@ export function IndexPageRoute() {
           const url = new URL(ctx.request.url);
           const rawSearch = url.searchParams.get("search");
 
-          // Validate search query
-          const searchValidation = validateFormData(
-            searchQuerySchema,
-            rawSearch,
-          );
+          // Validate the search query parameter.
+          const searchValidation = searchQuerySchema.safeParse(rawSearch);
           const search = searchValidation.success
             ? searchValidation.data
             : null;
 
-          // Lazy seed: only seed if the KV store is empty
+          // Lazy seed: only seed if the KV store is empty.
           let catalogItems = (await catalogService.getItems()) ?? [];
           if (catalogItems.length === 0) {
             try {
@@ -37,27 +34,29 @@ export function IndexPageRoute() {
               catalogItems = (await catalogService.getItems()) ?? [];
             } catch (error) {
               console.error("Failed to seed catalog:", error);
-              // Continue with empty catalog rather than failing the request
+              // Continue with empty catalog rather than failing the request.
             }
           }
           const orama = await catalogService.getOramaIndex();
           const items = search && orama
-            ? (await searchCatalog(orama, search)).hits.map((result) => {
-              const item = findCatalogItem(
-                catalogItems,
-                result.document.formId,
-              );
-              if (!item) {
-                // If we can't find a catalog item from search results,
-                // this indicates a data inconsistency, but we'll handle it gracefully
-                console.warn(
-                  `Catalog item not found in search results: ${result.document.formId}`,
+            ? (await searchCatalog(orama, search)).hits
+              .map((result) => {
+                const item = findCatalogItem(
+                  catalogItems,
+                  result.document.formId,
                 );
-                return null;
-              }
+                if (!item) {
+                  // If we can't find a catalog item from search results,
+                  // this indicates a data inconsistency, but we'll handle it gracefully.
+                  console.warn(
+                    `Catalog item not found in search results: ${result.document.formId}`,
+                  );
+                  return null;
+                }
 
-              return item;
-            }).filter((item): item is CatalogItem => item !== null)
+                return item;
+              })
+              .filter((item): item is CatalogItem => item !== null)
             : catalogItems;
 
           return new Response(
