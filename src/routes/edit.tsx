@@ -495,7 +495,8 @@ export function EditItemPage(props: EditItemPageProps) {
             <BUTTON
               type="button"
               class="btn btn-danger"
-              onclick={`if (confirm('Are you sure you want to delete ${props.item.formId}? This action cannot be undone.')) { deleteItem('${props.item.formId}'); }`}
+              data-form-id={props.item.formId}
+              onclick="handleDeleteClick(this)"
             >
               Delete Item
             </BUTTON>
@@ -533,6 +534,13 @@ async function deleteItem(formId) {
   } catch (error) {
     console.error('Error deleting item:', error);
     alert('An error occurred while deleting the item');
+  }
+}
+
+function handleDeleteClick(button) {
+  const formId = button.getAttribute('data-form-id');
+  if (confirm('Are you sure you want to delete ' + formId + '? This action cannot be undone.')) {
+    deleteItem(formId);
   }
 }
 `;
