@@ -17,6 +17,19 @@ function StaticRoute() {
   );
 }
 
+function FaviconRoute() {
+  return (
+    <Get
+      pattern="/favicon.ico"
+      handler={() =>
+        new Response(null, {
+          status: 302,
+          headers: { Location: "/snf-logo.png" },
+        })}
+    />
+  );
+}
+
 export function App() {
   return (
     <Router>
@@ -26,6 +39,7 @@ export function App() {
       <FilesPageRoute />
       <CatalogItemPageRoute />
       <ApiRoute />
+      <FaviconRoute />
       <StaticRoute />
       <NotFoundRoute />
     </Router>
