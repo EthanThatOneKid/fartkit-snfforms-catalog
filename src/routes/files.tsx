@@ -18,6 +18,7 @@ import {
 import { Layout } from "#/components/layout.tsx";
 import { RedirectPage } from "#/components/redirect.tsx";
 import { NotFoundPage } from "#/components/not-found.tsx";
+import { Modal, ModalScript, PasswordModal } from "#/components/modal.tsx";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { kv, KvCatalogService } from "#/lib/kv.ts";
 import { CatalogFileType } from "#/lib/catalog.ts";
@@ -30,15 +31,15 @@ async function handleUploadSubmit(event) {
   
   const formData = new FormData(event.target);
   const files = formData.getAll('files');
-  const password = formData.get('password');
   
   if (files.length === 0) {
-    alert('Please select at least one file');
+    await showModal('confirmModal', 'Error', 'Please select at least one file', 'OK', '');
     return false;
   }
   
+  // Get password from user using modal
+  const password = await showPasswordModal('passwordModal', 'Admin Password Required', 'Enter admin password to upload files:', 'Upload', 'Cancel');
   if (!password) {
-    alert('Admin password is required');
     return false;
   }
   
@@ -47,7 +48,7 @@ async function handleUploadSubmit(event) {
   const formId = pathParts[pathParts.length - 1];
   
   if (!formId) {
-    alert('Form ID not found');
+    await showModal('confirmModal', 'Error', 'Form ID not found', 'OK', '');
     return false;
   }
   
@@ -72,11 +73,11 @@ async function handleUploadSubmit(event) {
     if (result.success) {
       window.location.reload();
     } else {
-      alert('Failed to upload files: ' + (result.error || 'Unknown error'));
+      await showModal('confirmModal', 'Error', 'Failed to upload files: ' + (result.error || 'Unknown error'), 'OK', '');
     }
   } catch (error) {
     console.error('Error uploading files:', error);
-    alert('An error occurred while uploading files');
+    await showModal('confirmModal', 'Error', 'An error occurred while uploading files', 'OK', '');
   } finally {
     // Reset button state
     submitButton.disabled = false;
@@ -125,8 +126,8 @@ async function saveAltText(src, originalAlt, newAlt, index) {
     return;
   }
   
-  // Get password from user
-  const password = prompt('Enter admin password to update alt text:');
+  // Get password from user using custom modal
+  const password = await showPasswordModal('passwordModal', 'Admin Password Required', 'Enter admin password to update alt text:', 'Update', 'Cancel');
   if (!password) {
     return;
   }
@@ -171,22 +172,19 @@ async function saveAltText(src, originalAlt, newAlt, index) {
   }
 }
 
-async function removePreviewFile(filename, type) {
-  // Check if this is a seeded file (should not be removable)
-  // This is a safety check - the UI should prevent calling this for seeded files
-  if (filename.includes('images/forms/reg/') || !filename.startsWith('/files/')) {
-    alert('This file cannot be removed as it is part of the seeded catalog data.');
-    return;
-  }
+async function removePreviewFile(filename, type, isSeeded = false) {
+  // Show confirmation dialog with different messages for seeded vs user files
+  const message = isSeeded 
+    ? \`Are you sure you want to remove the seeded file \${filename}? This will permanently delete it from the catalog. This action cannot be undone.\`
+    : \`Are you sure you want to remove \${filename}? This action cannot be undone.\`;
   
-  // Show confirmation dialog
-  const confirmed = confirm(\`Are you sure you want to remove \${filename}? This action cannot be undone.\`);
+  const confirmed = await showModal('confirmModal', 'Confirm Removal', message, 'Remove', 'Cancel');
   if (!confirmed) {
     return;
   }
   
   // Get password from user
-  const password = prompt('Enter admin password to remove this file:');
+  const password = await showPasswordModal('passwordModal', 'Admin Password Required', 'Enter admin password to remove this file:', 'Remove', 'Cancel');
   if (!password) {
     return;
   }
@@ -196,7 +194,7 @@ async function removePreviewFile(filename, type) {
   const formId = pathParts[pathParts.length - 1];
   
   if (!formId) {
-    alert('Form ID not found');
+    await showModal('confirmModal', 'Error', 'Form ID not found', 'OK', '');
     return;
   }
   
@@ -214,11 +212,11 @@ async function removePreviewFile(filename, type) {
     if (result.success) {
       window.location.reload();
     } else {
-      alert('Failed to remove file: ' + (result.error || 'Unknown error'));
+      await showModal('confirmModal', 'Error', 'Failed to remove file: ' + (result.error || 'Unknown error'), 'OK', '');
     }
   } catch (error) {
     console.error('Error removing file:', error);
-    alert('An error occurred while removing the file');
+    await showModal('confirmModal', 'Error', 'An error occurred while removing the file', 'OK', '');
   }
 }
 
@@ -397,8 +395,11 @@ export function FileRoute() {
             return new Response("Not Found", { status: 404 });
           }
 
-          // Determine file type from extension
-          const ext = filename.toLowerCase().split(".").pop();
+          // Determine file type from extension - extract more robustly
+          const lastDotIndex = filename.lastIndexOf(".");
+          const ext = lastDotIndex !== -1
+            ? filename.substring(lastDotIndex + 1).toLowerCase()
+            : "";
           let fileType: CatalogFileType;
           let contentType: string;
 
@@ -479,7 +480,8 @@ export function FilesPage(props: FilesPageProps) {
     <Layout
       title={`Manage Files - ${props.item.formId}`}
       description={`Manage files for ${props.item.formId}`}
-      head={<SCRIPT>{filesPageScript}</SCRIPT> + previewStyles}
+      head={<SCRIPT>{filesPageScript}</SCRIPT> + previewStyles +
+        <ModalScript />}
     >
       <DIV class="card">
         <DIV class="card-header">
@@ -488,7 +490,12 @@ export function FilesPage(props: FilesPageProps) {
             Upload and manage preview images and PDFs
           </P>
           <DIV class="mt-3">
-            <A href={`/edit/${props.item.formId}`} class="btn btn-secondary">
+            <A
+              href={`/edit/${props.item.formId}`}
+              class="btn btn-secondary"
+              data-testid="back-to-edit-link"
+              title="Go back to edit form"
+            >
               ← Back to Edit Form
             </A>
           </DIV>
@@ -508,7 +515,6 @@ export function FilesPage(props: FilesPageProps) {
                   const isSeededFile = preview.src.startsWith(
                     "images/forms/reg/",
                   );
-                  const isUserUploadedFile = preview.src.startsWith("/files/");
 
                   return (
                     <LI
@@ -518,7 +524,9 @@ export function FilesPage(props: FilesPageProps) {
                     >
                       <DIV class="preview-content">
                         <IMG
-                          src={preview.src}
+                          src={preview.src.startsWith("/")
+                            ? preview.src
+                            : `/${preview.src}`}
                           alt={preview.alt}
                           class="preview-thumbnail"
                           loading="lazy"
@@ -526,9 +534,9 @@ export function FilesPage(props: FilesPageProps) {
                         <DIV class="preview-info">
                           <P class="preview-filename">
                             {preview.src.split("/").pop()}
-                            {isSeededFile && (
-                              <SPAN class="seeded-badge">Seeded</SPAN>
-                            )}
+                            {isSeededFile
+                              ? <SPAN class="seeded-badge">Seeded</SPAN>
+                              : ""}
                           </P>
                           <DIV class="preview-alt-text">
                             <LABEL for={`alt-${_index}`} class="alt-label">
@@ -576,40 +584,53 @@ export function FilesPage(props: FilesPageProps) {
                             </P>
                           )}
                         </DIV>
-                        {isUserUploadedFile && (
-                          <DIV class="preview-actions">
-                            <BUTTON
-                              type="button"
-                              class="btn btn-sm btn-danger"
-                              onclick={`removePreviewFile('${
-                                preview.src.split("/").pop()
-                              }', 'image')`}
-                            >
-                              Remove Image
-                            </BUTTON>
-                            {preview.pdf && preview.pdf.startsWith("/files/") &&
-                              (
-                                <BUTTON
-                                  type="button"
-                                  class="btn btn-sm btn-danger"
-                                  onclick={`removePreviewFile('${
-                                    preview.pdf.split("/").pop()
-                                  }', 'pdf')`}
-                                >
-                                  Remove PDF
-                                </BUTTON>
-                              )}
-                          </DIV>
-                        )}
-                        {isSeededFile && (
-                          <DIV class="preview-actions">
-                            <SPAN class="text-muted">Cannot be removed</SPAN>
-                          </DIV>
-                        )}
+                        <DIV class="preview-actions">
+                          <BUTTON
+                            type="button"
+                            class={`btn btn-sm ${
+                              isSeededFile ? "btn-warning" : "btn-danger"
+                            }`}
+                            onclick={`removePreviewFile('${
+                              preview.src.split("/").pop()
+                            }', 'image', ${isSeededFile})`}
+                            title={isSeededFile
+                              ? "Remove this seeded file from the catalog (file will remain in system)"
+                              : "Delete this uploaded file permanently"}
+                          >
+                            {isSeededFile
+                              ? "Remove from Catalog"
+                              : "Delete Image"}
+                          </BUTTON>
+                          {preview.pdf
+                            ? (
+                              <BUTTON
+                                type="button"
+                                class={`btn btn-sm ${
+                                  preview.pdf.startsWith("images/forms/reg/")
+                                    ? "btn-warning"
+                                    : "btn-danger"
+                                }`}
+                                onclick={`removePreviewFile('${
+                                  preview.pdf.split("/").pop()
+                                }', 'pdf', ${isSeededFile})`}
+                                title={preview.pdf.startsWith(
+                                    "images/forms/reg/",
+                                  )
+                                  ? "Remove this seeded PDF from the catalog (file will remain in system)"
+                                  : "Delete this uploaded PDF permanently"}
+                              >
+                                {preview.pdf.startsWith("images/forms/reg/")
+                                  ? "Remove PDF from Catalog"
+                                  : "Delete PDF"}
+                              </BUTTON>
+                            )
+                            : ""}
+                        </DIV>
                       </DIV>
                     </LI>
                   );
-                })}
+                })
+                  .join("")}
               </UL>
             </DIV>
           )
@@ -635,16 +656,6 @@ export function FilesPage(props: FilesPageProps) {
                 Select multiple images (.jpg, .webp) and/or PDFs (.pdf)
               </P>
             </DIV>
-            <DIV class="form-group">
-              <LABEL for="upload-password">Admin Password</LABEL>
-              <INPUT
-                type="password"
-                id="upload-password"
-                name="password"
-                required="required"
-                placeholder="Enter admin password"
-              />
-            </DIV>
             <DIV class="form-actions">
               <BUTTON type="submit" class="btn btn-primary">
                 Upload Files
@@ -653,6 +664,21 @@ export function FilesPage(props: FilesPageProps) {
           </FORM>
         </DIV>
       </DIV>
+
+      <Modal
+        id="confirmModal"
+        title="Confirm Removal"
+        message="Are you sure you want to remove this file?"
+        confirmText="Remove"
+        cancelText="Cancel"
+      />
+      <PasswordModal
+        id="passwordModal"
+        title="Admin Password Required"
+        message="Enter admin password to update alt text:"
+        confirmText="Update"
+        cancelText="Cancel"
+      />
     </Layout>
   );
 }

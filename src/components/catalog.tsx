@@ -100,6 +100,8 @@ export function Catalog(props: CatalogProps) {
                       href={`/${item.formId}`}
                       class="item-content"
                       style="text-decoration: none; color: inherit;"
+                      data-testid={`form-link-${item.formId}`}
+                      title={`View details for ${item.formId}`}
                     >
                       <DIV class="item-thumbnails">
                         {thumbnailElement}

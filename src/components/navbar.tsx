@@ -4,12 +4,18 @@ export function Navbar() {
   return (
     <NAV>
       <DIV class="container">
-        <A href="/" class="navbar-brand">
+        <A
+          href="/"
+          class="navbar-brand"
+          data-testid="logo-link"
+          title="Go to homepage"
+        >
           <IMG
             src="/snf-logo.png"
             alt="SNF Forms Logo"
             class="logo"
             loading="eager"
+            data-testid="logo-image"
           />
           <DIV class="brand-text">
             <DIV class="brand-primary">SNF</DIV>
