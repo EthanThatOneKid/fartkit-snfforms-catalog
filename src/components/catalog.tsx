@@ -42,7 +42,12 @@ export function Catalog(props: CatalogProps) {
   return (
     <SECTION>
       <DIV class="categories">
-        <FORM id="search-form" class="search-form" method="GET" action="/">
+        <FORM
+          id="search-form"
+          class="search-form"
+          method="GET"
+          action="/catalog"
+        >
           <INPUT
             type="search"
             name="search"
@@ -55,13 +60,15 @@ export function Catalog(props: CatalogProps) {
         <DIV class="category-links">
           {categories.map((category) => (
             <A
-              href={props.search === category ? "/" : `/?search=${category}`}
+              href={props.search === category
+                ? "/catalog"
+                : `/catalog?search=${category}`}
               class={props.search === category ? "active" : ""}
             >
               {category}
             </A>
           ))
-            .join(", ")}
+            .join("")}
         </DIV>
       </DIV>
 
@@ -100,6 +107,8 @@ export function Catalog(props: CatalogProps) {
                       href={`/${item.formId}`}
                       class="item-content"
                       style="text-decoration: none; color: inherit;"
+                      data-testid={`form-link-${item.formId}`}
+                      title={`View details for ${item.formId}`}
                     >
                       <DIV class="item-thumbnails">
                         {thumbnailElement}
@@ -140,9 +149,13 @@ export function Catalog(props: CatalogProps) {
           </UL>
         )
         : (
-          <P class="text-center text-muted">
-            Search for a form using the search box above or browse by category
-          </P>
+          <DIV class="no-results">
+            <P class="text-center text-muted">
+              {props.search
+                ? "No results found. Try a different search term or browse by category."
+                : "Enter search query to search SNF Forms"}
+            </P>
+          </DIV>
         )}
     </SECTION>
   );
