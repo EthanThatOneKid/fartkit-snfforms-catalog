@@ -1,6 +1,7 @@
 import { serveDir } from "@std/http/file-server";
 import { Get, Router } from "@fartlabs/rtx";
 import { IndexPageRoute } from "./routes/index.tsx";
+import { CatalogPageRoute } from "./routes/catalog.tsx";
 import { CatalogItemPageRoute } from "./routes/item.tsx";
 import { EditPageRoute } from "./routes/edit.tsx";
 import { FileRoute, FilesPageRoute } from "./routes/files.tsx";
@@ -34,6 +35,7 @@ export function App() {
   return (
     <Router>
       <IndexPageRoute />
+      <CatalogPageRoute />
       <EditPageRoute />
       <FileRoute />
       <FilesPageRoute />

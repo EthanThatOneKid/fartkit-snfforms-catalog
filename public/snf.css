@@ -1234,6 +1234,24 @@ li {
   gap: 0.75rem;
 }
 
+/* No Results Styling */
+.no-results {
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: var(--white);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--gray-200);
+  margin-top: 2rem;
+}
+
+.no-results p {
+  font-size: 1.125rem;
+  color: var(--gray-600);
+  margin: 0;
+  line-height: 1.6;
+}
+
 /* Print Styles */
 @media print {
   nav, footer {

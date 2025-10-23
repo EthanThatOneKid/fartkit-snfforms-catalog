@@ -142,9 +142,13 @@ export function Catalog(props: CatalogProps) {
           </UL>
         )
         : (
-          <P class="text-center text-muted">
-            Search for a form using the search box above or browse by category
-          </P>
+          <DIV class="no-results">
+            <P class="text-center text-muted">
+              {props.search
+                ? "No results found. Try a different search term or browse by category."
+                : "Enter search query to search SNF Forms"}
+            </P>
+          </DIV>
         )}
     </SECTION>
   );
