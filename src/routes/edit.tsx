@@ -355,10 +355,15 @@ export function EditPageRoute() {
             );
           }
 
-          const files = formData.getAll("files") as File[];
-          if (files.length === 0) {
+          const imageFiles = formData.getAll("image-files") as File[];
+          const pdfFiles = formData.getAll("pdf-files") as File[];
+
+          if (imageFiles.length === 0) {
             return new Response(
-              JSON.stringify({ success: false, error: "No files provided" }),
+              JSON.stringify({
+                success: false,
+                error: "No image files provided",
+              }),
               {
                 headers: { "Content-Type": "application/json" },
                 status: 400,
@@ -368,7 +373,8 @@ export function EditPageRoute() {
 
           // File size limit (10MB per file)
           const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-          for (const file of files) {
+          const allFiles = [...imageFiles, ...pdfFiles];
+          for (const file of allFiles) {
             if (file.size > MAX_FILE_SIZE) {
               return new Response(
                 JSON.stringify({
@@ -398,7 +404,8 @@ export function EditPageRoute() {
 
           const newPreviews = [...item.previews];
 
-          for (const file of files) {
+          // Process image files first
+          for (const file of imageFiles) {
             const filename = file.name;
             // Extract extension more robustly - get the last part after the final dot
             const lastDotIndex = filename.lastIndexOf(".");
@@ -407,12 +414,13 @@ export function EditPageRoute() {
               : "";
             const data = new Uint8Array(await file.arrayBuffer());
 
-            // Validate file extension
-            if (!ext || !["jpg", "jpeg", "webp", "pdf"].includes(ext)) {
+            // Validate file extension for images
+            if (!ext || !["jpg", "jpeg", "webp"].includes(ext)) {
               return new Response(
                 JSON.stringify({
                   success: false,
-                  error: `File ${filename} has an unsupported file type.`,
+                  error:
+                    `File ${filename} has an unsupported image file type. Only .jpg, .jpeg, and .webp are allowed.`,
                 }),
                 {
                   headers: { "Content-Type": "application/json" },
@@ -437,7 +445,33 @@ export function EditPageRoute() {
                 src: `/files/${filename}`,
                 alt: `${formId} preview`,
               });
-            } else if (ext === "pdf") {
+            }
+
+            // Process PDF files
+            for (const file of pdfFiles) {
+              const filename = file.name;
+              // Extract extension more robustly - get the last part after the final dot
+              const lastDotIndex = filename.lastIndexOf(".");
+              const ext = lastDotIndex !== -1
+                ? filename.substring(lastDotIndex + 1).toLowerCase()
+                : "";
+              const data = new Uint8Array(await file.arrayBuffer());
+
+              // Validate file extension for PDFs
+              if (!ext || ext !== "pdf") {
+                return new Response(
+                  JSON.stringify({
+                    success: false,
+                    error:
+                      `File ${filename} has an unsupported PDF file type. Only .pdf files are allowed.`,
+                  }),
+                  {
+                    headers: { "Content-Type": "application/json" },
+                    status: 400,
+                  },
+                );
+              }
+
               const fileType = CatalogFileType.PDF;
               await catalogService.setFile(fileType, filename, data);
 

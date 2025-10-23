@@ -30,10 +30,11 @@ async function handleUploadSubmit(event) {
   event.preventDefault();
   
   const formData = new FormData(event.target);
-  const files = formData.getAll('files');
+  const imageFiles = formData.getAll('image-files');
+  const pdfFiles = formData.getAll('pdf-files');
   
-  if (files.length === 0) {
-    await showModal('confirmModal', 'Error', 'Please select at least one file', 'OK', '');
+  if (imageFiles.length === 0) {
+    await showModal('confirmModal', 'Error', 'Please select at least one image file', 'OK', '');
     return false;
   }
   
@@ -60,7 +61,8 @@ async function handleUploadSubmit(event) {
   
   const uploadData = new FormData();
   uploadData.append('password', password);
-  files.forEach(file => uploadData.append('files', file));
+  imageFiles.forEach(file => uploadData.append('image-files', file));
+  pdfFiles.forEach(file => uploadData.append('pdf-files', file));
   
   try {
     const response = await fetch(\`/edit/\${formId}/previews\`, {
@@ -643,17 +645,30 @@ export function FilesPage(props: FilesPageProps) {
           </DIV>
           <FORM id="upload-form" enctype="multipart/form-data">
             <DIV class="form-group">
-              <LABEL for="files">Files</LABEL>
+              <LABEL for="image-files">Image (Required)</LABEL>
               <INPUT
                 type="file"
-                id="files"
-                name="files"
+                id="image-files"
+                name="image-files"
                 multiple="multiple"
-                accept=".jpg,.jpeg,.webp,.pdf"
+                accept=".jpg,.jpeg,.webp"
                 required="required"
               />
               <P class="form-help">
-                Select multiple images (.jpg, .webp) and/or PDFs (.pdf)
+                Select one image (.jpg, .webp) to display
+              </P>
+            </DIV>
+            <DIV class="form-group">
+              <LABEL for="pdf-files">PDF (Optional)</LABEL>
+              <INPUT
+                type="file"
+                id="pdf-files"
+                name="pdf-files"
+                multiple="multiple"
+                accept=".pdf"
+              />
+              <P class="form-help">
+                Select one PDF file (.pdf) to associate with the image
               </P>
             </DIV>
             <DIV class="form-actions">

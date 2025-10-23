@@ -61,7 +61,7 @@ export function Catalog(props: CatalogProps) {
               {category}
             </A>
           ))
-            .join(", ")}
+            .join("")}
         </DIV>
       </DIV>
 
