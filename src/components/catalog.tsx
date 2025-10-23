@@ -42,7 +42,12 @@ export function Catalog(props: CatalogProps) {
   return (
     <SECTION>
       <DIV class="categories">
-        <FORM id="search-form" class="search-form" method="GET" action="/">
+        <FORM
+          id="search-form"
+          class="search-form"
+          method="GET"
+          action="/catalog"
+        >
           <INPUT
             type="search"
             name="search"
@@ -55,7 +60,9 @@ export function Catalog(props: CatalogProps) {
         <DIV class="category-links">
           {categories.map((category) => (
             <A
-              href={props.search === category ? "/" : `/?search=${category}`}
+              href={props.search === category
+                ? "/catalog"
+                : `/catalog?search=${category}`}
               class={props.search === category ? "active" : ""}
             >
               {category}

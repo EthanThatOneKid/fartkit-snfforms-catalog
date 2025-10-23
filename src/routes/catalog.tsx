@@ -37,7 +37,7 @@ export function CatalogPageRoute() {
             }
           }
           const orama = await catalogService.getOramaIndex();
-          const items = search && orama
+          const items = search && search.length > 0 && orama
             ? (await searchCatalog(orama, search)).hits
               .map((result) => {
                 const item = findCatalogItem(
@@ -56,7 +56,7 @@ export function CatalogPageRoute() {
                 return item;
               })
               .filter((item): item is CatalogItem => item !== null)
-            : catalogItems;
+            : [];
 
           return new Response(
             <CatalogPage search={search ?? null} items={items} />,
