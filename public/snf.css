@@ -792,11 +792,56 @@ li {
   );
   color: var(--white);
   padding: 5rem 0;
-  text-align: center;
   margin-bottom: 4rem;
   position: relative;
   overflow: hidden;
   border-radius: 0.5rem;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.home-photo {
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.hero-text {
+  flex: 1;
+  text-align: left;
+}
+
+.catalog-link {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.catalog-link:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff !important;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .hero::before {
@@ -823,8 +868,6 @@ li {
 .hero p {
   color: rgba(255, 255, 255, 0.95);
   font-size: 1.3rem;
-  max-width: 700px;
-  margin: 0 auto;
   line-height: 1.6;
   position: relative;
   z-index: 1;
@@ -861,12 +904,32 @@ li {
     padding: 4rem 2rem;
   }
 
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .home-photo {
+    width: 250px;
+    height: 250px;
+  }
+
   .hero h1 {
     font-size: 2.5rem;
   }
 
   .hero p {
     font-size: 1.1rem;
+  }
+
+  .catalog-link {
+    font-size: 1rem;
+    padding: 0.625rem 1.25rem;
   }
 
   .search-form {
@@ -959,12 +1022,22 @@ li {
     padding: 3rem 1.5rem;
   }
 
+  .home-photo {
+    width: 200px;
+    height: 200px;
+  }
+
   .hero h1 {
     font-size: 2rem;
   }
 
   .hero p {
     font-size: 1rem;
+  }
+
+  .catalog-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
   }
 
   .search-form {
