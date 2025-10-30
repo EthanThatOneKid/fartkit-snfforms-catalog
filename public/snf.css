@@ -175,12 +175,6 @@ nav .container {
   transform: scale(1.05);
 }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
 .brand-primary {
   font-size: 1.75rem;
   font-weight: 700;

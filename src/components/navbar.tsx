@@ -12,15 +12,11 @@ export function Navbar() {
         >
           <IMG
             src="/snf-logo.png"
-            alt="SNF Forms Logo"
+            alt="SNF Forms"
             class="logo"
             loading="eager"
             data-testid="logo-image"
           />
-          <DIV class="brand-text">
-            <DIV class="brand-primary">SNF</DIV>
-            <DIV class="brand-secondary">Forms</DIV>
-          </DIV>
         </A>
         <DIV style="display: flex; gap: 1rem; align-items: center;">
           <A href="tel:+17149016868" class="phone-link">
