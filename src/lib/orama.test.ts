@@ -1,6 +1,8 @@
 import { assertEquals, assertExists } from "@std/assert";
 import { createOrama, searchCatalog } from "./orama.ts";
-import catalogData from "../../public/catalog.json" with { type: "json" };
+import catalogData from "./catalog.sample.json" with {
+  type: "json",
+};
 
 // Test data - we'll use a subset of the catalog for focused testing
 const testCatalogItems = [
@@ -14,9 +16,9 @@ const testCatalogItems = [
     unit: "S/100",
     previews: [
       {
-        src: "images/forms/reg/SNF-1062_1.jpg",
+        src: "/api/files/SNF-1062_1.jpg",
         alt: "Resident's Clothing & Possessions: SNF-1062 (1)",
-        pdf: "uploaded/SNF-1062.pdf",
+        pdf: "/api/files/SNF-1062.pdf",
       },
     ],
     category: "Nursing",
@@ -31,9 +33,9 @@ const testCatalogItems = [
     unit: "S/100",
     previews: [
       {
-        src: "images/forms/reg/BU-0375_1.jpg",
+        src: "/api/files/BU-0375_1.jpg",
         alt: "Medicare Denial of Benefits Notice: BU-0375 (1)",
-        pdf: "uploaded/BU-0375.pdf",
+        pdf: "/api/files/BU-0375.pdf",
       },
     ],
     category: "Billing",

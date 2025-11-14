@@ -34,8 +34,8 @@ function getThumbnailPath(previewSrc: string): string {
     return previewSrc;
   }
 
-  const baseName = filename.replace(/\.(jpg|jpeg)$/i, "");
-  return `images/forms/thumbs/${baseName}.webp`;
+  const baseName = filename.replace(/\.(jpg|jpeg|webp)$/i, "");
+  return `/api/files/${baseName}.webp`;
 }
 
 export function Catalog(props: CatalogProps) {

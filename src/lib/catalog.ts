@@ -18,6 +18,21 @@ export interface CatalogService {
   setItems(items: CatalogItem[]): Promise<void>;
 
   /**
+   * addItem adds a new catalog item.
+   */
+  addItem(item: CatalogItem): Promise<boolean>;
+
+  /**
+   * updateItem updates an existing catalog item.
+   */
+  updateItem(formId: string, updatedItem: CatalogItem): Promise<boolean>;
+
+  /**
+   * deleteItem deletes a catalog item.
+   */
+  deleteItem(formId: string): Promise<boolean>;
+
+  /**
    * getFile gets a file by type and filename.
    */
   getFile(
