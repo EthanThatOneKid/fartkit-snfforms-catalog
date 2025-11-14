@@ -26,7 +26,6 @@ function fileKey(type: CatalogFileType, filename: string) {
 
 export class KvCatalogService implements CatalogService {
   private oramaIndex: Orama | null = null;
-  private lastItemsHash: string | null = null;
 
   public constructor(private readonly kv: Deno.Kv) {}
 
@@ -50,7 +49,7 @@ export class KvCatalogService implements CatalogService {
     for (const item of items) {
       await this.kv.set([CatalogKvKey.CATALOG_ITEM, item.formId], item);
     }
-    this.invalidateOramaIndex();
+    await this.rebuildOramaIndex();
   }
 
   async addItem(item: CatalogItem): Promise<boolean> {
@@ -67,7 +66,7 @@ export class KvCatalogService implements CatalogService {
       return false; // Item already exists or check failed
     }
 
-    this.invalidateOramaIndex();
+    await this.rebuildOramaIndex();
     return true;
   }
 
@@ -91,7 +90,7 @@ export class KvCatalogService implements CatalogService {
       return false; // Item was modified by another request, update failed
     }
 
-    this.invalidateOramaIndex();
+    await this.rebuildOramaIndex();
     return true;
   }
 
@@ -115,7 +114,7 @@ export class KvCatalogService implements CatalogService {
       return false; // Item was modified by another request, delete failed
     }
 
-    this.invalidateOramaIndex();
+    await this.rebuildOramaIndex();
     return true;
   }
 
@@ -160,7 +159,7 @@ export class KvCatalogService implements CatalogService {
       return false; // One of the checks failed (item was modified or new formId was created)
     }
 
-    this.invalidateOramaIndex();
+    await this.rebuildOramaIndex();
     return true;
   }
 
@@ -189,44 +188,31 @@ export class KvCatalogService implements CatalogService {
 
   /**
    * getOramaIndex gets the Orama search index, creating it if necessary.
+   * Returns the cached index if available, otherwise rebuilds it.
    */
   async getOramaIndex(): Promise<Orama | null> {
-    const items = await this.getItems();
-    if (!items) {
-      return null;
+    // If we have a cached index, return it.
+    if (this.oramaIndex) {
+      return this.oramaIndex;
     }
 
-    // Create a comprehensive hash of the items to detect changes.
-    const itemsHash = JSON.stringify(
-      items.map((item) => ({
-        formId: item.formId,
-        category: item.category,
-        description: item.description,
-        size: item.size,
-        paper: item.paper,
-        color: item.color,
-        sides: item.sides,
-        unit: item.unit,
-        previews: item.previews,
-      })).toSorted((a, b) => a.formId.localeCompare(b.formId)),
-    );
+    // Rebuild the index.
+    return await this.rebuildOramaIndex();
+  }
 
-    // If we have a cached index and the items haven't changed, return it.
-    if (this.oramaIndex && this.lastItemsHash === itemsHash) {
-      return this.oramaIndex;
+  /**
+   * rebuildOramaIndex rebuilds the Orama search index and caches it.
+   * This is called automatically when catalog items are updated.
+   */
+  private async rebuildOramaIndex(): Promise<Orama | null> {
+    const items = await this.getItems();
+    if (!items) {
+      this.oramaIndex = null;
+      return null;
     }
 
     // Create a new index.
     this.oramaIndex = await createOrama(items);
-    this.lastItemsHash = itemsHash;
     return this.oramaIndex;
-  }
-
-  /**
-   * invalidateOramaIndex clears the cached Orama index.
-   */
-  private invalidateOramaIndex(): void {
-    this.oramaIndex = null;
-    this.lastItemsHash = null;
   }
 }
