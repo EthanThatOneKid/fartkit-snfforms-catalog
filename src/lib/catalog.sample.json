@@ -9,9 +9,9 @@
     "unit": "S/100",
     "previews": [
       {
-        "src": "images/forms/reg/SNF-1062_1.jpg",
+        "src": "/api/files/SNF-1062_1.jpg",
         "alt": "Resident's Clothing & Possessions: SNF-1062 (1)",
-        "pdf": "uploaded/SNF-1062.pdf"
+        "pdf": "/api/files/SNF-1062.pdf"
       }
     ],
     "category": "Nursing"
@@ -26,11 +26,11 @@
     "unit": "Pad 100",
     "previews": [
       {
-        "src": "images/forms/reg/BU-0375_1.jpg",
+        "src": "/api/files/BU-0375_1.jpg",
         "alt": "Medicare Denial of Benefits Notice: BU-0375 (1)"
       },
       {
-        "src": "images/forms/reg/BU-0375_2.jpg",
+        "src": "/api/files/BU-0375_2.jpg",
         "alt": "Medicare Denial of Benefits Notice: BU-0375 (2)"
       }
     ],
@@ -46,9 +46,9 @@
     "unit": "Each",
     "previews": [
       {
-        "src": "images/forms/reg/CDPH-327_1.jpg",
+        "src": "/api/files/CDPH-327_1.jpg",
         "alt": "Admission Agreement - 2011: CDPH-327 (1)",
-        "pdf": "uploaded/CDPH-327.pdf"
+        "pdf": "/api/files/CDPH-327.pdf"
       }
     ],
     "category": "Administration"

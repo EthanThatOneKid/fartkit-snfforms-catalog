@@ -87,7 +87,7 @@ export function PreviewsApiRoute() {
             await catalogService.setFile(fileType, filename, data);
 
             newPreviews.push({
-              src: `images/forms/reg/${filename}`,
+              src: `/api/files/${filename}`,
               alt: `${formId} preview`,
             });
           }
@@ -120,7 +120,10 @@ export function PreviewsApiRoute() {
                   preview.src.split("/").pop() || "",
                 );
                 if (previewBasename === basename) {
-                  newPreviews[i] = { ...preview, pdf: `uploaded/${filename}` };
+                  newPreviews[i] = {
+                    ...preview,
+                    pdf: `/api/files/${filename}`,
+                  };
                   linkedToImage = true;
                   break;
                 }
@@ -132,7 +135,10 @@ export function PreviewsApiRoute() {
               for (let i = newPreviews.length - 1; i >= 0; i--) {
                 const preview = newPreviews[i];
                 if (preview.src && !preview.pdf) {
-                  newPreviews[i] = { ...preview, pdf: `uploaded/${filename}` };
+                  newPreviews[i] = {
+                    ...preview,
+                    pdf: `/api/files/${filename}`,
+                  };
                   break;
                 }
               }
@@ -190,29 +196,29 @@ export function PreviewsApiRoute() {
           await catalogService.removeFile(fileType, normalizedFilename);
 
           // Update previews array - remove the file from all preview entries
-          // Use standardized path format: images/forms/reg/ for images, uploaded/ for PDFs
+          // Use standardized path format: /api/files/ for all files
           const newPreviews = item.previews.filter((preview) => {
             if (ext === "pdf") {
-              return preview.pdf !== `uploaded/${normalizedFilename}`;
+              return preview.pdf !== `/api/files/${normalizedFilename}`;
             } else {
-              return preview.src !== `images/forms/reg/${normalizedFilename}`;
+              return preview.src !== `/api/files/${normalizedFilename}`;
             }
           });
 
           // If removing an image, also remove any PDFs linked to it
           if (ext === "jpg" || ext === "jpeg" || ext === "webp") {
-            const imageUrl = `images/forms/reg/${normalizedFilename}`;
+            const imageUrl = `/api/files/${normalizedFilename}`;
             const originalPreview = item.previews.find((p) =>
               p.src === imageUrl
             );
 
             // If the image had a linked PDF, delete it from KV store
-            // Extract filename from standardized path format: uploaded/
+            // Extract filename from standardized path format: /api/files/
             if (originalPreview && originalPreview.pdf) {
               const pdfPath = originalPreview.pdf;
               // Remove path prefix and extract just the filename
               const pdfFilename = pdfPath
-                .replace(/^uploaded\//, "")
+                .replace(/^\/api\/files\//, "")
                 .split("/")
                 .pop()
                 ?.trim();

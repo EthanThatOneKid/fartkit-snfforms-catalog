@@ -461,9 +461,8 @@ export function FilesPage(props: FilesPageProps) {
               </DIV>
               <UL class="preview-list">
                 {props.item.previews.map((preview, _index) => {
-                  const isSeededFile = preview.src.startsWith(
-                    "images/forms/reg/",
-                  );
+                  // All files are now treated uniformly - no distinction between seeded and uploaded
+                  const isSeededFile = false;
 
                   return (
                     <LI
@@ -527,9 +526,6 @@ export function FilesPage(props: FilesPageProps) {
                           {preview.pdf && (
                             <P class="preview-pdf">
                               PDF: {preview.pdf.split("/").pop()}
-                              {preview.pdf.startsWith("images/forms/reg/") && (
-                                <SPAN class="seeded-badge">Seeded</SPAN>
-                              )}
                             </P>
                           )}
                         </DIV>
@@ -554,23 +550,13 @@ export function FilesPage(props: FilesPageProps) {
                             ? (
                               <BUTTON
                                 type="button"
-                                class={`btn btn-sm ${
-                                  preview.pdf.startsWith("images/forms/reg/")
-                                    ? "btn-warning"
-                                    : "btn-danger"
-                                }`}
+                                class="btn btn-sm btn-danger"
                                 onclick={`removePreviewFile('${
                                   preview.pdf.split("/").pop()
-                                }', 'pdf', ${isSeededFile})`}
-                                title={preview.pdf.startsWith(
-                                    "images/forms/reg/",
-                                  )
-                                  ? "Remove this seeded PDF from the catalog (file will remain in system)"
-                                  : "Delete this uploaded PDF permanently"}
+                                }', 'pdf', false)`}
+                                title="Delete this uploaded PDF permanently"
                               >
-                                {preview.pdf.startsWith("images/forms/reg/")
-                                  ? "Remove PDF from Catalog"
-                                  : "Delete PDF"}
+                                Delete PDF
                               </BUTTON>
                             )
                             : ""}

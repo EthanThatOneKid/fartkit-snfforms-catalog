@@ -12,26 +12,14 @@ import { CatalogApiRoute } from "./routes/api/catalog.tsx";
 import { ItemsApiRoute } from "./routes/api/items.tsx";
 import { PreviewsApiRoute } from "./routes/api/previews.tsx";
 import { AltTextApiRoute } from "./routes/api/alt-text.tsx";
-// File serving route
-import { tryServeFileFromKv } from "./routes/files.tsx";
+import { FilesApiRoute } from "./routes/api/files.tsx";
 
 function StaticRoute() {
   return (
     <Get
       pattern="/*"
-      handler={async (ctx) => {
-        const url = new URL(ctx.request.url);
-        const pathname = url.pathname;
-
-        // Try to serve from KV first for /images/ and /uploaded/ paths
-        const kvResponse = await tryServeFileFromKv(pathname);
-        if (kvResponse) {
-          return kvResponse;
-        }
-
-        // Fall back to static file serving
-        return serveDir(ctx.request, { fsRoot: Deno.args[0] ?? "public" });
-      }}
+      handler={(ctx) =>
+        serveDir(ctx.request, { fsRoot: Deno.args[0] ?? "public" })}
     />
   );
 }
@@ -64,6 +52,7 @@ export function App() {
       <ItemsApiRoute />
       <PreviewsApiRoute />
       <AltTextApiRoute />
+      <FilesApiRoute />
 
       {/* Static and utility routes */}
       <FaviconRoute />
