@@ -1,6 +1,8 @@
 import { assertEquals, assertExists } from "@std/assert";
 import { createOrama, searchCatalog } from "./orama.ts";
-import catalogData from "../../public/catalog.json" with { type: "json" };
+import catalogData from "./catalog.sample.json" with {
+  type: "json",
+};
 
 // Test data - we'll use a subset of the catalog for focused testing
 const testCatalogItems = [

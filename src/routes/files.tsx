@@ -15,14 +15,20 @@ export function FileRoute() {
             return new Response("Not Found", { status: 404 });
           }
 
-          const fileTypeInfo = getFileTypeInfo(filename);
+          // Normalize filename by trimming whitespace to match seed script behavior
+          const normalizedFilename = filename.trim();
+
+          const fileTypeInfo = getFileTypeInfo(normalizedFilename);
           if (!fileTypeInfo) {
             return new Response("Unsupported file type", { status: 400 });
           }
 
           const { fileType, contentType } = fileTypeInfo;
 
-          const fileData = await catalogService.getFile(fileType, filename);
+          const fileData = await catalogService.getFile(
+            fileType,
+            normalizedFilename,
+          );
           if (!fileData) {
             return new Response("File not found", { status: 404 });
           }

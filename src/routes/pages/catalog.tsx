@@ -25,17 +25,7 @@ export function CatalogPageRoute() {
             ? searchValidation.data
             : null;
 
-          // Lazy seed: only seed if the KV store is empty.
-          let catalogItems = (await catalogService.getItems()) ?? [];
-          if (catalogItems.length === 0) {
-            try {
-              await catalogService.seed();
-              catalogItems = (await catalogService.getItems()) ?? [];
-            } catch (error) {
-              console.error("Failed to seed catalog:", error);
-              // Continue with empty catalog rather than failing the request.
-            }
-          }
+          const catalogItems = (await catalogService.getItems()) ?? [];
           const orama = await catalogService.getOramaIndex();
           const items = search && search.length > 0 && orama
             ? (await searchCatalog(orama, search)).hits

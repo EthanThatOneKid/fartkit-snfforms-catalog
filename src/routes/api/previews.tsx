@@ -65,7 +65,7 @@ export function PreviewsApiRoute() {
 
           // Process image files first
           for (const file of imageFiles) {
-            const filename = file.name;
+            const filename = file.name.trim(); // Normalize filename by trimming whitespace
             const ext = extractExtension(filename);
             const data = new Uint8Array(await file.arrayBuffer());
 
@@ -94,7 +94,7 @@ export function PreviewsApiRoute() {
 
           // Process PDF files (fixed: moved outside image loop)
           for (const file of pdfFiles) {
-            const filename = file.name;
+            const filename = file.name.trim(); // Normalize filename by trimming whitespace
             const ext = extractExtension(filename);
             const data = new Uint8Array(await file.arrayBuffer());
 
@@ -175,51 +175,54 @@ export function PreviewsApiRoute() {
             return errorResponse("Item not found", 404);
           }
 
-          const fileTypeInfo = getFileTypeInfo(filename);
+          // Normalize filename by trimming whitespace to match seed script behavior
+          const normalizedFilename = filename.trim();
+
+          const fileTypeInfo = getFileTypeInfo(normalizedFilename);
           if (!fileTypeInfo) {
             return errorResponse("Unsupported file type", 400);
           }
 
           const { fileType } = fileTypeInfo;
-          const ext = extractExtension(filename);
+          const ext = extractExtension(normalizedFilename);
 
-          // Check if this is a seeded file (starts with images/forms/reg/)
-          const isSeededFile = item.previews.some((preview) => {
-            if (ext === "pdf") {
-              return preview.pdf === `images/forms/reg/${filename}`;
-            } else {
-              return preview.src === `images/forms/reg/${filename}`;
-            }
-          });
+          // Remove file from KV store
+          await catalogService.removeFile(fileType, normalizedFilename);
 
-          // Only remove from KV if it's a user-uploaded file
-          if (!isSeededFile) {
-            await catalogService.removeFile(fileType, filename);
-          }
-
-          // Update previews array - remove both user-uploaded and seeded files
+          // Update previews array - remove the file from all preview entries
+          // Handle different path formats: /files/, uploaded/, images/forms/reg/
           const newPreviews = item.previews.filter((preview) => {
             if (ext === "pdf") {
-              return preview.pdf !== `/files/${filename}` &&
-                preview.pdf !== `images/forms/reg/${filename}`;
+              return preview.pdf !== `/files/${normalizedFilename}` &&
+                preview.pdf !== `uploaded/${normalizedFilename}` &&
+                preview.pdf !== `images/forms/reg/${normalizedFilename}`;
             } else {
-              return preview.src !== `/files/${filename}` &&
-                preview.src !== `images/forms/reg/${filename}`;
+              return preview.src !== `/files/${normalizedFilename}` &&
+                preview.src !== `images/forms/reg/${normalizedFilename}`;
             }
           });
 
           // If removing an image, also remove any PDFs linked to it
           if (ext === "jpg" || ext === "jpeg" || ext === "webp") {
-            const imageUrl = `/files/${filename}`;
-            const seededImageUrl = `images/forms/reg/${filename}`;
+            const imageUrl = `/files/${normalizedFilename}`;
+            const seededImageUrl = `images/forms/reg/${normalizedFilename}`;
             const originalPreview = item.previews.find((p) =>
               p.src === imageUrl || p.src === seededImageUrl
             );
 
-            // If the image had a linked PDF, delete it from KV store (only for user-uploaded files)
+            // If the image had a linked PDF, delete it from KV store
+            // Extract filename from any path format: /files/, uploaded/, images/forms/reg/
             if (originalPreview && originalPreview.pdf) {
-              const pdfFilename = originalPreview.pdf.split("/").pop();
-              if (pdfFilename && originalPreview.pdf.startsWith("/files/")) {
+              const pdfPath = originalPreview.pdf;
+              // Remove path prefixes and extract just the filename
+              const pdfFilename = pdfPath
+                .replace(/^\/files\//, "")
+                .replace(/^uploaded\//, "")
+                .replace(/^images\/forms\/reg\//, "")
+                .split("/")
+                .pop()
+                ?.trim();
+              if (pdfFilename) {
                 await catalogService.removeFile(
                   CatalogFileType.PDF,
                   pdfFilename,
@@ -227,7 +230,7 @@ export function PreviewsApiRoute() {
               }
             }
 
-            // Remove the image from previews array
+            // Remove the PDF link from the preview entry
             for (let i = 0; i < newPreviews.length; i++) {
               if (
                 newPreviews[i].src === imageUrl ||

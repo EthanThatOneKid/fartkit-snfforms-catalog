@@ -25,6 +25,10 @@
         "lint",
         "check"
       ]
+    },
+    "seed": {
+      "description": "Seed the KV database",
+      "command": "deno -A --unstable-kv --env cli/seed/main.ts --catalog archive/catalog.json --images-dir archive --pdfs-dir archive/uploaded"
     }
   },
   "compilerOptions": {

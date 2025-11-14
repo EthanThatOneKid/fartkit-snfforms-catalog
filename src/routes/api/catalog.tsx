@@ -23,6 +23,32 @@ export function CatalogApiRoute() {
           }
         }}
       />
+      <Get
+        pattern="/api/catalog.json"
+        handler={async (_ctx) => {
+          try {
+            const catalogItems = await catalogService.getItems();
+
+            const json = JSON.stringify(catalogItems || [], null, 2);
+
+            return new Response(json, {
+              headers: {
+                "Content-Type": "application/json",
+                "Content-Disposition": 'attachment; filename="catalog.json"',
+              },
+            });
+          } catch (error) {
+            console.error("Failed to generate catalog JSON:", error);
+            return new Response(
+              JSON.stringify({ error: "Failed to generate catalog JSON" }),
+              {
+                status: 500,
+                headers: { "Content-Type": "application/json" },
+              },
+            );
+          }
+        }}
+      />
     </Router>
   );
 }

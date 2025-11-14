@@ -1,0 +1,56 @@
+[
+  {
+    "formId": "SNF-1062",
+    "description": "Resident's Clothing & Possessions",
+    "size": "8-1/2 x 11",
+    "paper": "2 part NCR",
+    "color": "White/Yellow",
+    "sides": "1",
+    "unit": "S/100",
+    "previews": [
+      {
+        "src": "images/forms/reg/SNF-1062_1.jpg",
+        "alt": "Resident's Clothing & Possessions: SNF-1062 (1)",
+        "pdf": "uploaded/SNF-1062.pdf"
+      }
+    ],
+    "category": "Nursing"
+  },
+  {
+    "formId": "BU-0375",
+    "description": "Medicare Denial of Benefits Notice",
+    "size": "8-1/2 x 11",
+    "paper": "Bond/3 Part",
+    "color": "W/Y/P",
+    "sides": "1",
+    "unit": "Pad 100",
+    "previews": [
+      {
+        "src": "images/forms/reg/BU-0375_1.jpg",
+        "alt": "Medicare Denial of Benefits Notice: BU-0375 (1)"
+      },
+      {
+        "src": "images/forms/reg/BU-0375_2.jpg",
+        "alt": "Medicare Denial of Benefits Notice: BU-0375 (2)"
+      }
+    ],
+    "category": "Administration"
+  },
+  {
+    "formId": "CDPH-327",
+    "description": "Admission Agreement - 2011",
+    "size": "8-1/2 x 11",
+    "paper": "2 Part - Bond",
+    "color": "",
+    "sides": "1",
+    "unit": "Each",
+    "previews": [
+      {
+        "src": "images/forms/reg/CDPH-327_1.jpg",
+        "alt": "Admission Agreement - 2011: CDPH-327 (1)",
+        "pdf": "uploaded/CDPH-327.pdf"
+      }
+    ],
+    "category": "Administration"
+  }
+]

@@ -4,10 +4,10 @@ import type { CatalogService } from "./catalog.ts";
 import { CatalogFileType } from "./catalog.ts";
 import { createOrama, type Orama } from "./orama.ts";
 
-export const kv = await Deno.openKv();
+export const kv = await Deno.openKv(Deno.env.get("DENO_KV_PATH"));
 
 export const CatalogKvKey = {
-  CATALOG_ITEMS: "catalog_items",
+  CATALOG_ITEM: "catalog_item",
   CATALOG_FILES_JPG: "catalog_files_jpg",
   CATALOG_FILES_WEBP: "catalog_files_webp",
   CATALOG_FILES_PDF: "catalog_files_pdf",
@@ -30,72 +30,71 @@ export class KvCatalogService implements CatalogService {
 
   public constructor(private readonly kv: Deno.Kv) {}
 
-  async seed() {
-    const itemsText = await Deno.readTextFile("./public/catalog.json");
-    const items = JSON.parse(itemsText) as CatalogItem[];
-    await this.setItems(items);
-  }
-
   async getItems(): Promise<CatalogItem[] | undefined> {
-    const result = await this.kv.get<CatalogItem[]>([
-      CatalogKvKey.CATALOG_ITEMS,
-    ]);
-    return (result?.value ?? undefined);
+    const items: CatalogItem[] = [];
+    const entries = this.kv.list<CatalogItem>({
+      prefix: [CatalogKvKey.CATALOG_ITEM],
+    });
+
+    for await (const entry of entries) {
+      if (entry.value) {
+        items.push(entry.value);
+      }
+    }
+
+    return items.length > 0 ? items : undefined;
   }
 
   async setItems(items: CatalogItem[]): Promise<void> {
-    await this.kv.set([CatalogKvKey.CATALOG_ITEMS], items);
+    // Store each item individually
+    for (const item of items) {
+      await this.kv.set([CatalogKvKey.CATALOG_ITEM, item.formId], item);
+    }
     this.invalidateOramaIndex();
   }
 
   async addItem(item: CatalogItem): Promise<boolean> {
-    const catalogItems = await this.getItems();
-    if (!catalogItems) {
-      return false;
-    }
-
-    // Check if the item already exists.
-    const existingIndex = catalogItems.findIndex((existingItem) =>
-      existingItem.formId === item.formId
-    );
-    if (existingIndex !== -1) {
+    // Check if the item already exists
+    const existing = await this.kv.get<CatalogItem>([
+      CatalogKvKey.CATALOG_ITEM,
+      item.formId,
+    ]);
+    if (existing.value) {
       return false; // Item already exists
     }
 
-    catalogItems.push(item);
-    await this.setItems(catalogItems);
+    await this.kv.set([CatalogKvKey.CATALOG_ITEM, item.formId], item);
+    this.invalidateOramaIndex();
     return true;
   }
 
   async updateItem(formId: string, updatedItem: CatalogItem): Promise<boolean> {
-    const catalogItems = await this.getItems();
-    if (!catalogItems) {
-      return false;
-    }
-
-    const itemIndex = catalogItems.findIndex((item) => item.formId === formId);
-    if (itemIndex === -1) {
+    // Check if the item exists
+    const existing = await this.kv.get<CatalogItem>([
+      CatalogKvKey.CATALOG_ITEM,
+      formId,
+    ]);
+    if (!existing.value) {
       return false; // Item not found
     }
 
-    catalogItems[itemIndex] = updatedItem;
-    await this.setItems(catalogItems);
+    await this.kv.set([CatalogKvKey.CATALOG_ITEM, formId], updatedItem);
+    this.invalidateOramaIndex();
     return true;
   }
 
   async deleteItem(formId: string): Promise<boolean> {
-    const catalogItems = await this.getItems();
-    if (!catalogItems) {
-      return false;
+    // Check if the item exists
+    const existing = await this.kv.get<CatalogItem>([
+      CatalogKvKey.CATALOG_ITEM,
+      formId,
+    ]);
+    if (!existing.value) {
+      return false; // Item not found
     }
 
-    const itemIndex = catalogItems.findIndex((item) => item.formId === formId);
-    if (itemIndex === -1) {
-      return false;
-    }
-
-    catalogItems.splice(itemIndex, 1);
-    await this.setItems(catalogItems);
+    await this.kv.delete([CatalogKvKey.CATALOG_ITEM, formId]);
+    this.invalidateOramaIndex();
     return true;
   }
 
