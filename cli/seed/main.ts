@@ -47,7 +47,7 @@ Options:
   --help, -h           Show this help message
 
 Environment Variables:
-  DENO_KV_PATH         Path to Deno KV database file (required)
+  DENO_KV_PATH         Path to Deno KV database file (optional, uses default if not set)
 `);
   Deno.exit(0);
 }
@@ -66,17 +66,8 @@ function parseArgs(): SeederOptions {
     showHelp();
   }
 
-  // Get KV path from environment
+  // Get KV path from environment (optional - uses default if not set)
   const kvPath = Deno.env.get("DENO_KV_PATH");
-  if (!kvPath && !parsed["dry-run"]) {
-    console.error(
-      "Error: DENO_KV_PATH environment variable is required",
-    );
-    console.error(
-      "Please set it before running the script: DENO_KV_PATH=./kv.db deno run ...",
-    );
-    Deno.exit(1);
-  }
 
   // Build options
   const imagesDir = parsed["images-dir"] as string | undefined;
@@ -168,6 +159,33 @@ async function fileExists(path: string): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+async function scanThumbsDirectory(thumbsDir: string): Promise<string[]> {
+  const webpFiles: string[] = [];
+
+  try {
+    // Check if directory exists
+    const dirInfo = await Deno.stat(thumbsDir);
+    if (!dirInfo.isDirectory) {
+      return webpFiles;
+    }
+
+    // Read directory and filter for .webp files
+    for await (const entry of Deno.readDir(thumbsDir)) {
+      if (entry.isFile && entry.name.toLowerCase().endsWith(".webp")) {
+        webpFiles.push(entry.name);
+      }
+    }
+  } catch (error) {
+    // Directory doesn't exist or can't be read - return empty array
+    if (error instanceof Deno.errors.NotFound) {
+      return webpFiles;
+    }
+    throw error;
+  }
+
+  return webpFiles;
 }
 
 async function uploadFile(
@@ -285,16 +303,20 @@ async function main() {
   console.log(`  Images directory: ${options.imagesDir}`);
   console.log(`  PDFs directory: ${options.pdfsDir}`);
   console.log(
-    `  KV database: ${options.kvPath || "not set (dry run mode)"}`,
+    `  KV database: ${options.kvPath || "default (current directory)"}`,
   );
   console.log(`  Dry run: ${options.dryRun ? "Yes" : "No"}\n`);
 
   // Open KV database
   let kv: Deno.Kv | null = null;
-  if (!options.dryRun && options.kvPath) {
+  if (!options.dryRun) {
     kv = await Deno.openKv(options.kvPath);
-    console.log(`✓ Opened KV database at ${options.kvPath}\n`);
-  } else if (options.dryRun) {
+    console.log(
+      `✓ Opened KV database${
+        options.kvPath ? ` at ${options.kvPath}` : " (default location)"
+      }\n`,
+    );
+  } else {
     console.log("⚠ Running in dry-run mode (no changes will be made)\n");
   }
 
@@ -305,6 +327,18 @@ async function main() {
     console.warn("⚠ No catalog items found. Exiting.");
     if (kv) kv.close();
     Deno.exit(0);
+  }
+
+  // Clear the KV database before seeding
+  if (kv && !options.dryRun) {
+    console.log("Clearing existing KV database...");
+    const allEntries = await Array.fromAsync(kv.list({ prefix: [] }));
+    for (const entry of allEntries) {
+      await kv.delete(entry.key);
+    }
+    console.log(`✓ Cleared ${allEntries.length} existing entries\n`);
+  } else if (options.dryRun) {
+    console.log("[DRY RUN] Would clear existing KV database\n");
   }
 
   // Initialize service (only if not dry run)
@@ -385,6 +419,50 @@ async function main() {
         }
       }
     }
+  }
+
+  // Upload webp thumbnail files from thumbs directory
+  const thumbsDir = `${options.imagesDir}/forms/thumbs`;
+  console.log(`\nProcessing webp thumbnails from: ${thumbsDir}`);
+
+  try {
+    const thumbsFiles = await scanThumbsDirectory(thumbsDir);
+    console.log(`  Found ${thumbsFiles.length} webp files`);
+
+    for (const filename of thumbsFiles) {
+      if (uploadedFiles.has(filename)) {
+        continue; // Skip if already uploaded
+      }
+
+      const filePath = `${thumbsDir}/${filename}`;
+
+      if (service) {
+        const success = await uploadFile(
+          service,
+          filePath,
+          filename,
+          options.dryRun,
+        );
+        if (success) {
+          uploadedFiles.add(filename);
+          filesUploaded++;
+        } else {
+          filesSkipped++;
+        }
+      } else {
+        // Dry run mode
+        if (await fileExists(filePath)) {
+          console.log(`  [DRY RUN] Would upload thumbnail: ${filename}`);
+          uploadedFiles.add(filename);
+          filesUploaded++;
+        } else {
+          console.log(`  [DRY RUN] Would skip (not found): ${filename}`);
+          filesSkipped++;
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`  ⚠ Could not process thumbs directory: ${error}`);
   }
 
   console.log(`\nFile upload summary:`);
