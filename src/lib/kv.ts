@@ -2,7 +2,13 @@ import { get, remove, set } from "@kitsonk/kv-toolbox/blob";
 import type { CatalogItem } from "./snfforms.ts";
 import type { CatalogService } from "./catalog.ts";
 import { CatalogFileType } from "./catalog.ts";
-import { createOrama, type Orama } from "./orama.ts";
+import {
+  createOrama,
+  deserializeOramaIndex,
+  loadEmbeddingModel,
+  type Orama,
+  serializeOramaIndex,
+} from "./orama.ts";
 
 export const kv = await Deno.openKv(Deno.env.get("DENO_KV_PATH"));
 
@@ -11,6 +17,7 @@ export const CatalogKvKey = {
   CATALOG_FILES_JPG: "catalog_files_jpg",
   CATALOG_FILES_WEBP: "catalog_files_webp",
   CATALOG_FILES_PDF: "catalog_files_pdf",
+  ORAMA_INDEX: "orama_index",
 };
 
 function fileKey(type: CatalogFileType, filename: string) {
@@ -187,8 +194,9 @@ export class KvCatalogService implements CatalogService {
   }
 
   /**
-   * getOramaIndex gets the Orama search index, creating it if necessary.
-   * Returns the cached index if available, otherwise rebuilds it.
+   * getOramaIndex gets the Orama search index, loading from KV if available,
+   * otherwise creating it from catalog items.
+   * Returns the cached index if available, otherwise loads or rebuilds it.
    */
   async getOramaIndex(): Promise<Orama | null> {
     // If we have a cached index, return it.
@@ -196,23 +204,92 @@ export class KvCatalogService implements CatalogService {
       return this.oramaIndex;
     }
 
-    // Rebuild the index.
+    // Try to load from KV storage first
+    const loaded = await this.loadOramaIndexFromKv();
+    if (loaded) {
+      this.oramaIndex = loaded;
+      return loaded;
+    }
+
+    // If not found in KV, rebuild from catalog items
     return await this.rebuildOramaIndex();
+  }
+
+  /**
+   * loadOramaIndexFromKv attempts to load a serialized Orama index from KV storage.
+   * Returns null if no index is found or if deserialization fails.
+   * Uses blob storage to bypass KV entry size limits.
+   */
+  private async loadOramaIndexFromKv(): Promise<Orama | null> {
+    try {
+      // Load the index as a blob (binary data) to bypass size limits
+      const blobData = await get(this.kv, [CatalogKvKey.ORAMA_INDEX]);
+      if (!blobData || !blobData.value) {
+        return null; // No index stored yet
+      }
+
+      // Convert binary data back to JSON string
+      const decoder = new TextDecoder();
+      const jsonIndex = decoder.decode(blobData.value);
+
+      // Deserialize the database from JSON
+      const db = await deserializeOramaIndex(jsonIndex);
+
+      // Load the TensorFlow model (cannot be serialized, must be loaded fresh)
+      const model = await loadEmbeddingModel();
+
+      return { db, model };
+    } catch (error) {
+      // If deserialization fails, log and return null to trigger rebuild
+      console.warn("Failed to load Orama index from KV:", error);
+      return null;
+    }
+  }
+
+  /**
+   * saveOramaIndexToKv serializes and saves the Orama index to KV storage.
+   * This method is public so it can be called from the seed script.
+   * Uses blob storage to bypass KV entry size limits.
+   */
+  async saveOramaIndexToKv(orama: Orama): Promise<void> {
+    try {
+      // Serialize only the database (TensorFlow model cannot be serialized)
+      const jsonIndex = await serializeOramaIndex(orama.db);
+
+      // Convert JSON string to binary format for blob storage
+      // This bypasses KV entry size limits, similar to how files are stored
+      const encoder = new TextEncoder();
+      const binaryData = encoder.encode(jsonIndex as string);
+
+      // Store as blob using the blob helper (bypasses size limits)
+      await set(this.kv, [CatalogKvKey.ORAMA_INDEX], binaryData);
+    } catch (error) {
+      // Log error but don't fail - index will be rebuilt on next load
+      console.warn("Failed to save Orama index to KV:", error);
+    }
   }
 
   /**
    * rebuildOramaIndex rebuilds the Orama search index and caches it.
    * This is called automatically when catalog items are updated.
+   * The index is also saved to KV storage for persistence.
    */
   private async rebuildOramaIndex(): Promise<Orama | null> {
     const items = await this.getItems();
     if (!items) {
       this.oramaIndex = null;
+      // Clear the stored index if there are no items
+      // Use remove from blob helpers to ensure proper cleanup
+      await remove(this.kv, [CatalogKvKey.ORAMA_INDEX]);
       return null;
     }
 
     // Create a new index.
     this.oramaIndex = await createOrama(items);
+
+    // Save the serialized index to KV storage
+    await this.saveOramaIndexToKv(this.oramaIndex);
+
     return this.oramaIndex;
   }
 }

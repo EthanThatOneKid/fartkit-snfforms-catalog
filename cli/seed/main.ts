@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write --allow-env --unstable-kv
+#!/usr/bin/env -S deno run --allow-read --allow-write --allow-env --allow-net --unstable --unstable-kvcls
 
 /**
  * Database seeder for KV store
@@ -18,10 +18,12 @@
  */
 
 import { parseArgs as parseCliArgs } from "@std/cli/parse-args";
+import { ProgressBar } from "@std/cli/unstable-progress-bar";
 import { KvCatalogService } from "#/lib/kv.ts";
 import type { CatalogItem } from "#/lib/snfforms.ts";
 import { getFileTypeInfo } from "#/lib/file-utils.ts";
 import { CatalogFileType } from "#/lib/catalog.ts";
+import { createOrama } from "#/lib/orama.ts";
 
 interface SeederOptions {
   catalogPath: string;
@@ -488,14 +490,65 @@ async function main() {
     console.log(
       `\n[DRY RUN] Would upload ${itemsToUpload.length} catalog items to KV (as individual entries)`,
     );
+    console.log(
+      `[DRY RUN] Would pre-generate Orama search index with embeddings`,
+    );
   } else if (service) {
     try {
+      // First, upload the catalog items
       await service.setItems(itemsToUpload);
       console.log(
         `\n✓ Uploaded ${itemsToUpload.length} catalog items to KV (as individual entries)`,
       );
+
+      // Pre-generate and save the Orama search index with embeddings
+      // This ensures the index is ready to load from KV without needing network access
+      // The TensorFlow model will be downloaded and cached during this process
+      console.log("\nPre-generating Orama search index with embeddings...");
+      console.log(
+        "  (This may take a moment as the TensorFlow model is loaded and embeddings are generated)",
+      );
+      console.log(
+        "  Note: The TensorFlow model will be downloaded from Google Cloud Storage and cached locally",
+      );
+
+      // Create progress bar for embedding generation
+      const progressBar = new ProgressBar({
+        max: itemsToUpload.length,
+        formatter: (fmt) =>
+          `Generating embeddings: ${fmt.value}/${fmt.max} items (${
+            Math.round((fmt.value / fmt.max) * 100)
+          }%)`,
+      });
+
+      const startTime = performance.now();
+      const oramaIndex = await createOrama(
+        itemsToUpload,
+        (current, _total) => {
+          progressBar.value = current;
+        },
+      );
+      progressBar.stop();
+      const endTime = performance.now();
+      const duration = ((endTime - startTime) / 1000).toFixed(2);
+
+      // Save the index to KV storage
+      await service.saveOramaIndexToKv(oramaIndex);
+
+      console.log(
+        `✓ Pre-generated and saved Orama search index (took ${duration}s)`,
+      );
+      console.log(
+        `  Index is now persisted in KV and ready to load from cache`,
+      );
+      console.log(
+        `  The TensorFlow model has been cached and will load from cache on server startup`,
+      );
     } catch (error) {
-      console.error("\n✗ Failed to upload catalog items:", error);
+      console.error(
+        "\n✗ Failed to upload catalog items or generate index:",
+        error,
+      );
       if (kv) kv.close();
       Deno.exit(1);
     }

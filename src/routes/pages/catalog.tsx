@@ -30,15 +30,16 @@ export function CatalogPageRoute() {
           const items = search && search.length > 0 && orama
             ? (await searchCatalog(orama, search)).hits
               .map((result) => {
+                const doc = result.document as { formId: string };
                 const item = findCatalogItem(
                   catalogItems,
-                  result.document.formId,
+                  doc.formId,
                 );
                 if (!item) {
                   // If we can't find a catalog item from search results,
                   // this indicates a data inconsistency, but we'll handle it gracefully.
                   console.warn(
-                    `Catalog item not found in search results: ${result.document.formId}`,
+                    `Catalog item not found in search results: ${doc.formId}`,
                   );
                   return null;
                 }
