@@ -54,46 +54,112 @@ export class KvCatalogService implements CatalogService {
   }
 
   async addItem(item: CatalogItem): Promise<boolean> {
-    // Check if the item already exists
-    const existing = await this.kv.get<CatalogItem>([
-      CatalogKvKey.CATALOG_ITEM,
-      item.formId,
-    ]);
-    if (existing.value) {
-      return false; // Item already exists
+    const key = [CatalogKvKey.CATALOG_ITEM, item.formId];
+
+    // Use atomic operation to ensure the item doesn't already exist
+    // A null versionstamp means the key doesn't exist
+    const result = await this.kv.atomic()
+      .check({ key, versionstamp: null })
+      .set(key, item)
+      .commit();
+
+    if (!result.ok) {
+      return false; // Item already exists or check failed
     }
 
-    await this.kv.set([CatalogKvKey.CATALOG_ITEM, item.formId], item);
     this.invalidateOramaIndex();
     return true;
   }
 
   async updateItem(formId: string, updatedItem: CatalogItem): Promise<boolean> {
-    // Check if the item exists
-    const existing = await this.kv.get<CatalogItem>([
-      CatalogKvKey.CATALOG_ITEM,
-      formId,
-    ]);
+    const key = [CatalogKvKey.CATALOG_ITEM, formId];
+
+    // First, get the current item to check it exists and get its versionstamp
+    const existing = await this.kv.get<CatalogItem>(key);
     if (!existing.value) {
       return false; // Item not found
     }
 
-    await this.kv.set([CatalogKvKey.CATALOG_ITEM, formId], updatedItem);
+    // Use atomic operation to ensure the item hasn't changed since we read it
+    // This prevents race conditions where another request modified the item
+    const result = await this.kv.atomic()
+      .check({ key, versionstamp: existing.versionstamp })
+      .set(key, updatedItem)
+      .commit();
+
+    if (!result.ok) {
+      return false; // Item was modified by another request, update failed
+    }
+
     this.invalidateOramaIndex();
     return true;
   }
 
   async deleteItem(formId: string): Promise<boolean> {
-    // Check if the item exists
-    const existing = await this.kv.get<CatalogItem>([
-      CatalogKvKey.CATALOG_ITEM,
-      formId,
-    ]);
+    const key = [CatalogKvKey.CATALOG_ITEM, formId];
+
+    // First, get the current item to check it exists and get its versionstamp
+    const existing = await this.kv.get<CatalogItem>(key);
     if (!existing.value) {
       return false; // Item not found
     }
 
-    await this.kv.delete([CatalogKvKey.CATALOG_ITEM, formId]);
+    // Use atomic operation to ensure the item hasn't changed since we read it
+    // This prevents race conditions where another request modified the item
+    const result = await this.kv.atomic()
+      .check({ key, versionstamp: existing.versionstamp })
+      .delete(key)
+      .commit();
+
+    if (!result.ok) {
+      return false; // Item was modified by another request, delete failed
+    }
+
+    this.invalidateOramaIndex();
+    return true;
+  }
+
+  /**
+   * updateItemFormId atomically moves an item from one formId to another.
+   * This prevents race conditions when changing a formId.
+   * @returns true if successful, false if the old item doesn't exist or the new formId already exists
+   */
+  async updateItemFormId(
+    oldFormId: string,
+    newFormId: string,
+    updatedItem: CatalogItem,
+  ): Promise<boolean> {
+    const oldKey = [CatalogKvKey.CATALOG_ITEM, oldFormId];
+    const newKey = [CatalogKvKey.CATALOG_ITEM, newFormId];
+
+    // Get both keys to check their state
+    // Using separate get calls for better type inference
+    const oldEntry = await this.kv.get<CatalogItem>(oldKey);
+    const newEntry = await this.kv.get<CatalogItem>(newKey);
+
+    // Old item must exist
+    if (!oldEntry.value) {
+      return false;
+    }
+
+    // New formId must not already exist
+    if (newEntry.value) {
+      return false;
+    }
+
+    // Atomically delete the old key and create the new key
+    // This ensures both operations succeed or both fail
+    const result = await this.kv.atomic()
+      .check({ key: oldKey, versionstamp: oldEntry.versionstamp })
+      .check({ key: newKey, versionstamp: null })
+      .delete(oldKey)
+      .set(newKey, updatedItem)
+      .commit();
+
+    if (!result.ok) {
+      return false; // One of the checks failed (item was modified or new formId was created)
+    }
+
     this.invalidateOramaIndex();
     return true;
   }

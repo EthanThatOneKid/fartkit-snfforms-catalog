@@ -88,32 +88,27 @@ export function ItemsApiRoute() {
           // Handle different scenarios with specific error messages.
           if (existingItem) {
             if (originalFormId && originalFormId !== formId) {
-              // The formId has changed, check if the new formId already exists.
-              const newItemExists = catalogItems.find((item) =>
-                item.formId === formId
-              );
-              if (newItemExists) {
-                return errorResponse(
-                  `Form ID "${formId}" already exists. Please choose a different Form ID.`,
-                  400,
-                );
-              }
-
-              // Safe to proceed: delete old item and create new one.
-              const deleteSuccess = await catalogService.deleteItem(
+              // The formId has changed, use atomic operation to move the item
+              // This prevents race conditions where the new formId is created
+              // between our check and the actual update
+              const updateSuccess = await catalogService.updateItemFormId(
                 originalFormId,
+                formId,
+                itemData,
               );
-              if (!deleteSuccess) {
-                return errorResponse(
-                  "Failed to delete the original item. Please try again.",
-                  500,
+              if (!updateSuccess) {
+                // Check if the new formId already exists to provide a better error message
+                const newItemExists = catalogItems.find((item) =>
+                  item.formId === formId
                 );
-              }
-
-              const addSuccess = await catalogService.addItem(itemData);
-              if (!addSuccess) {
+                if (newItemExists) {
+                  return errorResponse(
+                    `Form ID "${formId}" already exists. Please choose a different Form ID.`,
+                    400,
+                  );
+                }
                 return errorResponse(
-                  "Failed to create the updated item. Please try again.",
+                  "Failed to update the item. The item may have been modified by another request. Please try again.",
                   500,
                 );
               }

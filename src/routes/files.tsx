@@ -33,6 +33,7 @@ export function FileRoute() {
             return new Response("File not found", { status: 404 });
           }
 
+          // Create a new Uint8Array to ensure proper type compatibility with Response
           return new Response(new Uint8Array(fileData), {
             headers: {
               "Content-Type": contentType,
