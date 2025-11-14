@@ -6,7 +6,7 @@ export function NotFoundRoute() {
     <Router>
       <Get
         pattern="/*"
-        handler={() => {
+        handler={(_ctx) => {
           return new Response(
             <NotFoundPage />,
             {

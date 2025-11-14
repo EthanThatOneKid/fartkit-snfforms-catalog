@@ -1,12 +1,19 @@
 import { serveDir } from "@std/http/file-server";
 import { Get, Router } from "@fartlabs/rtx";
-import { IndexPageRoute } from "./routes/index.tsx";
-import { CatalogPageRoute } from "./routes/catalog.tsx";
-import { CatalogItemPageRoute } from "./routes/item.tsx";
-import { EditPageRoute } from "./routes/edit.tsx";
-import { FileRoute, FilesPageRoute } from "./routes/files.tsx";
-import { ApiRoute } from "./routes/api.tsx";
-import { NotFoundRoute } from "./routes/not-found.tsx";
+// Page routes
+import { IndexPageRoute } from "./routes/pages/index.tsx";
+import { CatalogPageRoute } from "./routes/pages/catalog.tsx";
+import { CatalogItemPageRoute } from "./routes/pages/item.tsx";
+import { EditPageRoute } from "./routes/pages/edit.tsx";
+import { FilesPageRoute } from "./routes/pages/files.tsx";
+import { NotFoundRoute } from "./routes/pages/not-found.tsx";
+// API routes
+import { CatalogApiRoute } from "./routes/api/catalog.tsx";
+import { ItemsApiRoute } from "./routes/api/items.tsx";
+import { PreviewsApiRoute } from "./routes/api/previews.tsx";
+import { AltTextApiRoute } from "./routes/api/alt-text.tsx";
+// File serving route
+import { FileRoute } from "./routes/files.tsx";
 
 function StaticRoute() {
   return (
@@ -34,13 +41,23 @@ function FaviconRoute() {
 export function App() {
   return (
     <Router>
+      {/* Page routes */}
       <IndexPageRoute />
       <CatalogPageRoute />
       <EditPageRoute />
-      <FileRoute />
       <FilesPageRoute />
       <CatalogItemPageRoute />
-      <ApiRoute />
+
+      {/* API routes */}
+      <CatalogApiRoute />
+      <ItemsApiRoute />
+      <PreviewsApiRoute />
+      <AltTextApiRoute />
+
+      {/* File serving */}
+      <FileRoute />
+
+      {/* Static and utility routes */}
       <FaviconRoute />
       <StaticRoute />
       <NotFoundRoute />
