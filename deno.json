@@ -2,7 +2,7 @@
   "lock": false,
   "imports": {
     "#/": "./src/",
-    "@fartlabs/htx": "jsr:@fartlabs/htx@^0.0.13",
+    "@fartlabs/htx": "jsr:@fartlabs/htx@^0.0.14",
     "@fartlabs/jsonx": "jsr:@fartlabs/jsonx@^0.0.11",
     "@fartlabs/rtx": "jsr:@fartlabs/rtx@^0.0.16",
     "@kitsonk/kv-toolbox": "jsr:@kitsonk/kv-toolbox@^0.30.0",
