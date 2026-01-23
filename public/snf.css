@@ -50,6 +50,149 @@ body {
   --gray-900: #212529;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #5d83c2;
+    --primary-dark: #3a5fa1;
+    --primary-light: #7da0d9;
+    --light-color: #1a1b1c;
+    --dark-color: #f8f9fa;
+    --white: #1e1e1e;
+    --gray-100: #2d2d2d;
+    --gray-200: #333333;
+    --gray-300: #444444;
+    --gray-400: #666666;
+    --gray-500: #888888;
+    --gray-600: #aaaaaa;
+    --gray-700: #cccccc;
+    --gray-800: #e0e0e0;
+    --gray-900: #ffffff;
+  }
+
+  body {
+    color: var(--gray-800);
+    background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--gray-900);
+  }
+
+  p {
+    color: var(--gray-700);
+  }
+
+  .navbar-brand::after {
+    background: linear-gradient(
+      90deg,
+      var(--primary-light) 0%,
+      var(--primary-color) 100%
+    );
+  }
+
+  .brand-secondary {
+    color: var(--gray-500);
+  }
+
+  .catalog-item::before {
+    background: linear-gradient(
+      180deg,
+      var(--primary-light) 0%,
+      var(--primary-color) 100%
+    );
+  }
+
+  .item-thumbnail.placeholder {
+    background-color: var(--gray-100);
+    border-color: var(--gray-300);
+    color: var(--gray-500);
+  }
+
+  .spec-item {
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+    border-color: var(--gray-300);
+  }
+
+  .alt-label {
+    color: var(--gray-600);
+  }
+
+  .preview-pdf {
+    color: var(--gray-500);
+  }
+
+  .modal-dialog {
+    background: var(--white);
+    color: var(--gray-800);
+  }
+
+  .modal-header, .modal-footer {
+    border-color: var(--gray-300);
+  }
+
+  .modal-title {
+    color: var(--gray-900);
+  }
+
+  .modal-body p {
+    color: var(--gray-700);
+  }
+
+  input[type="search"],
+  input[type="text"],
+  .form-group input {
+    background-color: var(--gray-100);
+    color: var(--gray-900);
+    border-color: var(--gray-300);
+  }
+
+  .btn-secondary {
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+    border-color: var(--gray-300);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--gray-300);
+    color: var(--gray-900);
+  }
+
+  .hero h1 {
+    color: #ffffff;
+  }
+
+  .hero p {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .logo {
+    filter: brightness(1.2);
+  }
+
+  .no-results p {
+    color: var(--gray-500);
+  }
+
+  footer {
+    background-color: #0d0d0d;
+    color: #ffffff;
+  }
+
+  .footer-section h3,
+  .footer-section a:hover {
+    color: #ffffff;
+  }
+
+  .footer-section p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .footer-section a {
+    color: var(--primary-light);
+  }
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
